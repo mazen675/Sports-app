@@ -17,6 +17,10 @@
 		314FBB752FC090F60098C39B /* SportsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB742FC090F60098C39B /* SportsAppTests.swift */; };
 		314FBB7F2FC090F60098C39B /* SportsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB7E2FC090F60098C39B /* SportsAppUITests.swift */; };
 		314FBB812FC090F60098C39B /* SportsAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */; };
+		314FBB952FC0AF750098C39B /* modelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB942FC0AF750098C39B /* modelTest.swift */; };
+		314FBB972FC0AF940098C39B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB962FC0AF940098C39B /* File.swift */; };
+		314FBB992FC0AFA30098C39B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB982FC0AFA30098C39B /* File.swift */; };
+		314FBB9B2FC0AFB10098C39B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB9A2FC0AFB10098C39B /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		314FBB7A2FC090F60098C39B /* SportsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		314FBB7E2FC090F60098C39B /* SportsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppUITests.swift; sourceTree = "<group>"; };
 		314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		314FBB942FC0AF750098C39B /* modelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modelTest.swift; sourceTree = "<group>"; };
+		314FBB962FC0AF940098C39B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		314FBB982FC0AFA30098C39B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		314FBB9A2FC0AFB10098C39B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +141,7 @@
 		314FBB8E2FC0AB9A0098C39B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				314FBB962FC0AF940098C39B /* File.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -140,6 +149,7 @@
 		314FBB8F2FC0ABBE0098C39B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				314FBB942FC0AF750098C39B /* modelTest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -147,6 +157,7 @@
 		314FBB902FC0ABC80098C39B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				314FBB982FC0AFA30098C39B /* File.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -154,6 +165,7 @@
 		314FBB912FC0ABD30098C39B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				314FBB9A2FC0AFB10098C39B /* File.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -310,8 +322,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */,
+				314FBB972FC0AF940098C39B /* File.swift in Sources */,
+				314FBB992FC0AFA30098C39B /* File.swift in Sources */,
 				314FBB5B2FC090F40098C39B /* AppDelegate.swift in Sources */,
 				314FBB652FC090F40098C39B /* SportsApp.xcdatamodeld in Sources */,
+				314FBB9B2FC0AFB10098C39B /* File.swift in Sources */,
+				314FBB952FC0AF750098C39B /* modelTest.swift in Sources */,
 				314FBB5D2FC090F40098C39B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
