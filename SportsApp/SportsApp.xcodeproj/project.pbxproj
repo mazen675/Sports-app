@@ -101,13 +101,13 @@
 		314FBB592FC090F40098C39B /* SportsApp */ = {
 			isa = PBXGroup;
 			children = (
-				314FBB5A2FC090F40098C39B /* AppDelegate.swift */,
-				314FBB5C2FC090F40098C39B /* SceneDelegate.swift */,
+				314FBB932FC0AD020098C39B /* Resources */,
+				314FBB922FC0ABE60098C39B /* App */,
+				314FBB912FC0ABD30098C39B /* Utilities */,
+				314FBB902FC0ABC80098C39B /* Services */,
+				314FBB8F2FC0ABBE0098C39B /* Models */,
+				314FBB8E2FC0AB9A0098C39B /* Modules */,
 				314FBB5E2FC090F40098C39B /* ViewController.swift */,
-				314FBB602FC090F40098C39B /* Main.storyboard */,
-				314FBB662FC090F60098C39B /* Assets.xcassets */,
-				314FBB682FC090F60098C39B /* LaunchScreen.storyboard */,
-				314FBB6B2FC090F60098C39B /* Info.plist */,
 				314FBB632FC090F40098C39B /* SportsApp.xcdatamodeld */,
 			);
 			path = SportsApp;
@@ -128,6 +128,54 @@
 				314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */,
 			);
 			path = SportsAppUITests;
+			sourceTree = "<group>";
+		};
+		314FBB8E2FC0AB9A0098C39B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		314FBB8F2FC0ABBE0098C39B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		314FBB902FC0ABC80098C39B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		314FBB912FC0ABD30098C39B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		314FBB922FC0ABE60098C39B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				314FBB6B2FC090F60098C39B /* Info.plist */,
+				314FBB5A2FC090F40098C39B /* AppDelegate.swift */,
+				314FBB5C2FC090F40098C39B /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		314FBB932FC0AD020098C39B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				314FBB602FC090F40098C39B /* Main.storyboard */,
+				314FBB662FC090F60098C39B /* Assets.xcassets */,
+				314FBB682FC090F60098C39B /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,7 +495,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SportsApp/Info.plist;
+				INFOPLIST_FILE = SportsApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -474,7 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SportsApp/Info.plist;
+				INFOPLIST_FILE = SportsApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
