@@ -280,6 +280,40 @@
             </objects>
             <point key="canvasLocation" x="2014.5038167938931" y="-27.464788732394368"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Hbl-yA-FMP">
+            <objects>
+                <viewController id="FtT-ay-mt3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dao-JD-0fX">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sGC-0b-A2O">
+                                <rect key="frame" x="141" y="100.00000000000001" width="240" height="258.33333333333331"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-Wo-5mH">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyC-rU-lN2">
+                                        <rect key="frame" x="0.0" y="127.99999999999999" width="240" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0Q-eo-LhB">
+                                        <rect key="frame" x="0.0" y="148.33333333333334" width="240" height="110.00000000000003"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OUy-at-aML"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ALF-Gk-1KK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2953" y="-27"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="rjm-eh-obY">
             <objects>

@@ -111,6 +111,13 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		311B39BF2FC1D96B00F0B22C /* TeamDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TeamDetails;
+			sourceTree = "<group>";
+		};
 		314FBB4E2FC090F40098C39B = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +174,7 @@
 		314FBB8E2FC0AB9A0098C39B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				311B39BF2FC1D96B00F0B22C /* TeamDetails */,
 				31C3E71C2FC11DC400347DE2 /* LeagueDetails */,
 			);
 			path = Modules;
