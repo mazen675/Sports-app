@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		311B39C32FC1E74700F0B22C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 311B39C22FC1E74700F0B22C /* Alamofire */; };
+		311B39C52FC1E74700F0B22C /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 311B39C42FC1E74700F0B22C /* AlamofireDynamic */; };
+		311B39C62FC1E74700F0B22C /* AlamofireDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 311B39C42FC1E74700F0B22C /* AlamofireDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		314FBB5B2FC090F40098C39B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5A2FC090F40098C39B /* AppDelegate.swift */; };
 		314FBB5D2FC090F40098C39B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5C2FC090F40098C39B /* SceneDelegate.swift */; };
 		314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5E2FC090F40098C39B /* ViewController.swift */; };
@@ -40,6 +43,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		311B39C72FC1E74700F0B22C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				311B39C62FC1E74700F0B22C /* AlamofireDynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		314FBB572FC090F40098C39B /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		314FBB5A2FC090F40098C39B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311B39C32FC1E74700F0B22C /* Alamofire in Frameworks */,
+				311B39C52FC1E74700F0B22C /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +105,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311B39C12FC1E74700F0B22C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		314FBB4E2FC090F40098C39B = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +119,7 @@
 				314FBB732FC090F60098C39B /* SportsAppTests */,
 				314FBB7D2FC090F60098C39B /* SportsAppUITests */,
 				314FBB582FC090F40098C39B /* Products */,
+				311B39C12FC1E74700F0B22C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,12 +227,17 @@
 				314FBB532FC090F40098C39B /* Sources */,
 				314FBB542FC090F40098C39B /* Frameworks */,
 				314FBB552FC090F40098C39B /* Resources */,
+				311B39C72FC1E74700F0B22C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SportsApp;
+			packageProductDependencies = (
+				311B39C22FC1E74700F0B22C /* Alamofire */,
+				311B39C42FC1E74700F0B22C /* AlamofireDynamic */,
+			);
 			productName = SportsApp;
 			productReference = 314FBB572FC090F40098C39B /* SportsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -278,6 +310,9 @@
 				Base,
 			);
 			mainGroup = 314FBB4E2FC090F40098C39B;
+			packageReferences = (
+				311B39C02FC1E73700F0B22C /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 314FBB582FC090F40098C39B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -669,6 +704,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		311B39C02FC1E73700F0B22C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		311B39C22FC1E74700F0B22C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 311B39C02FC1E73700F0B22C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		311B39C42FC1E74700F0B22C /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 311B39C02FC1E73700F0B22C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		314FBB632FC090F40098C39B /* SportsApp.xcdatamodeld */ = {
