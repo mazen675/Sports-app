@@ -165,7 +165,7 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		311B39D62FC1FFDE00F0B22C /* SportsDirectory */ = {
+		311B39D62FC1FFDE00F0B22C /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
 				9F8D11722FC2964E00B16926 /* SportsPresenter.swift */,
@@ -174,7 +174,7 @@
 				311B39D92FC2007600F0B22C /* SportCollectionViewCell.swift */,
 				311B39DA2FC2007600F0B22C /* SportCollectionViewCell.xib */,
 			);
-			path = SportsDirectory;
+			path = HomeScreen;
 			sourceTree = "<group>";
 		};
 		314FBB4E2FC090F40098C39B = {
@@ -233,7 +233,7 @@
 		314FBB8E2FC0AB9A0098C39B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				311B39D62FC1FFDE00F0B22C /* SportsDirectory */,
+				311B39D62FC1FFDE00F0B22C /* HomeScreen */,
 				311B39BF2FC1D96B00F0B22C /* TeamDetails */,
 				31C3E71C2FC11DC400347DE2 /* LeagueDetails */,
 			);
