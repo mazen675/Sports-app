@@ -21,9 +21,12 @@
 		314FBB7F2FC090F60098C39B /* SportsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB7E2FC090F60098C39B /* SportsAppUITests.swift */; };
 		314FBB812FC090F60098C39B /* SportsAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */; };
 		314FBB952FC0AF750098C39B /* modelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB942FC0AF750098C39B /* modelTest.swift */; };
-		314FBB972FC0AF940098C39B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB962FC0AF940098C39B /* File.swift */; };
-		314FBB992FC0AFA30098C39B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB982FC0AFA30098C39B /* File.swift */; };
-		314FBB9B2FC0AFB10098C39B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB9A2FC0AFB10098C39B /* File.swift */; };
+		9F81AFC92FC2767C001527B0 /* SportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F81AFC82FC2767C001527B0 /* SportModel.swift */; };
+		9F81AFCB2FC27688001527B0 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F81AFCA2FC27688001527B0 /* APIResponse.swift */; };
+		9F81AFCD2FC2768E001527B0 /* LeagueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F81AFCC2FC2768E001527B0 /* LeagueModel.swift */; };
+		9F81AFCF2FC27695001527B0 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F81AFCE2FC27695001527B0 /* EventModel.swift */; };
+		9F81AFD12FC2769C001527B0 /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F81AFD02FC2769C001527B0 /* TeamModel.swift */; };
+		9F81AFD32FC276B9001527B0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F81AFD22FC276B9001527B0 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,9 +76,12 @@
 		314FBB7E2FC090F60098C39B /* SportsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppUITests.swift; sourceTree = "<group>"; };
 		314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		314FBB942FC0AF750098C39B /* modelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modelTest.swift; sourceTree = "<group>"; };
-		314FBB962FC0AF940098C39B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		314FBB982FC0AFA30098C39B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		314FBB9A2FC0AFB10098C39B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		9F81AFC82FC2767C001527B0 /* SportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportModel.swift; sourceTree = "<group>"; };
+		9F81AFCA2FC27688001527B0 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		9F81AFCC2FC2768E001527B0 /* LeagueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueModel.swift; sourceTree = "<group>"; };
+		9F81AFCE2FC27695001527B0 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		9F81AFD02FC2769C001527B0 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
+		9F81AFD22FC276B9001527B0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +174,6 @@
 		314FBB8E2FC0AB9A0098C39B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				314FBB962FC0AF940098C39B /* File.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -176,6 +181,11 @@
 		314FBB8F2FC0ABBE0098C39B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F81AFD02FC2769C001527B0 /* TeamModel.swift */,
+				9F81AFCE2FC27695001527B0 /* EventModel.swift */,
+				9F81AFCC2FC2768E001527B0 /* LeagueModel.swift */,
+				9F81AFCA2FC27688001527B0 /* APIResponse.swift */,
+				9F81AFC82FC2767C001527B0 /* SportModel.swift */,
 				314FBB942FC0AF750098C39B /* modelTest.swift */,
 			);
 			path = Models;
@@ -184,7 +194,7 @@
 		314FBB902FC0ABC80098C39B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				314FBB982FC0AFA30098C39B /* File.swift */,
+				9F81AFD22FC276B9001527B0 /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -192,7 +202,6 @@
 		314FBB912FC0ABD30098C39B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				314FBB9A2FC0AFB10098C39B /* File.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -356,12 +365,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F81AFD32FC276B9001527B0 /* NetworkService.swift in Sources */,
+				9F81AFCD2FC2768E001527B0 /* LeagueModel.swift in Sources */,
+				9F81AFCF2FC27695001527B0 /* EventModel.swift in Sources */,
+				9F81AFCB2FC27688001527B0 /* APIResponse.swift in Sources */,
+				9F81AFC92FC2767C001527B0 /* SportModel.swift in Sources */,
 				314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */,
-				314FBB972FC0AF940098C39B /* File.swift in Sources */,
-				314FBB992FC0AFA30098C39B /* File.swift in Sources */,
 				314FBB5B2FC090F40098C39B /* AppDelegate.swift in Sources */,
+				9F81AFD12FC2769C001527B0 /* TeamModel.swift in Sources */,
 				314FBB652FC090F40098C39B /* SportsApp.xcdatamodeld in Sources */,
-				314FBB9B2FC0AFB10098C39B /* File.swift in Sources */,
 				314FBB952FC0AF750098C39B /* modelTest.swift in Sources */,
 				314FBB5D2FC090F40098C39B /* SceneDelegate.swift in Sources */,
 			);
