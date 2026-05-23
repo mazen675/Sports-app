@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		311B39BD2FC1D2DA00F0B22C /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311B39BB2FC1D2DA00F0B22C /* SectionHeaderView.swift */; };
+		311B39BE2FC1D2DA00F0B22C /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 311B39BC2FC1D2DA00F0B22C /* SectionHeaderView.xib */; };
 		314FBB5B2FC090F40098C39B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5A2FC090F40098C39B /* AppDelegate.swift */; };
 		314FBB5D2FC090F40098C39B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5C2FC090F40098C39B /* SceneDelegate.swift */; };
 		314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5E2FC090F40098C39B /* ViewController.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		311B39BB2FC1D2DA00F0B22C /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		311B39BC2FC1D2DA00F0B22C /* SectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
 		314FBB572FC090F40098C39B /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		314FBB5A2FC090F40098C39B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		314FBB5C2FC090F40098C39B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311B39BA2FC1D2C000F0B22C /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				311B39BB2FC1D2DA00F0B22C /* SectionHeaderView.swift */,
+				311B39BC2FC1D2DA00F0B22C /* SectionHeaderView.xib */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		314FBB4E2FC090F40098C39B = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +228,7 @@
 		31C3E71D2FC11E8F00347DE2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				311B39BA2FC1D2C000F0B22C /* Header */,
 				31C3E71E2FC11E9700347DE2 /* Cell */,
 				31C3E71F2FC11EB400347DE2 /* LeagueDetailsCollectionViewController.swift */,
 			);
@@ -352,6 +366,7 @@
 				314FBB6A2FC090F60098C39B /* LaunchScreen.storyboard in Resources */,
 				314FBB672FC090F60098C39B /* Assets.xcassets in Resources */,
 				314FBB622FC090F40098C39B /* Main.storyboard in Resources */,
+				311B39BE2FC1D2DA00F0B22C /* SectionHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +393,7 @@
 			files = (
 				31C3E7202FC11EB400347DE2 /* LeagueDetailsCollectionViewController.swift in Sources */,
 				314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */,
+				311B39BD2FC1D2DA00F0B22C /* SectionHeaderView.swift in Sources */,
 				314FBB992FC0AFA30098C39B /* File.swift in Sources */,
 				314FBB5B2FC090F40098C39B /* AppDelegate.swift in Sources */,
 				314FBB652FC090F40098C39B /* SportsApp.xcdatamodeld in Sources */,

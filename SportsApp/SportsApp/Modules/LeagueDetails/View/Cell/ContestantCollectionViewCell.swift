@@ -13,7 +13,7 @@ class ContestantCollectionViewCell: UICollectionViewCell {
     
     func config(contestant:Contestant){
         contestantLabel.text = contestant.name
-        contestantImageView.sd_setImage(with: URL(string:contestant.logoURL!), placeholderImage: UIImage(named: "Liverpool"))
+        contestantImageView.sd_setImage(with: URL(string:contestant.logoURL!), placeholderImage: UIImage(named: "liverpool.png"))
         // UIImage(systemName: "star.fill"))
     }
 }
