@@ -4,11 +4,11 @@ struct LeagueModel: Decodable {
     var leagueKey: String?
     let leagueName: String?
     let leagueLogo: String?
-    let countryName: String?
+    var countryName: String? // Added for the cell subtitle!
     
     // Safe UI Properties
     var safeLeagueName: String { return leagueName ?? "Unknown League" }
-    var safeLeagueLogo: String { return leagueLogo ?? "placeholder_logo" } 
+    var safeLeagueLogo: String { return leagueLogo ?? "placeholder_logo" }
     var safeCountryName: String { return countryName ?? "Unknown Country" }
     
     enum CodingKeys: String, CodingKey {
@@ -18,7 +18,15 @@ struct LeagueModel: Decodable {
         case countryName = "country_name"
     }
     
-    // Bulletproof Decoder for Type Mismatches
+    // 🚨 THE FIX: A standard initializer for testing and CoreData!
+    init(leagueKey: String? = nil, leagueName: String? = nil, leagueLogo: String? = nil, countryName: String? = nil) {
+        self.leagueKey = leagueKey
+        self.leagueName = leagueName
+        self.leagueLogo = leagueLogo
+        self.countryName = countryName
+    }
+    
+    // Bulletproof Decoder for API Type Mismatches
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         leagueName = try container.decodeIfPresent(String.self, forKey: .leagueName)

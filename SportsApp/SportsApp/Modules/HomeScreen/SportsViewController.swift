@@ -47,9 +47,20 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     }
     
     func navigateToLeagues(for sportName: String, endpoint: String) {
-        print("🎯 Tapped: \(sportName). Ready to open Leagues screen with endpoint: \(endpoint)")
-        // We will add the navigation to the next screen here shortly!
-    }
+            // Instantiate the Leagues screen from the Storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let leaguesVC = storyboard.instantiateViewController(withIdentifier: "LeaguesViewController") as? LeaguesViewController {
+                
+                // Inject the Presenter with the correct endpoint (e.g., "tennis")
+                leaguesVC.presenter = LeaguesPresenter(view: leaguesVC, sportEndpoint: endpoint)
+                
+                // Set the title for the navigation bar
+                leaguesVC.title = "\(sportName) Leagues"
+                
+                // Push it onto the screen!
+                self.navigationController?.pushViewController(leaguesVC, animated: true)
+            }
+        }
 }
 
 // MARK: - CollectionView DataSource & Delegate
