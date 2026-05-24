@@ -8,7 +8,7 @@ class LeagueTableViewCell: UITableViewCell {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    // 1. Add a closure to tell the ViewController when the button is tapped
+    // Add a closure to tell the ViewController when the button is tapped
     var favoriteAction: (() -> Void)?
     
     override func awakeFromNib() {
@@ -26,13 +26,12 @@ class LeagueTableViewCell: UITableViewCell {
         leagueImageView.layer.cornerRadius = leagueImageView.frame.height / 2
         leagueImageView.layer.masksToBounds = true
         
-        // 2. Fix the Image (Override carat.png) and add the Tap Target!
         favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favoriteButton.tintColor = .lightGray
         favoriteButton.addTarget(self, action: #selector(heartTapped), for: .touchUpInside)
     }
 
-    // 3. Trigger the action when pressed
+    // Trigger the action when pressed
     @objc private func heartTapped() {
         favoriteAction?()
     }

@@ -10,7 +10,6 @@ struct EventModel: Decodable {
     let awayTeamLogo: String?
     let eventFinalResult: String?
     
-    // Safe UI Properties
     var safeHomeTeam: String { return eventHomeTeam ?? "TBD" }
     var safeAwayTeam: String { return eventAwayTeam ?? "TBD" }
     var safeHomeLogo: String { return homeTeamLogo ?? "placeholder_logo" }

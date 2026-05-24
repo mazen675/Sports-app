@@ -1,18 +1,10 @@
-//
-//  LeaguesPresenter.swift
-//  SportsApp
-//
-//  Created by Youssef Abd El-Fatah on 23/05/2026.
-//
-
-
 import Foundation
 
 class LeaguesPresenter: LeaguesPresenterProtocol {
     weak var view: LeaguesViewProtocol?
     private var leagues: [LeagueModel] = []
     
-    // We pass the sport endpoint (e.g., "football") from the previous screen
+    // We pass the sport endpoint
     let sportEndpoint: String
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     

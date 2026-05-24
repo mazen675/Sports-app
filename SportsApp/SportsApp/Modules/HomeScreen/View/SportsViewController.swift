@@ -2,7 +2,6 @@ import UIKit
 
 class SportsViewController: UIViewController, SportsViewProtocol {
 
-    // Connect this to the CollectionView in your Storyboard!
     @IBOutlet weak var collectionView: UICollectionView!
     
     // The Presenter handles the logic
@@ -11,13 +10,13 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 1. Initialize Presenter
+        // Initialize Presenter
         presenter = SportsPresenter(view: self)
         
-        // 2. Setup the UI
+        // Setup the UI
         setupCollectionView()
         
-        // 3. Ask Presenter for data
+        // Ask Presenter for data
         presenter.view?.displaySports()
     }
     
@@ -25,22 +24,19 @@ class SportsViewController: UIViewController, SportsViewProtocol {
             collectionView.delegate = self
             collectionView.dataSource = self
             
-            // 🚨 THE FIX: Tell Xcode to stop guessing the size and use our math instead!
             if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.estimatedItemSize = .zero
             }
             
-            // Register the custom XIB your partner made
+            // custom XIB
             let nib = UINib(nibName: "SportCollectionViewCell", bundle: nil)
             collectionView.register(nib, forCellWithReuseIdentifier: "SportCell")
             
-            // Remove default background color so it matches your app theme
             collectionView.backgroundColor = .clear
         }
     
-    // MARK: - MVP Methods
+    
     func displaySports() {
-        // This forces the blank screen to populate the 4 grids
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -51,19 +47,19 @@ class SportsViewController: UIViewController, SportsViewProtocol {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let leaguesVC = storyboard.instantiateViewController(withIdentifier: "LeaguesViewController") as? LeaguesViewController {
                 
-                // Inject the Presenter with the correct endpoint (e.g., "tennis")
+                // Inject the Presenter with the correct endpoint
                 leaguesVC.presenter = LeaguesPresenter(view: leaguesVC, sportEndpoint: endpoint)
                 
                 // Set the title for the navigation bar
                 leaguesVC.title = "\(sportName) Leagues"
                 
-                // Push it onto the screen!
+                // Push it onto the screen
                 self.navigationController?.pushViewController(leaguesVC, animated: true)
             }
         }
 }
 
-// MARK: - CollectionView DataSource & Delegate
+// CollectionView DataSource & Delegate
 extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -84,17 +80,15 @@ extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         presenter.didSelectSport(at: indexPath.row)
     }
     
-    // MARK: - Dynamic Grid Layout
+    // Dynamic Grid Layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let padding: CGFloat = 16
         let spacingBetweenCells: CGFloat = 16
         
-        // Calculate 50% width minus the padding
         let totalAvailableWidth = collectionView.bounds.width - (padding * 2) - spacingBetweenCells
         let cellWidth = totalAvailableWidth / 2
         
-        // Height is slightly taller than width to match your mockups
         return CGSize(width: cellWidth, height: cellWidth * 1.2)
     }
     
@@ -103,6 +97,6 @@ extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 16 // Vertical space between rows
+        return 16
     }
 }

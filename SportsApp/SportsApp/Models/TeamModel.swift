@@ -7,7 +7,6 @@ struct TeamModel: Decodable {
     let coaches: [Coach]?
     let players: [Player]?
     
-    // Safe UI Properties
     var safeTeamName: String { return teamName ?? "Unknown Team" }
     var safeTeamLogo: String { return teamLogo ?? "placeholder_logo" }
     var safeCoaches: [Coach] { return coaches ?? [] }
