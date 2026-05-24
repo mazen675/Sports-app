@@ -39,6 +39,8 @@
 		9F0D07462FC2814E001DB23E /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07452FC2814E001DB23E /* EventModel.swift */; };
 		9F0D07482FC28157001DB23E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07472FC28157001DB23E /* TeamModel.swift */; };
 		9F0D074A2FC28160001DB23E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07492FC28160001DB23E /* NetworkService.swift */; };
+		9F8D11712FC2963900B16926 /* SportsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D11702FC2963900B16926 /* SportsViewProtocol.swift */; };
+		9F8D11732FC2964E00B16926 /* SportsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D11722FC2964E00B16926 /* SportsPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		9F0D07452FC2814E001DB23E /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		9F0D07472FC28157001DB23E /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		9F0D07492FC28160001DB23E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		9F8D11702FC2963900B16926 /* SportsViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewProtocol.swift; sourceTree = "<group>"; };
+		9F8D11722FC2964E00B16926 /* SportsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,8 @@
 		311B39D62FC1FFDE00F0B22C /* SportsDirectory */ = {
 			isa = PBXGroup;
 			children = (
+				9F8D11722FC2964E00B16926 /* SportsPresenter.swift */,
+				9F8D11702FC2963900B16926 /* SportsViewProtocol.swift */,
 				311B39D72FC2003300F0B22C /* SportsViewController.swift */,
 				311B39D92FC2007600F0B22C /* SportCollectionViewCell.swift */,
 				311B39DA2FC2007600F0B22C /* SportCollectionViewCell.xib */,
@@ -482,6 +488,8 @@
 				9F0D07462FC2814E001DB23E /* EventModel.swift in Sources */,
 				311B39D22FC1F89300F0B22C /* TeamDetailsViewController.swift in Sources */,
 				31C3E7282FC1266500347DE2 /* UpcomingEventCollectionViewCell.swift in Sources */,
+				9F8D11712FC2963900B16926 /* SportsViewProtocol.swift in Sources */,
+				9F8D11732FC2964E00B16926 /* SportsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
