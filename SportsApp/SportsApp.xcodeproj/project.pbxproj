@@ -44,6 +44,10 @@
 		31D509222FC4785F00A12339 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D509212FC4785F00A12339 /* CoreDataManager.swift */; };
 		31D79C022FC42D47007688EB /* LeagueDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D79C012FC42D47007688EB /* LeagueDetailsPresenter.swift */; };
 		31D79C042FC42F4F007688EB /* LeagueDetailsContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D79C032FC42F4F007688EB /* LeagueDetailsContract.swift */; };
+		9F02D8592FC504DF00396D01 /* TennisPlayerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F02D8582FC504DF00396D01 /* TennisPlayerViewProtocol.swift */; };
+		9F02D85B2FC504F100396D01 /* TennisPlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F02D85A2FC504F100396D01 /* TennisPlayerPresenter.swift */; };
+		9F0333272FC502C7006DBAFF /* TeamDetailsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0333262FC502C7006DBAFF /* TeamDetailsViewProtocol.swift */; };
+		9F0333292FC502DD006DBAFF /* TeamDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0333282FC502DD006DBAFF /* TeamDetailsPresenter.swift */; };
 		9F0D07402FC28118001DB23E /* SportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D073F2FC28118001DB23E /* SportModel.swift */; };
 		9F0D07422FC2813C001DB23E /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07412FC2813C001DB23E /* APIResponse.swift */; };
 		9F0D07442FC28145001DB23E /* LeagueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07432FC28145001DB23E /* LeagueModel.swift */; };
@@ -129,6 +133,10 @@
 		31D509212FC4785F00A12339 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		31D79C012FC42D47007688EB /* LeagueDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsPresenter.swift; sourceTree = "<group>"; };
 		31D79C032FC42F4F007688EB /* LeagueDetailsContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsContract.swift; sourceTree = "<group>"; };
+		9F02D8582FC504DF00396D01 /* TennisPlayerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisPlayerViewProtocol.swift; sourceTree = "<group>"; };
+		9F02D85A2FC504F100396D01 /* TennisPlayerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisPlayerPresenter.swift; sourceTree = "<group>"; };
+		9F0333262FC502C7006DBAFF /* TeamDetailsViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewProtocol.swift; sourceTree = "<group>"; };
+		9F0333282FC502DD006DBAFF /* TeamDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsPresenter.swift; sourceTree = "<group>"; };
 		9F0D073F2FC28118001DB23E /* SportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportModel.swift; sourceTree = "<group>"; };
 		9F0D07412FC2813C001DB23E /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		9F0D07432FC28145001DB23E /* LeagueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueModel.swift; sourceTree = "<group>"; };
@@ -185,8 +193,9 @@
 		311B39BF2FC1D96B00F0B22C /* TeamDetails */ = {
 			isa = PBXGroup;
 			children = (
-				311B39D32FC1F89A00F0B22C /* Cell */,
-				311B39D12FC1F89300F0B22C /* TeamDetailsViewController.swift */,
+				9F0333232FC50280006DBAFF /* Contract */,
+				9F0333222FC50279006DBAFF /* Presenter */,
+				9F0333212FC5026D006DBAFF /* View */,
 			);
 			path = TeamDetails;
 			sourceTree = "<group>";
@@ -232,6 +241,8 @@
 		3122A8102FC398D60047AA73 /* TennisPlayerScreen */ = {
 			isa = PBXGroup;
 			children = (
+				9F0333242FC502AC006DBAFF /* Contract */,
+				9F0333252FC502AC006DBAFF /* Presenter */,
 				3122A8132FC3B85F0047AA73 /* View */,
 			);
 			path = TennisPlayerScreen;
@@ -423,6 +434,47 @@
 			isa = PBXGroup;
 			children = (
 				31D79C012FC42D47007688EB /* LeagueDetailsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9F0333212FC5026D006DBAFF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				311B39D12FC1F89300F0B22C /* TeamDetailsViewController.swift */,
+				311B39D32FC1F89A00F0B22C /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9F0333222FC50279006DBAFF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9F0333282FC502DD006DBAFF /* TeamDetailsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9F0333232FC50280006DBAFF /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				9F0333262FC502C7006DBAFF /* TeamDetailsViewProtocol.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
+		9F0333242FC502AC006DBAFF /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				9F02D8582FC504DF00396D01 /* TennisPlayerViewProtocol.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
+		9F0333252FC502AC006DBAFF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9F02D85A2FC504F100396D01 /* TennisPlayerPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -649,6 +701,7 @@
 			files = (
 				311B39E02FC213BE00F0B22C /* FavouritesViewController.swift in Sources */,
 				3122A8162FC3B88F0047AA73 /* HeaderCollectionViewCell.swift in Sources */,
+				9F0333292FC502DD006DBAFF /* TeamDetailsPresenter.swift in Sources */,
 				9F3EF5382FC3E61A004048A2 /* TennisPlayerModel.swift in Sources */,
 				31C3E7202FC11EB400347DE2 /* LeagueDetailsCollectionViewController.swift in Sources */,
 				9F0D07482FC28157001DB23E /* TeamModel.swift in Sources */,
@@ -672,10 +725,13 @@
 				9F3EF54D2FC3EFBF004048A2 /* FavouritesContract.swift in Sources */,
 				9F0D07442FC28145001DB23E /* LeagueModel.swift in Sources */,
 				9F3EF54F2FC3EFE8004048A2 /* FavouritesPresenter.swift in Sources */,
+				9F02D85B2FC504F100396D01 /* TennisPlayerPresenter.swift in Sources */,
 				31C3E71B2FC11DBE00347DE2 /* Fixture.swift in Sources */,
 				31D79C042FC42F4F007688EB /* LeagueDetailsContract.swift in Sources */,
 				31C3E72A2FC12C3000347DE2 /* LatestEventCollectionViewCell.swift in Sources */,
 				31D79C022FC42D47007688EB /* LeagueDetailsPresenter.swift in Sources */,
+				9F0333272FC502C7006DBAFF /* TeamDetailsViewProtocol.swift in Sources */,
+				9F02D8592FC504DF00396D01 /* TennisPlayerViewProtocol.swift in Sources */,
 				31C3E72C2FC12C3F00347DE2 /* ContestantCollectionViewCell.swift in Sources */,
 				314FBB5D2FC090F40098C39B /* SceneDelegate.swift in Sources */,
 				9F0D07462FC2814E001DB23E /* EventModel.swift in Sources */,
