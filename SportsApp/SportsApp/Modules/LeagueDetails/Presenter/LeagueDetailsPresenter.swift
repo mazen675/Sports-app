@@ -1,8 +1,6 @@
 //
-//  LeagueDetailsViewProtocol.swift
+//  LeagueDetailsPresenter.swift
 //  SportsApp
-//
-//  Created by Mazen Amr on 25/05/2026.
 //
 
 import Foundation
@@ -33,46 +31,48 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     func getTeam(at index: Int) -> TeamModel { return teams[index] }
     
     func fetchLeagueDetails() {
-            view?.showLoading()
+        view?.showLoading()
         
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let today = Date()
+        let pastDate = Calendar.current.date(byAdding: .year, value: -1, to: today)!
+        let futureDate = Calendar.current.date(byAdding: .year, value: 1, to: today)!
+        
+        let fromDate = dateFormatter.string(from: pastDate)
+        let toDate = dateFormatter.string(from: futureDate)
+        
+        let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
+        let teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        
+        // 1. Fetch Fixtures
+        NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
+            self?.view?.hideLoading()
             
-            let today = Date()
-            let nextYear = Calendar.current.date(byAdding: .year, value: 1, to: today)!
-            let lastYear = Calendar.current.date(byAdding: .year, value: -1, to: today)!
-            
-            let fromDate = dateFormatter.string(from: lastYear)
-            let toDate = dateFormatter.string(from: nextYear)
-            
-            let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
-            
-            let teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
-            
-            NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
-                self?.view?.hideLoading()
-                
-                switch result {
-                case .success(let response):
-                    let allEvents = response.result ?? []
-                    self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" }
-                    self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" }
-                    self?.view?.reloadData()
-                case .failure(let error):
-                    self?.view?.showError(error.localizedDescription)
-                }
-            }
-            
-            NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
-                self?.view?.hideLoading()
-                
-                switch result {
-                case .success(let response):
-                    self?.teams = response.result ?? []
-                    self?.view?.reloadData()
-                case .failure(let error):
-                    self?.view?.showError(error.localizedDescription)
-                }
+            switch result {
+            case .success(let response):
+                let allEvents = response.result ?? []
+                // Split events based on whether they have a final score
+                self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" }
+                self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" }
+                self?.view?.reloadData()
+            case .failure(let error):
+                self?.view?.showError(error.localizedDescription)
             }
         }
+        
+        // 2. Fetch Teams
+        NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
+            self?.view?.hideLoading()
+            
+            switch result {
+            case .success(let response):
+                self?.teams = response.result ?? []
+                self?.view?.reloadData()
+            case .failure(let error):
+                self?.view?.showError(error.localizedDescription)
+            }
+        }
+    }
 }

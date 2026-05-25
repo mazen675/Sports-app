@@ -1,212 +1,130 @@
-//
-//  TennisPlayerViewController.swift
-//  SportsApp
-//
-//  Created by Mazen Amr on 25/05/2026.
-//
-
 import UIKit
 
-class TennisPlayerViewController: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource {
+class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TennisPlayerViewProtocol {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var tennisPlayer:TennisPlayerModel?
+    
+    var presenter: TennisPlayerPresenterProtocol!
+    var tennisPlayer: TennisPlayerModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tennisPlayer = getMockPlayer()
-        
         collectionView.dataSource = self
         collectionView.delegate = self
-        // Do any additional setup after loading the view.
-        let layout = UICollectionViewCompositionalLayout{
-            index,environment in
-            switch index{
+        
+        // 🚨 THE FIX: Deleted the NIB registrations for the cells! We only register the Header.
+        let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
+        collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        
+        let layout = UICollectionViewCompositionalLayout { index, environment in
+            switch index {
                 case 0 : return self.setHeaderSection()
                 case 1 : return self.setStatisticsSection()
                 case 2 : return self.setTournamentsSection()
                 default : return self.setTournamentsSection()
             }
         }
-        let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
-            collectionView.register(headerNib,
-                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                    withReuseIdentifier: "SectionHeader")
         
         collectionView.setCollectionViewLayout(layout, animated: true)
-    }
-    func setHeaderSection() -> NSCollectionLayoutSection{
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
+        presenter.fetchPlayerDetails()
+    }
+    
+    // MARK: - MVP Methods
+    func showLoading() { print("Loading Tennis Player...") }
+    func hideLoading() { print("Finished Loading Player") }
+    func showError(message: String) { print("Error: \(message)") }
+    
+    func displayPlayerDetails(player: TennisPlayerModel) {
+        self.tennisPlayer = player
+        DispatchQueue.main.async { self.collectionView.reloadData() }
+    }
+    
+    // MARK: - Layout Sections
+    func setHeaderSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200))
-        
-        let mygroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 10, trailing: 10)
-        
-        let section = NSCollectionLayoutSection(group: mygroup)
-       
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
-        
-    
-        return section
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        return NSCollectionLayoutSection(group: group)
     }
-    func setStatisticsSection() -> NSCollectionLayoutSection{
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+    
+    func setStatisticsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(160))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(300))
-        
-        let mygroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 10, trailing: 16)
-        
-        let section = NSCollectionLayoutSection(group: mygroup)
-        section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
-        
-        
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(44))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: UICollectionView.elementKindSectionHeader,
-                                                                 alignment: .top)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [header]
         return section
     }
     
-    func setTournamentsSection() ->NSCollectionLayoutSection{
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+    func setTournamentsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(200))
-        
-        let mygroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 10, trailing: 10)
-        
-        let section = NSCollectionLayoutSection(group: mygroup)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
-        
-        
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(44))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: UICollectionView.elementKindSectionHeader,
-                                                                 alignment: .top)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [header]
         return section
     }
-
     
-     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 3
+    // MARK: - UICollectionView Data Source
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return tennisPlayer == nil ? 0 : 3
     }
-
-
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let player = tennisPlayer else { return 0 }
         switch section {
-            case 0:
-                return 1
-            case 1:
-                return tennisPlayer!.stats!.count
-            case 2:
-                return tennisPlayer!.tournaments!.count
-            default:
-                return 0
-            }
+        case 0: return 1
+        case 1: return player.safeStats.count
+        case 2: return player.safeTournaments.count
+        default: return 0
+        }
     }
-
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let player = tennisPlayer else { return UICollectionViewCell() }
+        
         switch indexPath.section {
-        case 0 :
+        case 0:
+            // 🚨 THE FIX: lowercase "headerCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCell", for: indexPath) as! HeaderCollectionViewCell
-            cell.config(with: tennisPlayer!)
-            return cell
-        case 1 :
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
-            cell.config(with: tennisPlayer!.stats![indexPath.row])
+            cell.config(with: player)
             return cell
             
-        case 2 :
+        case 1:
+            // 🚨 THE FIX: lowercase "statisticsCell"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
+            cell.config(with: player.safeStats[indexPath.row])
+            return cell
+            
+        case 2:
+            // 🚨 THE FIX: lowercase "tournamentCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath) as! TournamentCollectionViewCell
-            cell.config(with: tennisPlayer!.tournaments![indexPath.row])
+            cell.config(with: player.safeTournaments[indexPath.row])
             return cell
-     
-        default :
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath)
-            return cell
+            
+        default:
+            return UICollectionViewCell()
         }
     }
     
-    
-     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        guard kind == UICollectionView.elementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
-        
         switch indexPath.section {
-        case 1: header.titleLabel.text = "Statistics"
+        case 1: header.titleLabel.text = "Player Statistics"
         case 2: header.titleLabel.text = "Tournaments"
         default: header.titleLabel.text = ""
         }
-        
         return header
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    
-    func getMockPlayer() -> TennisPlayerModel? {
-        let mockJSON = """
-        {
-            "player_key": "1905",
-            "player_name": "N. Djokovic",
-            "player_country": "Serbia",
-            "player_bday": "22.05.1987",
-            "player_logo": "https://apiv2.allsportsapi.com/logo-tennis/1905_n-djokovic.jpg",
-            "stats": [
-                {
-                    "season": "2021", "type": "doubles", "rank": "255",
-                    "titles": "0", "matches_won": "6", "matches_lost": "4"
-                },
-                {
-                    "season": "2020", "type": "singles", "rank": "1",
-                    "titles": "4", "matches_won": "41", "matches_lost": "5"
-                }
-            ],
-            "tournaments": [
-                {
-                    "name": "Rome", "season": "2022", "type": "singles",
-                    "surface": "clay", "prize": "€4,332,325"
-                },
-                {
-                    "name": "Wimbledon", "season": "2021", "type": "singles",
-                    "surface": "grass", "prize": "£13,490,000"
-                }
-            ]
-        }
-        """.data(using: .utf8)!
-
-        do {
-            return try JSONDecoder().decode(TennisPlayerModel.self, from: mockJSON)
-        } catch {
-            print("Mock decoding failed: \(error)")
-            return nil
-        }
-    }
 }
-
-
-
