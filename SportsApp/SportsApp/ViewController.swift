@@ -91,18 +91,7 @@ class ViewController: UIViewController {
                     
                     print("✅ Successfully fetched profile for: \(player.safeName)")
                     print("🌍 Subtitle Info: \(player.safeSubtitle)")
-                    
-                    // Test Stats
-                    if let firstStat = player.safeStats.first {
-                        print("📊 Latest Stat: \(firstStat.safeDisplay)")
-                    }
-                    
-                    // Test Tournaments
-                    print("🏆 Tournaments Played: \(player.safeTournaments.count)")
-                    if let firstTournament = player.safeTournaments.first {
-                        print("🥇 Top Tournament: \(firstTournament.safeName) (\(firstTournament.safeDetails))")
-                    }
-                    
+              
                 case .failure(let error):
                     print("❌ Tennis Player Fetch Failed: \(error.localizedDescription)")
                 }

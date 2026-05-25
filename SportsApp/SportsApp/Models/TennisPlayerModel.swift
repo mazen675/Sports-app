@@ -52,8 +52,15 @@ struct TennisStat: Decodable {
     let season: String?
     let type: String?
     let rank: String?
-    
-    var safeDisplay: String { return "Season \(season ?? "-") | Rank: \(rank ?? "-")" }
+    let titles: String?
+    let matches_won: String?
+    let matches_lost: String?
+    let hard_won: String?
+    let clay_won: String?
+    let grass_won: String?
+    let hard_lost: String?
+    let clay_lost: String?
+    let grass_lost: String?
 }
 
 struct TennisTournament: Decodable {
@@ -61,7 +68,5 @@ struct TennisTournament: Decodable {
     let season: String?
     let surface: String?
     let prize: String?
-    
-    var safeName: String { return name ?? "Unknown Tournament" }
-    var safeDetails: String { return "\(surface?.capitalized ?? "Court") • \(prize ?? "")" }
+    let type: String?
 }
