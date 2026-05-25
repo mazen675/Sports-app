@@ -6,9 +6,8 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol {
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: LeaguesPresenterProtocol!
-    
-    // A temporary memory bucket to hold favorite IDs until we build CoreData
     var temporaryFavorites = Set<String>()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,24 +61,20 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         // Load the data
         cell.configure(with: league)
         
-        // Check our temporary memory to see if this league is favorited
+        // 1. Check Core Data to see if this league is favorited
         let leagueId = league.leagueKey ?? ""
-        let isFav = temporaryFavorites.contains(leagueId)
+        let isFav = CoreDataManager.shared.isFavorite(key: leagueId)
         
-        // Color the heart based on the memory state
+        // 2. Color the heart based on Core Data state
         cell.favoriteButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
         cell.favoriteButton.tintColor = isFav ? .red : .lightGray
         
-        // What happens when the user clicks the heart
+        // 3. What happens when the user clicks the heart
         cell.favoriteAction = { [weak self] in
             guard let self = self else { return }
             
-            // Toggle it in our temporary memory
-            if isFav {
-                self.temporaryFavorites.remove(leagueId)
-            } else {
-                self.temporaryFavorites.insert(leagueId)
-            }
+            // Toggle it directly in Core Data!
+            CoreDataManager.shared.toggleFavorite(league: league, sport: self.presenter.sportEndpoint)
             
             // Reload just this one row so the heart beautifully snaps to red/gray
             tableView.reloadRows(at: [indexPath], with: .none)
