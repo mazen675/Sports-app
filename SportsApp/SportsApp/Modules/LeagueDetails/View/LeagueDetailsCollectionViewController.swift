@@ -9,67 +9,48 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class LeagueDetailsCollectionViewController: UICollectionViewController {
+class LeagueDetailsCollectionViewController: UICollectionViewController , LeagueDetailsViewProtocol{
 
-    var upcomingEvents: [Fixture]  = []
-    var latestEvents: [Fixture]  = []
-    var contestants: [Contestant]  = []
+    var presenter: LeagueDetailsPresenter!
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        let layout = UICollectionViewCompositionalLayout{
-            index,environment in
-            switch index{
-                case 0 : return self.setContestantsSection()
-                case 1 : return self.setUpcomingEventsSection()
-                case 2 : return self.setLatestEventsSection()
-                default : return self.setLatestEventsSection()
+            super.viewDidLoad()
+        presenter = LeagueDetailsPresenter(view: self, sportEndpoint: "football", leagueId: "34")
+            let layout = UICollectionViewCompositionalLayout { index, environment in
+                switch index {
+                    case 0 : return self.setContestantsSection()
+                    case 1 : return self.setUpcomingEventsSection()
+                    case 2 : return self.setLatestEventsSection()
+                    default : return self.setLatestEventsSection()
+                }
             }
-        }
-        
-        collectionView.setCollectionViewLayout(layout, animated: true)
-        collectionView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
-        
-        let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
+            
+            collectionView.setCollectionViewLayout(layout, animated: true)
+            collectionView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+            
+            let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
             collectionView.register(headerNib,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                     withReuseIdentifier: "SectionHeader")
-        
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
-        
-        let teamA = Contestant(id: 1, name: "Red Dragons", logoURL: "https://via.placeholder.com/150/FF0000/FFFFFF?text=Dragons")
-            let teamB = Contestant(id: 2, name: "Blue Knights", logoURL: "https://via.placeholder.com/150/0000FF/FFFFFF?text=Knights")
-            let teamC = Contestant(id: 3, name: "Green Eagles", logoURL: "https://via.placeholder.com/150/008000/FFFFFF?text=Eagles")
-            let teamD = Contestant(id: 4, name: "Golden Lions", logoURL: "https://via.placeholder.com/150/FFD700/000000?text=Lions")
             
-
-            self.contestants = [teamA, teamB, teamC, teamD]
-            
-        self.upcomingEvents = [
-                Fixture(id: 101, date: "25 May 2026", time: "18:00", status: "Scheduled", score: nil, homeContestant: teamA, awayContestant: teamB),
-                Fixture(id: 102, date: "27 May 2026", time: "20:30", status: "Scheduled", score: nil, homeContestant: teamC, awayContestant: teamD)
-            ]
-            
-            self.latestEvents = [
-                Fixture(id: 201, date: "20 May 2026", time: "19:00", status: "Finished", score: "2 - 1", homeContestant: teamB, awayContestant: teamC),
-                Fixture(id: 202, date: "18 May 2026", time: "16:00", status: "Finished", score: "0 - 3", homeContestant: teamD, awayContestant: teamA),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
-                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC)
-            ]
+            presenter.fetchLeagueDetails()
+        }
+    
+    func showLoading() {
+            // Show an activity indicator
+        }
         
-    }
+        func hideLoading() {
+            // Hide the activity indicator
+        }
+        
+        func reloadData() {
+            collectionView.reloadData()
+        }
+        
+        func showError(_ message: String) {
+            // Show UIAlertController
+        }
+    
     func setUpcomingEventsSection()->NSCollectionLayoutSection{
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -167,37 +148,32 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         switch section {
-            case 0:
-                return contestants.count
-            case 1:
-                return upcomingEvents.count
-            case 2:
-                return latestEvents.count
-            default:
-                return 0
-            }
+                case 0: return presenter.teamsCount
+                case 1: return presenter.upcomingEventsCount
+                case 2: return presenter.latestEventsCount
+                default: return 0
+                }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case 0 :
+        case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath) as! ContestantCollectionViewCell
-            cell.config(contestant: contestants[indexPath.row])
+            cell.config(contestant: presenter.getTeam(at: indexPath.row))
             return cell
-        case 1 :
+            
+        case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingEventCell", for: indexPath) as! UpcomingEventCollectionViewCell
-            
-            cell.config(fixture: upcomingEvents[indexPath.row])
+            cell.config(event: presenter.getUpcomingEvent(at: indexPath.row))
             return cell
             
-        case 2 :
+        case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestEventCell", for: indexPath) as! LatestEventCollectionViewCell
-            cell.config(fixture: latestEvents[indexPath.row])
+            cell.config(event: presenter.getLatestEvent(at: indexPath.row))
             return cell
-     
-        default :
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath)
-            return cell
+            
+        default:
+            return UICollectionViewCell()
         }
     }
     

@@ -16,18 +16,21 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var awayContestantImageView: UIImageView!
     
     
-    func config(fixture:Fixture){
-        dateLabel.text = fixture.date
-        homeContestantLabel.text = fixture.homeContestant.name
-        awayContestantLabel.text = fixture.awayContestant.name
-        homeContestantImageView.sd_setImage(with: URL(string: fixture.homeContestant.logoURL!), placeholderImage: UIImage(systemName: "star.fill"))
-        
-        awayContestantImageView.sd_setImage(with: URL(string: fixture.awayContestant.logoURL!), placeholderImage: UIImage(systemName: "star.fill"))
-        scoreLabel.text = fixture.score
-        
-        self.layer.cornerRadius = 16
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.systemGray2.cgColor
-    }
+    func config(event: EventModel) {
+            dateLabel.text = event.safeDate
+            homeContestantLabel.text = event.safeHomeTeam
+            awayContestantLabel.text = event.safeAwayTeam
+            scoreLabel.text = event.safeScore
+            
+            let homeURL = URL(string: event.homeTeamLogo ?? "")
+            homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(systemName: "star.fill"))
+            
+            let awayURL = URL(string: event.awayTeamLogo ?? "")
+            awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(systemName: "star.fill"))
+            
+            self.layer.cornerRadius = 16
+            self.layer.borderWidth = 1
+            self.layer.borderColor = UIColor.systemGray2.cgColor
+        }
     
 }
