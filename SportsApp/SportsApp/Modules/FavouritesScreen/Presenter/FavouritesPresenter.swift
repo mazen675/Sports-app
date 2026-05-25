@@ -17,15 +17,27 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
     }
     
     func loadFavourites() {
-        // We keep your dummy data logic here. Later, replace this with CoreData!
-        let fakeLeague = LeagueModel(leagueKey: "1", 
-                                     leagueName: "Test Premier League", 
-                                     leagueLogo: "https://apiv2.allsportsapi.com/logo/logo_leagues/152_premier-league.png", 
-                                     countryName: "England")
+        let savedEntities = CoreDataManager.shared.fetchAllFavorites()
+        favoritesList = savedEntities.map { entity in
+            LeagueModel(
+                leagueKey: entity.value(forKey: "key") as? String,
+                leagueName: entity.value(forKey: "name") as? String,
+                leagueLogo: entity.value(forKey: "logo") as? String,
+                countryName: entity.value(forKey: "info") as? String,
+                leagueYear: nil
+            )
+        }
         
-        favoritesList = [fakeLeague]
-        
-        // Tell the view to update
         view?.reloadData()
+    }
+    
+    func removeFavourite(at index: Int) {
+        let league = favoritesList[index]
+        
+        if let key = league.leagueKey {
+            CoreDataManager.shared.deleteLeague(key: key)
+        }
+        
+        favoritesList.remove(at: index)
     }
 }
