@@ -14,15 +14,19 @@ class UpcomingEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var homeContestantImageView: UIImageView!
     @IBOutlet weak var awayContestantImageView: UIImageView!
     
-    func config(fixture:Fixture){
-        dateLabel.text = "\(fixture.date) . \(fixture.time)"
-        homeContestantLabel.text = fixture.homeContestant.name
-        awayContestantLabel.text = fixture.awayContestant.name
-        homeContestantImageView.sd_setImage(with: URL(string: fixture.homeContestant.logoURL!), placeholderImage: UIImage(named: "liverpool.png"))
-        
-        awayContestantImageView.sd_setImage(with: URL(string: fixture.awayContestant.logoURL!), placeholderImage: UIImage(named: "liverpool.png"))
-        self.layer.cornerRadius = 16
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.systemGray2.cgColor
-    }
+    func config(event: EventModel) {
+            dateLabel.text = "\(event.safeDate) . \(event.safeTime)"
+            homeContestantLabel.text = event.safeHomeTeam
+            awayContestantLabel.text = event.safeAwayTeam
+            
+            let homeURL = URL(string: event.homeTeamLogo ?? "")
+            homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: "liverpool"))
+            
+            let awayURL = URL(string: event.awayTeamLogo ?? "")
+            awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: "liverpool"))
+            
+            self.layer.cornerRadius = 16
+            self.layer.borderWidth = 1
+            self.layer.borderColor = UIColor.systemGray2.cgColor
+        }
 }

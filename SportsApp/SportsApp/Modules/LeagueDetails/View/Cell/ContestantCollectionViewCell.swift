@@ -11,9 +11,9 @@ class ContestantCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contestantLabel: UILabel!
     @IBOutlet weak var contestantImageView: UIImageView!
     
-    func config(contestant:Contestant){
-        contestantLabel.text = contestant.name
-        contestantImageView.sd_setImage(with: URL(string:contestant.logoURL!), placeholderImage: UIImage(named: "liverpool.png"))
+    func config(contestant: TeamModel){
+        contestantLabel.text = contestant.safeTeamName
+        contestantImageView.sd_setImage(with: URL(string:contestant.safeTeamLogo), placeholderImage: UIImage(named: "liverpool"))
         // UIImage(systemName: "star.fill"))
     }
 }
