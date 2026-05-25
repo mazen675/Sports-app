@@ -44,7 +44,13 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         let toDate = dateFormatter.string(from: futureDate)
         
         let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
-        let teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        var teamsURL = ""
+        if(self.sportEndpoint == "tennis"){
+            teamsURL = "https://apiv2.allsportsapi.com/tennis/?met=Players&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        }else{
+             teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        }
+      
         
         // 1. Fetch Fixtures
         NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
