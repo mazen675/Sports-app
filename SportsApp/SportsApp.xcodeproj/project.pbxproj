@@ -43,6 +43,7 @@
 		9F0D07462FC2814E001DB23E /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07452FC2814E001DB23E /* EventModel.swift */; };
 		9F0D07482FC28157001DB23E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07472FC28157001DB23E /* TeamModel.swift */; };
 		9F0D074A2FC28160001DB23E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0D07492FC28160001DB23E /* NetworkService.swift */; };
+		9F3EF5382FC3E61A004048A2 /* TennisPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3EF5372FC3E61A004048A2 /* TennisPlayerModel.swift */; };
 		9F8D11712FC2963900B16926 /* SportsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D11702FC2963900B16926 /* SportsViewProtocol.swift */; };
 		9F8D11732FC2964E00B16926 /* SportsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D11722FC2964E00B16926 /* SportsPresenter.swift */; };
 		9FE078122FC2A85800C0B4C0 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE078112FC2A85800C0B4C0 /* UIImageView+Extension.swift */; };
@@ -118,6 +119,7 @@
 		9F0D07452FC2814E001DB23E /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		9F0D07472FC28157001DB23E /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		9F0D07492FC28160001DB23E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		9F3EF5372FC3E61A004048A2 /* TennisPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisPlayerModel.swift; sourceTree = "<group>"; };
 		9F8D11702FC2963900B16926 /* SportsViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewProtocol.swift; sourceTree = "<group>"; };
 		9F8D11722FC2964E00B16926 /* SportsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPresenter.swift; sourceTree = "<group>"; };
 		9FE078112FC2A85800C0B4C0 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = SOURCE_ROOT; };
@@ -279,6 +281,7 @@
 		314FBB8F2FC0ABBE0098C39B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F3EF5372FC3E61A004048A2 /* TennisPlayerModel.swift */,
 				9F0D07472FC28157001DB23E /* TeamModel.swift */,
 				9F0D07452FC2814E001DB23E /* EventModel.swift */,
 				9F0D07432FC28145001DB23E /* LeagueModel.swift */,
@@ -506,6 +509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				311B39E02FC213BE00F0B22C /* FavouritesViewController.swift in Sources */,
+				9F3EF5382FC3E61A004048A2 /* TennisPlayerModel.swift in Sources */,
 				31C3E7202FC11EB400347DE2 /* LeagueDetailsCollectionViewController.swift in Sources */,
 				9F0D07482FC28157001DB23E /* TeamModel.swift in Sources */,
 				314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */,

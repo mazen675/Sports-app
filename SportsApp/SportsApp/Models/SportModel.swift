@@ -1,9 +1,8 @@
 import Foundation
 
-// Used for the first screen (Tabs). Does not need Decodable because it is local data.
 struct SportModel {
     let name: String
-    let image: String // The exact name of the image in your Assets.xcassets
+    let image: String
     let apiEndpoint: String 
 }
 
