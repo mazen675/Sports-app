@@ -23,14 +23,15 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
         let layout = UICollectionViewCompositionalLayout{
             index,environment in
             switch index{
-                case 0 : return self.setUpcomingEventsSection()
-                case 1 : return self.setLatestEventsSection()
-                case 2 : return self.setContestantsSection()
-                default : return self.setContestantsSection()
+                case 0 : return self.setContestantsSection()
+                case 1 : return self.setUpcomingEventsSection()
+                case 2 : return self.setLatestEventsSection()
+                default : return self.setLatestEventsSection()
             }
         }
         
         collectionView.setCollectionViewLayout(layout, animated: true)
+        collectionView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
         
         let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
             collectionView.register(headerNib,
@@ -47,19 +48,24 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
             let teamC = Contestant(id: 3, name: "Green Eagles", logoURL: "https://via.placeholder.com/150/008000/FFFFFF?text=Eagles")
             let teamD = Contestant(id: 4, name: "Golden Lions", logoURL: "https://via.placeholder.com/150/FFD700/000000?text=Lions")
             
-            // Assign to contestants array
+
             self.contestants = [teamA, teamB, teamC, teamD]
             
-            // 2. Create Dummy Upcoming Events (now with IDs)
         self.upcomingEvents = [
                 Fixture(id: 101, date: "25 May 2026", time: "18:00", status: "Scheduled", score: nil, homeContestant: teamA, awayContestant: teamB),
                 Fixture(id: 102, date: "27 May 2026", time: "20:30", status: "Scheduled", score: nil, homeContestant: teamC, awayContestant: teamD)
             ]
             
-            // 3. Create Dummy Latest Events (Added "Finished" status)
             self.latestEvents = [
                 Fixture(id: 201, date: "20 May 2026", time: "19:00", status: "Finished", score: "2 - 1", homeContestant: teamB, awayContestant: teamC),
                 Fixture(id: 202, date: "18 May 2026", time: "16:00", status: "Finished", score: "0 - 3", homeContestant: teamD, awayContestant: teamA),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
+                Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC),
                 Fixture(id: 203, date: "15 May 2026", time: "21:00", status: "Finished", score: "1 - 1", homeContestant: teamA, awayContestant: teamC)
             ]
         
@@ -72,7 +78,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(200))
         
         let mygroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 10, trailing: 10)
         
         let section = NSCollectionLayoutSection(group: mygroup)
         section.orthogonalScrollingBehavior = .continuous
@@ -88,32 +94,31 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
         return section
     }
     
-    func setLatestEventsSection()->NSCollectionLayoutSection{
-        
-
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+    func setLatestEventsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(150))
-        
+       
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
         let mygroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        
+        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
         
         let section = NSCollectionLayoutSection(group: mygroup)
         
-        section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 16, trailing: 16)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 0, bottom: 16, trailing: 0)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(44))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: UICollectionView.elementKindSectionHeader,
-                                                                 alignment: .top)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
+        header.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        
         section.boundarySupplementaryItems = [header]
         
         return section
     }
     
-    func setContestantsSection()->NSCollectionLayoutSection{
+    func setContestantsSection() -> NSCollectionLayoutSection {
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -121,18 +126,22 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(150))
         
         let mygroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 0, trailing: 0)
         
         let section = NSCollectionLayoutSection(group: mygroup)
-       
+        
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 16, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(44))
+                                                heightDimension: .absolute(60))
+
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind: UICollectionView.elementKindSectionHeader,
                                                                  alignment: .top)
+
+        header.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16)
+        
         section.boundarySupplementaryItems = [header]
         
         return section
@@ -159,11 +168,11 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
         // #warning Incomplete implementation, return the number of items
         switch section {
             case 0:
-                return upcomingEvents.count
-            case 1:
-                return latestEvents.count
-            case 2:
                 return contestants.count
+            case 1:
+                return upcomingEvents.count
+            case 2:
+                return latestEvents.count
             default:
                 return 0
             }
@@ -172,19 +181,20 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0 :
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath) as! ContestantCollectionViewCell
+            cell.config(contestant: contestants[indexPath.row])
+            return cell
+        case 1 :
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingEventCell", for: indexPath) as! UpcomingEventCollectionViewCell
             
             cell.config(fixture: upcomingEvents[indexPath.row])
             return cell
             
-        case 1 :
+        case 2 :
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestEventCell", for: indexPath) as! LatestEventCollectionViewCell
             cell.config(fixture: latestEvents[indexPath.row])
             return cell
-        case 2 :
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath) as! ContestantCollectionViewCell
-            cell.config(contestant: contestants[indexPath.row])
-            return cell
+     
         default :
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath)
             return cell
@@ -201,9 +211,9 @@ class LeagueDetailsCollectionViewController: UICollectionViewController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
         
         switch indexPath.section {
-        case 0: header.titleLabel.text = "Upcoming Events"
-        case 1: header.titleLabel.text = "Latest Events"
-        case 2: header.titleLabel.text = "Teams"
+        case 0: header.titleLabel.text = "Teams"
+        case 1: header.titleLabel.text = "Upcoming Events"
+        case 2: header.titleLabel.text = "Latest Events"
         default: header.titleLabel.text = ""
         }
         
