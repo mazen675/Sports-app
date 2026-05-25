@@ -5,7 +5,6 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    // The Presenter will be injected from the Sports Screen
     var presenter: LeaguesPresenterProtocol!
     
     // A temporary memory bucket to hold favorite IDs until we build CoreData
@@ -16,21 +15,19 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol {
         
         setupTableView()
         
-        // Start the API call!
         presenter.fetchLeagues()
     }
     
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .none // Hide default lines to make it look like floating cards
+        tableView.separatorStyle = .none
         
-        // Register the XIB your friend made
+        // Register XIB
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")
     }
     
-    // MARK: - MVP View Methods
     func showLoading() {
         // You can add a UIActivityIndicatorView here later!
         print("Loading data...")
@@ -51,7 +48,7 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol {
     }
 }
 
-// MARK: - TableView Configuration
+// TableView Configuration
 extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.leaguesCount
@@ -64,15 +61,15 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
             // Load the data
             cell.configure(with: league)
             
-            // 1. Check our temporary memory to see if this league is favorited
+            // 1Check our temporary memory to see if this league is favorited
             let leagueId = league.leagueKey ?? ""
             let isFav = temporaryFavorites.contains(leagueId)
             
-            // 2. Color the heart based on the memory state
+            // Color the heart based on the memory state
             cell.favoriteButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
             cell.favoriteButton.tintColor = isFav ? .red : .lightGray
             
-            // 3. What happens when the user clicks the heart?
+            // What happens when the user clicks the heart
             cell.favoriteAction = { [weak self] in
                 guard let self = self else { return }
                 
@@ -91,6 +88,6 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100 // Adjust based on your XIB height + padding
+        return 100
     }
 }
