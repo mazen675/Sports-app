@@ -13,13 +13,13 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     private var teams: [TeamModel] = []
     
     let sportEndpoint: String
-    let leagueId: String
+    let league: LeagueModel
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     
-    init(view: LeagueDetailsViewProtocol, sportEndpoint: String, leagueId: String) {
+    init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel) {
         self.view = view
         self.sportEndpoint = sportEndpoint
-        self.leagueId = leagueId
+        self.league = league
     }
     
     var upcomingEventsCount: Int { return upcomingEvents.count }
@@ -43,23 +43,21 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         let fromDate = dateFormatter.string(from: pastDate)
         let toDate = dateFormatter.string(from: futureDate)
         
-        let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
+        let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(league.leagueKey!)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
         var teamsURL = ""
         if(self.sportEndpoint == "tennis"){
-            teamsURL = "https://apiv2.allsportsapi.com/tennis/?met=Players&leagueId=\(leagueId)&APIkey=\(apiKey)"
+            teamsURL = "https://apiv2.allsportsapi.com/tennis/?met=Players&leagueId=\(league.leagueKey!)&APIkey=\(apiKey)"
         }else{
-             teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+            teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(league.leagueKey!)&APIkey=\(apiKey)"
         }
       
         
-        // 1. Fetch Fixtures
         NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
             self?.view?.hideLoading()
             
             switch result {
             case .success(let response):
                 let allEvents = response.result ?? []
-                // Split events based on whether they have a final score
                 self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" }
                 self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" }
                 self?.view?.reloadData()
@@ -68,7 +66,6 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
             }
         }
         
-        // 2. Fetch Teams
         NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             self?.view?.hideLoading()
             
@@ -79,6 +76,19 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
             case .failure(let error):
                 self?.view?.showError(error.localizedDescription)
             }
+        }
+    }
+    
+    func didSelectTeam(at index: Int, section: Int) {
+        guard section == 0 else { return }
+        
+        let selectedTeam = getTeam(at: index)
+        guard let teamId = selectedTeam.teamKey else { return }
+
+        if self.sportEndpoint == "tennis" {
+            view?.navigateToTennisPlayer(teamId: teamId)
+        } else {
+            view?.navigateToTeamDetails(teamId: teamId, sportEndpoint: self.sportEndpoint,leagueName: league.safeLeagueName  ,leagueExtraInfo:league.safeCountryName)
         }
     }
 }

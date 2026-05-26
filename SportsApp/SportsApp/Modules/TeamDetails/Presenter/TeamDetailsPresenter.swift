@@ -14,11 +14,15 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     let sportEndpoint: String
     let teamId: String
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
+    let leagueExtraInfo:String
+    let leagueName : String
     
-    init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String) {
+    init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String , leagueExtraInfo: String , leagueName: String) {
         self.view = view
         self.sportEndpoint = sportEndpoint
         self.teamId = teamId
+        self.leagueName = leagueName
+        self.leagueExtraInfo = leagueExtraInfo
     }
     
     func fetchTeamDetails() {
@@ -33,7 +37,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
             switch result {
             case .success(let response):
                 if let team = response.result?.first {
-                    self.view?.displayTeamDetails(team: team)
+                    self.view?.displayTeamDetails(team: team , leagueName: leagueName , leagueExtraInfo: leagueExtraInfo)
                 } else {
                     self.view?.showError(message: "Team data not found.")
                 }

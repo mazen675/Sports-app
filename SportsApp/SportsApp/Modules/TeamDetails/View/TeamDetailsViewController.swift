@@ -5,8 +5,8 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var leagueCountry: UILabel!
-    @IBOutlet weak var leagueNameLabel: UILabel!
+    @IBOutlet weak var leagueCountry: UIButton!
+    @IBOutlet weak var leagueNameLabel: UIButton!
     
     var presenter: TeamDetailsPresenterProtocol!
     var currentTeam: TeamModel?
@@ -31,13 +31,13 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         print("Finished Loading Team Details")
     }
     
-    func displayTeamDetails(team: TeamModel) {
+    func displayTeamDetails(team: TeamModel, leagueName:String , leagueExtraInfo: String) {
         self.currentTeam = team
         
         DispatchQueue.main.async {
             self.teamNameLabel.text = team.safeTeamName
-            self.leagueCountry.text = "Details"
-            self.leagueNameLabel.text = "Squad & Coaches"
+            self.leagueCountry.titleLabel?.text = leagueExtraInfo
+            self.leagueNameLabel.titleLabel?.text = leagueName
             
             if let url = URL(string: team.safeTeamLogo) {
                 // Ensure you have import SDWebImage in your project if you want to use it here,
@@ -54,7 +54,6 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
     }
 }
 
-// MARK: - Table View Data Source & Delegate
 extension TeamDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -11,8 +11,8 @@ import Foundation
 protocol TeamDetailsViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
-    func displayTeamDetails(team: TeamModel)
     func showError(message: String)
+    func displayTeamDetails(team: TeamModel, leagueName: String , leagueExtraInfo: String)
 }
 
 protocol TeamDetailsPresenterProtocol {

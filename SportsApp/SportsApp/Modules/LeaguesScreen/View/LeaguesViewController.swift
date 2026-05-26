@@ -92,7 +92,7 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         
         // 1. Find out exactly which league they tapped
         let selectedLeague = presenter.getLeague(at: indexPath.row)
-        guard let leagueId = selectedLeague.leagueKey else { return }
+        
         
         // 2. Prepare the Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -101,7 +101,7 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         if let detailsVC = storyboard.instantiateViewController(withIdentifier: "LeagueDetailsCollectionViewController") as? LeagueDetailsCollectionViewController {
             
             // 4. INJECT THE MVP PRESENTER! (This passes the sport name and the specific league ID forward)
-            detailsVC.presenter = LeagueDetailsPresenter(view: detailsVC, sportEndpoint: presenter.sportEndpoint, leagueId: leagueId)
+            detailsVC.presenter = LeagueDetailsPresenter(view: detailsVC, sportEndpoint: presenter.sportEndpoint, league: selectedLeague)
             
             // Set the title of the next screen to the League's Name
             detailsVC.title = selectedLeague.safeLeagueName
