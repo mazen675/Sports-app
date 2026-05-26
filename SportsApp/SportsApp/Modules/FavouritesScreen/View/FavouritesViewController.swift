@@ -9,12 +9,8 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize the Presenter
         presenter = FavouritesPresenter(view: self)
-        
         setupTableView()
-        
-        // Ask the presenter to load the data
         presenter.loadFavourites()
     }
     
@@ -34,7 +30,6 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     }
 }
 
-// TableView Configuration
 extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.favouritesCount
@@ -46,14 +41,18 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
         let league = presenter.getFavourite(at: indexPath.row)
         cell.configure(with: league)
         
-        // Visually activate the heart for favorites
-        cell.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        cell.favoriteButton.tintColor = .red
-        
+        cell.favoriteButton.isHidden = true
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                presenter.removeFavourite(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
 }

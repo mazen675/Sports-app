@@ -13,24 +13,43 @@ struct TeamModel: Decodable {
     var safePlayers: [Player] { return players ?? [] }
     
     enum CodingKeys: String, CodingKey {
+        // Football / Team Sports
         case teamKey = "team_key"
         case teamName = "team_name"
         case teamLogo = "team_logo"
+        
+        // Tennis / Individual Sports
+        case playerKey = "player_key"
+        case playerName = "player_name"
+        case playerLogo = "player_logo"
+        
+        // Shared
         case coaches
         case players
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Try team name first, if nil, try player name
         teamName = try container.decodeIfPresent(String.self, forKey: .teamName)
+                ?? (try container.decodeIfPresent(String.self, forKey: .playerName))
+        
+        // Try team logo first, if nil, try player logo
         teamLogo = try container.decodeIfPresent(String.self, forKey: .teamLogo)
+                ?? (try container.decodeIfPresent(String.self, forKey: .playerLogo))
+        
         coaches = try container.decodeIfPresent([Coach].self, forKey: .coaches)
         players = try container.decodeIfPresent([Player].self, forKey: .players)
         
+        // Handle Key (Int to String conversion for both scenarios)
         if let intKey = try? container.decodeIfPresent(Int.self, forKey: .teamKey) {
             teamKey = String(intKey)
+        } else if let intPlayerKey = try? container.decodeIfPresent(Int.self, forKey: .playerKey) {
+            teamKey = String(intPlayerKey)
         } else {
             teamKey = try container.decodeIfPresent(String.self, forKey: .teamKey)
+                   ?? (try container.decodeIfPresent(String.self, forKey: .playerKey))
         }
     }
 }
