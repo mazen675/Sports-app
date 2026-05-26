@@ -8,6 +8,9 @@
 import UIKit
 import SDWebImage
 class UpcomingEventCollectionViewCell: UICollectionViewCell {
+    
+    
+    @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var homeContestantLabel: UILabel!
     @IBOutlet weak var awayContestantLabel: UILabel!
@@ -15,18 +18,21 @@ class UpcomingEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var awayContestantImageView: UIImageView!
     
     func config(event: EventModel) {
-            dateLabel.text = "\(event.safeDate) . \(event.safeTime)"
-            homeContestantLabel.text = event.safeHomeTeam
-            awayContestantLabel.text = event.safeAwayTeam
-            
-            let homeURL = URL(string: event.homeTeamLogo ?? "")
-            homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: "liverpool"))
-            
-            let awayURL = URL(string: event.awayTeamLogo ?? "")
-            awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: "liverpool"))
-            
-            self.layer.cornerRadius = 16
-            self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.systemGray2.cgColor
-        }
+        dateLabel.text = "\(event.safeDate) . \(event.safeTime)"
+        homeContestantLabel.text = event.safeHomeTeam
+        awayContestantLabel.text = event.safeAwayTeam
+        
+        let homeURL = URL(string: event.homeTeamLogo ?? "")
+        homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: "liverpool"))
+        
+        let awayURL = URL(string: event.awayTeamLogo ?? "")
+        awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: "liverpool"))
+        
+        self.layer.cornerRadius = 16
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.blue.cgColor
+    
+        bgImageView.contentMode = .scaleAspectFill
+        bgImageView.clipsToBounds = true
+    }
 }
