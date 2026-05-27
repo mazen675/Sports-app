@@ -6,16 +6,13 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
 
     var presenter: LeagueDetailsPresenterProtocol!
     
-    // 🚨 Add Circular Progress Bar
     var activityIndicator = UIActivityIndicatorView(style: .large)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemBackground
-        self.collectionView.backgroundColor = .systemBackground
+        self.view.backgroundColor = UIColor(named: "AppBackground")
         
-        // Setup Progress Bar
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
@@ -38,7 +35,6 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         presenter.fetchLeagueDetails()
     }
     
-    // MARK: - MVP Methods (Safe Main Thread)
     func showLoading() {
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
@@ -63,7 +59,6 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         }
     }
     
-    // MARK: - Layout Sections
     func setContestantsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -105,7 +100,6 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         return section
     }
 
-    // MARK: - UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int { return 3 }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -139,7 +133,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
         switch indexPath.section {
-        case 0: header.titleLabel.text = "Teams"
+        case 0: header.titleLabel.text = presenter.sportEndpoint == "tennis" ? "Players" : "Teams"
         case 1: header.titleLabel.text = "Upcoming Events"
         case 2: header.titleLabel.text = "Latest Events"
         default: header.titleLabel.text = ""
@@ -147,7 +141,6 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         return header
     }
 
-    // MARK: - Selection
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectTeam(at: indexPath.row, section: indexPath.section)
     }

@@ -8,7 +8,6 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     let leagueExtraInfo: String
     let leagueName : String
-    
     init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String , leagueExtraInfo: String , leagueName: String) {
         self.view = view
         self.sportEndpoint = sportEndpoint
@@ -18,16 +17,15 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     }
     
     func fetchTeamDetails() {
-        view?.showLoading() // 🚨 Starts Spinner
+        view?.showLoading()
         
         let url = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&teamId=\(teamId)&APIkey=\(apiKey)"
         
         NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             
-            // 🚨 Push data to the Main Thread safely
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.view?.hideLoading() // 🚨 Stops Spinner
+                self.view?.hideLoading() 
                 
                 switch result {
                 case .success(let response):

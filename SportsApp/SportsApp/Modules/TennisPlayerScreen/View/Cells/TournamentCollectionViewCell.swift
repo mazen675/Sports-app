@@ -21,6 +21,11 @@ class TournamentCollectionViewCell: UICollectionViewCell {
             typeLabel.text = tournament.type?.capitalized ?? "-"
             surfaceLabel.text = tournament.surface?.capitalized ?? "-"
             prizeLabel.text = tournament.prize ?? "-"
+            
+            self.layer.borderWidth = 2.0
+            self.layer.borderColor = UIColor(named: "titles")?.cgColor
+            self.layer.cornerRadius = 16
+            self.layer.masksToBounds = true
         }
     
 }

@@ -9,8 +9,8 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemBackground
-        self.tableView.backgroundColor = .systemBackground
+        self.view.backgroundColor = UIColor(named: "AppBackground")
+       
         
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true

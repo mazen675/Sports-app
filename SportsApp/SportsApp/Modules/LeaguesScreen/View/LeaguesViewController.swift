@@ -12,6 +12,7 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "AppBackground")
         setupUI()
         presenter.fetchLeagues()
     }
@@ -78,7 +79,7 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         let isFav = presenter.isFavorite(leagueId: leagueId)
         
         cell.favoriteButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
-        cell.favoriteButton.tintColor = isFav ? .red : .lightGray
+        cell.favoriteButton.tintColor = isFav ? .red : .darkGray
         
         cell.favoriteAction = { [weak self] in
             self?.presenter.toggleFavorite(league: league)

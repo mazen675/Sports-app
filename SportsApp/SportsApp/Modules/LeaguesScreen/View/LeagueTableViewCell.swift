@@ -27,7 +27,7 @@ class LeagueTableViewCell: UITableViewCell {
         leagueImageView.layer.masksToBounds = true
         
         favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        favoriteButton.tintColor = .lightGray
+        favoriteButton.tintColor = .black
         favoriteButton.addTarget(self, action: #selector(heartTapped), for: .touchUpInside)
     }
 

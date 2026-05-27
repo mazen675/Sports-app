@@ -10,13 +10,9 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize Presenter
+        self.view.backgroundColor = UIColor(named: "AppBackground")
         presenter = SportsPresenter(view: self)
-        
-        // Setup the UI
         setupCollectionView()
-        
-        // Ask Presenter for data
         presenter.view?.displaySports()
     }
     
