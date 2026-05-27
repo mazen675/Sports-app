@@ -14,6 +14,7 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var homeContestantImageView: UIImageView!
     @IBOutlet weak var awayContestantImageView: UIImageView!
+    @IBOutlet weak var bgImageView: UIImageView!
     
     
     func config(event: EventModel) {
@@ -30,7 +31,10 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
             
             self.layer.cornerRadius = 16
             self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.systemGray2.cgColor
+            self.layer.borderColor = UIColor.blue.cgColor
+
+            bgImageView.contentMode = .scaleAspectFill
+            bgImageView.clipsToBounds = true
         }
     
 }

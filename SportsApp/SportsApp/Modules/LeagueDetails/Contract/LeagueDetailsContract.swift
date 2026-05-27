@@ -5,6 +5,9 @@ protocol LeagueDetailsViewProtocol: AnyObject {
     func hideLoading()
     func reloadData()
     func showError(_ message: String)
+    func showComingSoonAlert() // 🚨 Added for the Alert Box
+    func navigateToTennisPlayer(teamId: String)
+    func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String)
 }
 
 protocol LeagueDetailsPresenterProtocol {
@@ -12,14 +15,10 @@ protocol LeagueDetailsPresenterProtocol {
     var latestEventsCount: Int { get }
     var teamsCount: Int { get }
     
-    // Allows the view to know if it's Tennis or Football
-    var sportEndpoint: String { get }
-    
     func getUpcomingEvent(at index: Int) -> EventModel
     func getLatestEvent(at index: Int) -> EventModel
-    
-    // 🚨 THIS IS THE FIX FOR YOUR SCREENSHOT:
     func getTeam(at index: Int) -> TeamModel
     
     func fetchLeagueDetails()
+    func didSelectTeam(at index: Int, section: Int)
 }

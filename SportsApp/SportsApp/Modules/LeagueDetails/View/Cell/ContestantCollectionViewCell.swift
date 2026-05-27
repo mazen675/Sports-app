@@ -12,8 +12,17 @@ class ContestantCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contestantImageView: UIImageView!
     
     func config(contestant: TeamModel){
+        
         contestantLabel.text = contestant.safeTeamName
-        contestantImageView.sd_setImage(with: URL(string:contestant.safeTeamLogo), placeholderImage: UIImage(named: "liverpool"))
-        // UIImage(systemName: "star.fill"))
+        contestantImageView.sd_setImage(with: URL(string:contestant.safeTeamLogo), placeholderImage: UIImage(named: "default"))
+        
+        
+        contestantImageView.contentMode = .scaleAspectFill
+        contestantImageView.backgroundColor = .systemGray6
+        contestantImageView.layer.cornerRadius = contestantImageView.frame.width / 2
+        contestantImageView.clipsToBounds = true
+
+        contestantImageView.layer.borderWidth = 2.0
+        contestantImageView.layer.borderColor = UIColor.systemBlue.cgColor
     }
 }

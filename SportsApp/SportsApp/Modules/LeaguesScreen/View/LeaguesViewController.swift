@@ -1,55 +1,69 @@
 import UIKit
 
-class LeaguesViewController: UIViewController, LeaguesViewProtocol {
+class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: LeaguesPresenterProtocol!
-    var temporaryFavorites = Set<String>()
-
     
+    // 🚨 Circular Progress Bar added
+    var activityIndicator = UIActivityIndicatorView(style: .large)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupTableView()
-        
+        setupUI()
         presenter.fetchLeagues()
     }
     
-    private func setupTableView() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    private func setupUI() {
+        self.view.backgroundColor = .systemBackground
+        self.tableView.backgroundColor = .systemBackground
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
-        // Register XIB
+        searchBar.delegate = self
+        
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")
+        
+        // 🚨 Setup the loader in the center of the screen
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.filterLeagues(with: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    // 🚨 Safe Main Thread Loaders
     func showLoading() {
-        // You can add a UIActivityIndicatorView here later!
-        print("Loading data...")
+        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
-    
     func hideLoading() {
-        print("Data loaded!")
+        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
     }
-    
     func reloadData() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        DispatchQueue.main.async { self.tableView.reloadData() }
     }
-    
     func showError(message: String) {
-        print("Error: \(message)")
+        DispatchQueue.main.async { print("Error: \(message)") }
     }
 }
 
-// MARK: - TableView Configuration
 extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.leaguesCount
     }
@@ -58,28 +72,17 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeagueTableViewCell
         let league = presenter.getLeague(at: indexPath.row)
         
-        // Load the data
         cell.configure(with: league)
         
-        // 1. Check Core Data to see if this league is favorited
         let leagueId = league.leagueKey ?? ""
-        let isFav = CoreDataManager.shared.isFavorite(key: leagueId)
+        let isFav = presenter.isFavorite(leagueId: leagueId)
         
-        // 2. Color the heart based on Core Data state
         cell.favoriteButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
         cell.favoriteButton.tintColor = isFav ? .red : .lightGray
         
-        // 3. What happens when the user clicks the heart
         cell.favoriteAction = { [weak self] in
-            guard let self = self else { return }
-            
-            // Toggle it directly in Core Data!
-            CoreDataManager.shared.toggleFavorite(league: league, sport: self.presenter.sportEndpoint)
-            
-            // Reload just this one row so the heart beautifully snaps to red/gray
-            tableView.reloadRows(at: [indexPath], with: .none)
+            self?.presenter.toggleFavorite(league: league)
         }
-        
         return cell
     }
     
@@ -87,30 +90,15 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         return 100
     }
     
-    // 🚨 THE FIX: This function is now safely INSIDE the extension block!
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // 1. Find out exactly which league they tapped
         let selectedLeague = presenter.getLeague(at: indexPath.row)
-        guard let leagueId = selectedLeague.leagueKey else { return }
-        
-        // 2. Prepare the Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        // 3. Find the League Details Screen we just built
         if let detailsVC = storyboard.instantiateViewController(withIdentifier: "LeagueDetailsCollectionViewController") as? LeagueDetailsCollectionViewController {
-            
-            // 4. INJECT THE MVP PRESENTER! (This passes the sport name and the specific league ID forward)
-            detailsVC.presenter = LeagueDetailsPresenter(view: detailsVC, sportEndpoint: presenter.sportEndpoint, leagueId: leagueId)
-            
-            // Set the title of the next screen to the League's Name
+            detailsVC.presenter = LeagueDetailsPresenter(view: detailsVC, sportEndpoint: presenter.sportEndpoint, league: selectedLeague)
             detailsVC.title = selectedLeague.safeLeagueName
-            
-            // 5. Push the screen!
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }
-        
-        // Optional: Deselect the row so it doesn't stay grey
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

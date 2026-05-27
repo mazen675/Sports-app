@@ -1,11 +1,3 @@
-//
-//  TennisPlayerPresenter.swift
-//  SportsApp
-//
-//  Created by Ahmed Tayseer on 25/05/2026.
-//
-
-
 import Foundation
 
 class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
@@ -20,23 +12,27 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
     }
     
     func fetchPlayerDetails() {
-        view?.showLoading()
+        view?.showLoading() // 🚨 Starts Spinner
         
         let url = "https://apiv2.allsportsapi.com/tennis/?met=Players&playerId=\(playerId)&APIkey=\(apiKey)"
         
         NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<TennisPlayerModel>, Error>) in
-            guard let self = self else { return }
-            self.view?.hideLoading()
             
-            switch result {
-            case .success(let response):
-                if let player = response.result?.first {
-                    self.view?.displayPlayerDetails(player: player)
-                } else {
-                    self.view?.showError(message: "Player data not found.")
+            // 🚨 Push data to the Main Thread safely
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.view?.hideLoading() // 🚨 Stops Spinner
+                
+                switch result {
+                case .success(let response):
+                    if let player = response.result?.first {
+                        self.view?.displayPlayerDetails(player: player)
+                    } else {
+                        self.view?.showError(message: "Player data not found.")
+                    }
+                case .failure(let error):
+                    self.view?.showError(message: error.localizedDescription)
                 }
-            case .failure(let error):
-                self.view?.showError(message: error.localizedDescription)
             }
         }
     }

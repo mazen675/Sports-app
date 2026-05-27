@@ -1,8 +1,3 @@
-//
-//  LeagueDetailsPresenter.swift
-//  SportsApp
-//
-
 import Foundation
 
 class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
@@ -13,13 +8,13 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     private var teams: [TeamModel] = []
     
     let sportEndpoint: String
-    let leagueId: String
+    let league: LeagueModel
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     
-    init(view: LeagueDetailsViewProtocol, sportEndpoint: String, leagueId: String) {
+    init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel) {
         self.view = view
         self.sportEndpoint = sportEndpoint
-        self.leagueId = leagueId
+        self.league = league
     }
     
     var upcomingEventsCount: Int { return upcomingEvents.count }
@@ -31,6 +26,8 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     func getTeam(at index: Int) -> TeamModel { return teams[index] }
     
     func fetchLeagueDetails() {
+        guard let leagueId = league.leagueKey else { return }
+        
         view?.showLoading()
         
         let dateFormatter = DateFormatter()
@@ -45,40 +42,60 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         
         let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
         var teamsURL = ""
-        if(self.sportEndpoint == "tennis"){
-            teamsURL = "https://apiv2.allsportsapi.com/tennis/?met=Players&leagueId=\(leagueId)&APIkey=\(apiKey)"
-        }else{
-             teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        
+        if sportEndpoint == "tennis" {
+            teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Players&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        } else {
+            teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
         }
-      
+        
+        // 🚨 DispatchGroup ensures the loader waits for BOTH calls to finish
+        let group = DispatchGroup()
         
         // 1. Fetch Fixtures
+        group.enter()
         NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
-            self?.view?.hideLoading()
-            
             switch result {
             case .success(let response):
                 let allEvents = response.result ?? []
-                // Split events based on whether they have a final score
-                self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" }
-                self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" }
-                self?.view?.reloadData()
+                self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" && $0.eventFinalResult != "" }
+                self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" || $0.eventFinalResult == "" }
             case .failure(let error):
-                self?.view?.showError(error.localizedDescription)
+                print("Error: \(error.localizedDescription)")
             }
+            group.leave()
         }
         
         // 2. Fetch Teams
+        group.enter()
         NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
-            self?.view?.hideLoading()
-            
             switch result {
             case .success(let response):
                 self?.teams = response.result ?? []
-                self?.view?.reloadData()
             case .failure(let error):
-                self?.view?.showError(error.localizedDescription)
+                print("Error: \(error.localizedDescription)")
             }
+            group.leave()
+        }
+        
+        // 🚨 When BOTH are done, push to Main Thread
+        group.notify(queue: .main) { [weak self] in
+            self?.view?.hideLoading()
+            self?.view?.reloadData()
+        }
+    }
+    
+    func didSelectTeam(at index: Int, section: Int) {
+        guard section == 0 else { return }
+        let selectedTeam = getTeam(at: index)
+        guard let teamId = selectedTeam.teamKey else { return }
+
+        if sportEndpoint == "basketball" || sportEndpoint == "cricket" {
+            view?.showComingSoonAlert()
+        } else if sportEndpoint == "tennis" {
+            view?.navigateToTennisPlayer(teamId: teamId)
+        } else {
+            view?.navigateToTeamDetails(teamId: teamId, sportEndpoint: sportEndpoint, leagueName: league.safeLeagueName, leagueExtraInfo: league.safeCountryName)
         }
     }
 }

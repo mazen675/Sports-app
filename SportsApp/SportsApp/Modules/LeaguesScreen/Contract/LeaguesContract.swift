@@ -9,10 +9,13 @@ protocol LeaguesViewProtocol: AnyObject {
 
 protocol LeaguesPresenterProtocol {
     var leaguesCount: Int { get }
-    
-    // 🚨 THE FIX: Add this line so the ViewController can read it!
     var sportEndpoint: String { get }
     
     func getLeague(at index: Int) -> LeagueModel
     func fetchLeagues()
+    func filterLeagues(with searchText: String)
+    
+    // 🚨 Add these two lines so the View can talk to Core Data
+    func isFavorite(leagueId: String) -> Bool
+    func toggleFavorite(league: LeagueModel)
 }
