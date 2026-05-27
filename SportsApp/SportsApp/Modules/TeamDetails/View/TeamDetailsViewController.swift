@@ -16,6 +16,8 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .systemBackground
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -29,13 +31,13 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         presenter.fetchTeamDetails()
     }
     
-    // MARK: - MVP Methods
+    // MARK: - MVP Methods (Safe Main Thread)
     func showLoading() {
-        activityIndicator.startAnimating()
+        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
     
     func hideLoading() {
-        activityIndicator.stopAnimating()
+        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
     }
     
     func displayTeamDetails(team: TeamModel, leagueName:String , leagueExtraInfo: String) {
@@ -53,7 +55,9 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         }
     }
     
-    func showError(message: String) { print("Error: \(message)") }
+    func showError(message: String) {
+        DispatchQueue.main.async { print("Error: \(message)") }
+    }
 }
 
 extension TeamDetailsViewController: UITableViewDataSource, UITableViewDelegate {

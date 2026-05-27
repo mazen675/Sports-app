@@ -38,26 +38,29 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         presenter.fetchLeagueDetails()
     }
     
-    // MARK: - MVP Methods
+    // MARK: - MVP Methods (Safe Main Thread)
     func showLoading() {
-        activityIndicator.startAnimating()
+        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
     
     func hideLoading() {
-        activityIndicator.stopAnimating()
+        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
     }
     
     func reloadData() {
         DispatchQueue.main.async { self.collectionView.reloadData() }
     }
     
-    func showError(_ message: String) { print("Error: \(message)") }
+    func showError(_ message: String) {
+        DispatchQueue.main.async { print("Error: \(message)") }
+    }
     
-    // 🚨 Handle Alert
     func showComingSoonAlert() {
-        let alert = UIAlertController(title: "Coming Soon", message: "Team details for this sport will be available soon.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Coming Soon", message: "Team details for this sport will be available soon.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
     // MARK: - Layout Sections
@@ -147,16 +150,20 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     }
     
     func navigateToTennisPlayer(teamId: String) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let tennisVC = storyboard.instantiateViewController(withIdentifier: "TennisPlayerViewController") as? TennisPlayerViewController else { return }
-        tennisVC.presenter = TennisPlayerPresenter(view: tennisVC, playerId: teamId)
-        self.navigationController?.pushViewController(tennisVC, animated: true)
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let tennisVC = storyboard.instantiateViewController(withIdentifier: "TennisPlayerViewController") as? TennisPlayerViewController else { return }
+            tennisVC.presenter = TennisPlayerPresenter(view: tennisVC, playerId: teamId)
+            self.navigationController?.pushViewController(tennisVC, animated: true)
+        }
     }
 
     func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let teamVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as? TeamDetailsViewController else { return }
-        teamVC.presenter = TeamDetailsPresenter(view: teamVC, sportEndpoint: sportEndpoint, teamId: teamId, leagueExtraInfo: leagueExtraInfo , leagueName: leagueName)
-        self.navigationController?.pushViewController(teamVC, animated: true)
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let teamVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as? TeamDetailsViewController else { return }
+            teamVC.presenter = TeamDetailsPresenter(view: teamVC, sportEndpoint: sportEndpoint, teamId: teamId, leagueExtraInfo: leagueExtraInfo , leagueName: leagueName)
+            self.navigationController?.pushViewController(teamVC, animated: true)
+        }
     }
 }

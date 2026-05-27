@@ -7,12 +7,23 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
     var presenter: TennisPlayerPresenterProtocol!
     var tennisPlayer: TennisPlayerModel?
     
+    // 🚨 Add Circular Progress Bar
+    var activityIndicator = UIActivityIndicatorView(style: .large)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .systemBackground
+        self.collectionView.backgroundColor = .systemBackground
+        
         collectionView.dataSource = self
         collectionView.delegate = self
-        // Do any additional setup after loading the view.
+        
+        // Setup Progress Bar
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        
         let layout = UICollectionViewCompositionalLayout{
             index,environment in
             switch index{
@@ -22,24 +33,31 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
             default : return self.setTournamentsSection()
             }
         }
+        
         let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
-        collectionView.register(headerNib,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: "SectionHeader")
+        collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         
         collectionView.setCollectionViewLayout(layout, animated: true)
         
         presenter.fetchPlayerDetails()
     }
     
-    // MARK: - MVP Methods
-    func showLoading() { print("Loading Tennis Player...") }
-    func hideLoading() { print("Finished Loading Player") }
-    func showError(message: String) { print("Error: \(message)") }
+    // MARK: - MVP Methods (Safe Main Thread)
+    func showLoading() {
+        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
+    }
+    
+    func hideLoading() {
+        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+    }
     
     func displayPlayerDetails(player: TennisPlayerModel) {
         self.tennisPlayer = player
         DispatchQueue.main.async { self.collectionView.reloadData() }
+    }
+    
+    func showError(message: String) {
+        DispatchQueue.main.async { print("Error: \(message)") }
     }
     
     func setHeaderSection() -> NSCollectionLayoutSection{
