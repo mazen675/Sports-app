@@ -71,6 +71,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
         return addHeader(to: section)
     }
     
@@ -82,6 +83,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
         section.interGroupSpacing = 16
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
         return addHeader(to: section)
     }
     
@@ -92,6 +94,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 16
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
         return addHeader(to: section)
     }
     
