@@ -1,8 +1,3 @@
-//
-//  LeagueDetailsPresenter.swift
-//  SportsApp
-//
-
 import Foundation
 
 class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
@@ -43,23 +38,22 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         let fromDate = dateFormatter.string(from: pastDate)
         let toDate = dateFormatter.string(from: futureDate)
         
-        let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(league.leagueKey!)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
-        var teamsURL = ""
-        if(self.sportEndpoint == "tennis"){
-            teamsURL = "https://apiv2.allsportsapi.com/tennis/?met=Players&leagueId=\(league.leagueKey!)&APIkey=\(apiKey)"
-        }else{
-            teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(league.leagueKey!)&APIkey=\(apiKey)"
+        guard let leagueId = league.leagueKey else { return }
+        
+        let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
+        var teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        
+        if sportEndpoint == "tennis" {
+            teamsURL = "https://apiv2.allsportsapi.com/tennis/?met=Players&leagueId=\(leagueId)&APIkey=\(apiKey)"
         }
-      
         
         NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
             self?.view?.hideLoading()
-            
             switch result {
             case .success(let response):
                 let allEvents = response.result ?? []
-                self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" }
-                self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" }
+                self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" && $0.eventFinalResult != "" }
+                self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" || $0.eventFinalResult == "" }
                 self?.view?.reloadData()
             case .failure(let error):
                 self?.view?.showError(error.localizedDescription)
@@ -68,7 +62,6 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         
         NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             self?.view?.hideLoading()
-            
             switch result {
             case .success(let response):
                 self?.teams = response.result ?? []
@@ -79,16 +72,18 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         }
     }
     
+    // 🚨 Logic to decide whether to show Alert or Navigate
     func didSelectTeam(at index: Int, section: Int) {
         guard section == 0 else { return }
-        
         let selectedTeam = getTeam(at: index)
         guard let teamId = selectedTeam.teamKey else { return }
 
-        if self.sportEndpoint == "tennis" {
+        if sportEndpoint == "basketball" || sportEndpoint == "cricket" {
+            view?.showComingSoonAlert() // Trigger Alert
+        } else if sportEndpoint == "tennis" {
             view?.navigateToTennisPlayer(teamId: teamId)
         } else {
-            view?.navigateToTeamDetails(teamId: teamId, sportEndpoint: self.sportEndpoint,leagueName: league.safeLeagueName  ,leagueExtraInfo:league.safeCountryName)
+            view?.navigateToTeamDetails(teamId: teamId, sportEndpoint: sportEndpoint, leagueName: league.safeLeagueName, leagueExtraInfo: league.safeCountryName)
         }
     }
 }

@@ -5,15 +5,20 @@ protocol LeagueDetailsViewProtocol: AnyObject {
     func hideLoading()
     func reloadData()
     func showError(_ message: String)
-    func navigateToTennisPlayer(teamId:String)
-    func navigateToTeamDetails(teamId:String, sportEndpoint: String,leagueName:String,leagueExtraInfo:String)
+    func showComingSoonAlert() // 🚨 Added for the Alert Box
+    func navigateToTennisPlayer(teamId: String)
+    func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String)
 }
 
 protocol LeagueDetailsPresenterProtocol {
+    var upcomingEventsCount: Int { get }
+    var latestEventsCount: Int { get }
+    var teamsCount: Int { get }
+    
     func getUpcomingEvent(at index: Int) -> EventModel
     func getLatestEvent(at index: Int) -> EventModel
     func getTeam(at index: Int) -> TeamModel
+    
     func fetchLeagueDetails()
     func didSelectTeam(at index: Int, section: Int)
-    
 }

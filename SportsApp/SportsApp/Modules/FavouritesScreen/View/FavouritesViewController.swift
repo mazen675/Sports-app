@@ -8,9 +8,13 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter = FavouritesPresenter(view: self)
         setupTableView()
+    }
+    
+    // 🚨 This forces the screen to check CoreData every time you open it!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         presenter.loadFavourites()
     }
     
@@ -50,9 +54,9 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                presenter.removeFavourite(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+        if editingStyle == .delete {
+            presenter.removeFavourite(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
 }

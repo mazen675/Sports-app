@@ -10,6 +10,9 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
     
     var presenter: TeamDetailsPresenterProtocol!
     var currentTeam: TeamModel?
+    
+    // 🚨 Add Circular Progress Bar
+    var activityIndicator = UIActivityIndicatorView(style: .large)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,17 +21,21 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         tableView.delegate = self
         tableView.rowHeight = 80
         
-        // Fetch real data!
+        // Setup Progress Bar
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        
         presenter.fetchTeamDetails()
     }
     
     // MARK: - MVP Methods
     func showLoading() {
-        print("Loading Team Details...")
+        activityIndicator.startAnimating()
     }
     
     func hideLoading() {
-        print("Finished Loading Team Details")
+        activityIndicator.stopAnimating()
     }
     
     func displayTeamDetails(team: TeamModel, leagueName:String , leagueExtraInfo: String) {
@@ -36,22 +43,17 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         
         DispatchQueue.main.async {
             self.teamNameLabel.text = team.safeTeamName
-            self.leagueCountry.titleLabel?.text = leagueExtraInfo
-            self.leagueNameLabel.titleLabel?.text = leagueName
+            self.leagueCountry.setTitle(leagueExtraInfo, for: .normal)
+            self.leagueNameLabel.setTitle(leagueName, for: .normal)
             
             if let url = URL(string: team.safeTeamLogo) {
-                // Ensure you have import SDWebImage in your project if you want to use it here,
-                // otherwise use your UIImageView+Extension:
                 self.teamImageView.load(from: team.safeTeamLogo)
             }
-            
             self.tableView.reloadData()
         }
     }
     
-    func showError(message: String) {
-        print("Error: \(message)")
-    }
+    func showError(message: String) { print("Error: \(message)") }
 }
 
 extension TeamDetailsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -62,11 +64,9 @@ extension TeamDetailsViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamPlayerCell", for: indexPath) as! PlayerTableViewCell
-        
         if let player = currentTeam?.safePlayers[indexPath.row] {
             cell.config(player: player)
         }
-        
         return cell
     }
 }
