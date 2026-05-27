@@ -7,8 +7,7 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
     
     var presenter: LeaguesPresenterProtocol!
     
-    // 🚨 temporaryFavorites is DELETED! We use CoreData now.
-    
+    // 🚨 Circular Progress Bar added
     var activityIndicator = UIActivityIndicatorView(style: .large)
 
     override func viewDidLoad() {
@@ -17,13 +16,15 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
         presenter.fetchLeagues()
     }
     
-    // 🚨 Refreshes the hearts when you come back from the Favourites tab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
     private func setupUI() {
+        self.view.backgroundColor = .systemBackground
+        self.tableView.backgroundColor = .systemBackground
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -33,6 +34,7 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")
         
+        // 🚨 Setup the loader in the center of the screen
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
@@ -46,10 +48,19 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
         searchBar.resignFirstResponder()
     }
     
-    func showLoading() { activityIndicator.startAnimating() }
-    func hideLoading() { activityIndicator.stopAnimating() }
-    func reloadData() { DispatchQueue.main.async { self.tableView.reloadData() } }
-    func showError(message: String) { print("Error: \(message)") }
+    // 🚨 Safe Main Thread Loaders
+    func showLoading() {
+        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
+    }
+    func hideLoading() {
+        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+    }
+    func reloadData() {
+        DispatchQueue.main.async { self.tableView.reloadData() }
+    }
+    func showError(message: String) {
+        DispatchQueue.main.async { print("Error: \(message)") }
+    }
 }
 
 extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
@@ -63,7 +74,6 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.configure(with: league)
         
-        // 🚨 Ask Core Data if it is a favorite
         let leagueId = league.leagueKey ?? ""
         let isFav = presenter.isFavorite(leagueId: leagueId)
         
