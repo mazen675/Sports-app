@@ -3,29 +3,37 @@ import Foundation
 class FavouritesPresenter: FavouritesPresenterProtocol {
     weak var view: FavouritesViewProtocol?
     
-    // 🚨 We store both the League and its Sport so it never crashes!
-    private var favoritesList: [(league: LeagueModel, sport: String)] = []
+    // 🚨 We now store an array of Sections (each section has a sport name and an array of leagues)
+    private var sections: [(sport: String, leagues: [LeagueModel])] = []
     
     init(view: FavouritesViewProtocol) {
         self.view = view
     }
     
-    var favouritesCount: Int {
-        return favoritesList.count
+    // MARK: - Section Data Methods
+    var numberOfSections: Int { return sections.count }
+    
+    func titleForSection(_ section: Int) -> String {
+        return sections[section].sport.capitalized // E.g., "football" becomes "Football"
     }
     
-    func getFavourite(at index: Int) -> LeagueModel {
-        return favoritesList[index].league
+    func numberOfItems(in section: Int) -> Int {
+        return sections[section].leagues.count
     }
     
+    func getFavourite(at indexPath: IndexPath) -> LeagueModel {
+        return sections[indexPath.section].leagues[indexPath.row]
+    }
+    
+    // MARK: - Fetching Data
     func loadFavourites() {
-        view?.showLoading() // 🚨 Show Spinner
+        view?.showLoading()
         
-        // 🚨 Fetch from CoreData in Background Thread
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let savedEntities = CoreDataManager.shared.fetchAllFavorites()
             
-            var tempFavorites: [(league: LeagueModel, sport: String)] = []
+            // 1. Group all leagues by their sport
+            var groupedBySport: [String: [LeagueModel]] = [:]
             
             for entity in savedEntities {
                 let league = LeagueModel(
@@ -35,33 +43,50 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
                     countryName: entity.value(forKey: "info") as? String,
                     leagueYear: nil
                 )
-                // Default to football if sport is missing to prevent crashes
                 let sport = entity.value(forKey: "sport") as? String ?? "football"
-                tempFavorites.append((league: league, sport: sport))
+                groupedBySport[sport, default: []].append(league)
             }
             
-            // 🚨 Return to Main Thread to update UI
+            // 2. Order the sections perfectly
+            let order = ["football", "basketball", "tennis", "cricket"]
+            var newSections: [(sport: String, leagues: [LeagueModel])] = []
+            
+            for sport in order {
+                if let leagues = groupedBySport[sport], !leagues.isEmpty {
+                    newSections.append((sport: sport, leagues: leagues))
+                }
+            }
+            
+            // 3. Push back to Main UI
             DispatchQueue.main.async {
-                self?.favoritesList = tempFavorites
+                self?.sections = newSections
                 self?.view?.hideLoading()
                 self?.view?.reloadData()
             }
         }
     }
     
-    func removeFavourite(at index: Int) {
-        let league = favoritesList[index].league
+    // MARK: - Actions
+    func removeFavourite(at indexPath: IndexPath) {
+        let league = sections[indexPath.section].leagues[indexPath.row]
         
+        // 1. Delete from Core Data
         if let key = league.leagueKey {
             CoreDataManager.shared.deleteLeague(key: key)
         }
         
-        favoritesList.remove(at: index)
+        // 2. Delete from our RAM array
+        sections[indexPath.section].leagues.remove(at: indexPath.row)
+        
+        // 3. If the section is empty (e.g., deleted the last Tennis league), remove the section entirely!
+        if sections[indexPath.section].leagues.isEmpty {
+            sections.remove(at: indexPath.section)
+        }
     }
     
-    func didSelectFavourite(at index: Int) {
-        let item = favoritesList[index]
-        // 🚨 Tell the View to navigate safely using the correct sport
-        view?.navigateToLeagueDetails(league: item.league, sportEndpoint: item.sport)
+    func didSelectFavourite(at indexPath: IndexPath) {
+        let league = sections[indexPath.section].leagues[indexPath.row]
+        let sport = sections[indexPath.section].sport
+        view?.navigateToLeagueDetails(league: league, sportEndpoint: sport)
     }
 }
