@@ -21,7 +21,7 @@ class OnBoardingPageViewController: UIPageViewController,UIPageViewControllerDat
                            subTitle: "Browse a comprehensive list of sports from around the globe in one place.",
                            image: UIImage(named: "onboarding1"),
                            buttonTitle: "Continue"),
-            OnboardingItem(headline: "Track Upcoming Events", 
+            OnboardingItem(headline: "Track Upcoming Events",
                            subTitle: "View latest scores, team details, and upcoming matches for any league.",
                            image: UIImage(named: "onboarding2"),
                            buttonTitle: "Continue"),
