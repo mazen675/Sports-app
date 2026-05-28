@@ -17,17 +17,17 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bgImageView: UIImageView!
     
     
-    func config(event: EventModel) {
+    func config(event: EventModel,placeHolder:String) {
             dateLabel.text = event.safeDate
             homeContestantLabel.text = event.safeHomeTeam
             awayContestantLabel.text = event.safeAwayTeam
             scoreLabel.text = event.safeScore
             
             let homeURL = URL(string: event.homeTeamLogo ?? "")
-            homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(systemName: "star.fill"))
+            homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: placeHolder))
             
             let awayURL = URL(string: event.awayTeamLogo ?? "")
-            awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(systemName: "star.fill"))
+            awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: placeHolder))
             
             self.layer.cornerRadius = 16
             self.layer.borderWidth = 1

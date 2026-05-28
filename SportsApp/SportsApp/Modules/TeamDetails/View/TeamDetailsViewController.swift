@@ -22,7 +22,7 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         tableView.delegate = self
         tableView.rowHeight = 80
         
-        activityIndicator.color = UIColor.systemBlue
+        activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
@@ -34,26 +34,35 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
     }
     
     func showLoading() {
-        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            self.teamNameLabel.isHidden = true
+            self.leagueCountry.isHidden = true
+            self.leagueNameLabel.isHidden = true
+            self.teamImageView.isHidden = true
+        }
     }
     
     func hideLoading() {
-        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+        DispatchQueue.main.async { 
+            self.activityIndicator.stopAnimating()
+            self.teamNameLabel.isHidden = false
+            self.leagueCountry.isHidden = false
+            self.leagueNameLabel.isHidden = false
+            self.teamImageView.isHidden = false
+        }
     }
     
-    func displayTeamDetails(team: TeamModel, leagueName:String , leagueExtraInfo: String) {
+    func displayTeamDetails(team: TeamModel, leagueName:String , leagueExtraInfo: String , placeHolder:String) {
         self.currentTeam = team
+        self.teamNameLabel.text = team.safeTeamName
+        self.leagueCountry.setTitle(leagueExtraInfo.uppercased(), for: .normal)
+        self.leagueNameLabel.setTitle(leagueName.uppercased(), for: .normal)
         
-       
-            self.teamNameLabel.text = team.safeTeamName
-            self.leagueCountry.setTitle(leagueExtraInfo.uppercased(), for: .normal)
-            self.leagueNameLabel.setTitle(leagueName.uppercased(), for: .normal)
-            
-            if URL(string: team.safeTeamLogo) != nil {
-                self.teamImageView.load(from: team.safeTeamLogo)
-            }
-            self.groupPlayersByType(players: team.safePlayers)
-            self.tableView.reloadData()
+        self.teamImageView.sd_setImage(with: URL(string: team.safeTeamLogo), placeholderImage: UIImage(named: placeHolder))
+        
+        self.groupPlayersByType(players: team.safePlayers)
+        self.tableView.reloadData()
         
     }
     

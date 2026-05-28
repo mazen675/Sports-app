@@ -8,11 +8,13 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     
     var activityIndicator = UIActivityIndicatorView(style: .large)
     
+    var isLoading:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(named: "AppBackground")
         
+        activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
@@ -36,10 +38,12 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     }
     
     func showLoading() {
+        isLoading = true
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
     
     func hideLoading() {
+        isLoading = false
         DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
     }
     
@@ -100,7 +104,9 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         return section
     }
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int { return 3 }
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return isLoading ? 0 : 3
+    }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
@@ -112,18 +118,19 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let placeHolder = getPlaceholderImage(for: presenter.sportEndpoint)
         switch indexPath.section {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath) as! ContestantCollectionViewCell
-            cell.config(contestant: presenter.getTeam(at: indexPath.row))
+            cell.config(contestant: presenter.getTeam(at: indexPath.row), placeHolder: placeHolder )
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingEventCell", for: indexPath) as! UpcomingEventCollectionViewCell
-            cell.config(event: presenter.getUpcomingEvent(at: indexPath.row))
+            cell.config(event: presenter.getUpcomingEvent(at: indexPath.row),placeHolder: placeHolder)
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestEventCell", for: indexPath) as! LatestEventCollectionViewCell
-            cell.config(event: presenter.getLatestEvent(at: indexPath.row))
+            cell.config(event: presenter.getLatestEvent(at: indexPath.row) ,placeHolder: placeHolder)
             return cell
         default:
             return UICollectionViewCell()

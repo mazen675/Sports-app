@@ -17,16 +17,16 @@ class UpcomingEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var homeContestantImageView: UIImageView!
     @IBOutlet weak var awayContestantImageView: UIImageView!
     
-    func config(event: EventModel) {
+    func config(event: EventModel,placeHolder:String) {
         dateLabel.text = "\(event.safeDate) . \(event.safeTime)"
         homeContestantLabel.text = event.safeHomeTeam
         awayContestantLabel.text = event.safeAwayTeam
         
         let homeURL = URL(string: event.homeTeamLogo ?? "")
-        homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: "liverpool"))
+        homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: placeHolder))
         
         let awayURL = URL(string: event.awayTeamLogo ?? "")
-        awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: "liverpool"))
+        awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: placeHolder))
         
         self.layer.cornerRadius = 16
         self.layer.borderWidth = 1

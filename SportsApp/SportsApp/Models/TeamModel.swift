@@ -8,7 +8,7 @@ struct TeamModel: Decodable {
     let players: [Player]?
     
     var safeTeamName: String { return teamName ?? "Unknown Team" }
-    var safeTeamLogo: String { return teamLogo ?? "placeholder_logo" }
+    var safeTeamLogo: String { return teamLogo ?? "" }
     var safeCoaches: [Coach] { return coaches ?? [] }
     var safePlayers: [Player] { return players ?? [] }
     
@@ -70,7 +70,7 @@ struct Player: Decodable {
     var safePlayerName: String { return playerName ?? "Unknown Player" }
     var safePlayerNumber: String { return playerNumber ?? "-" }
     var safePlayerType: String { return playerType ?? "Position N/A" }
-    var safePlayerImage: String { return playerImage ?? "placeholder_avatar" }
+    var safePlayerImage: String { return playerImage ?? "" }
     
     enum CodingKeys: String, CodingKey {
         case playerName = "player_name"

@@ -8,7 +8,6 @@ class LeagueTableViewCell: UITableViewCell {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    // Add a closure to tell the ViewController when the button is tapped
     var favoriteAction: (() -> Void)?
     
     override func awakeFromNib() {
@@ -31,14 +30,13 @@ class LeagueTableViewCell: UITableViewCell {
         favoriteButton.addTarget(self, action: #selector(heartTapped), for: .touchUpInside)
     }
 
-    // Trigger the action when pressed
     @objc private func heartTapped() {
         favoriteAction?()
     }
 
-    func configure(with league: LeagueModel) {
+    func configure(with league: LeagueModel,placeHolder:String) {
         leagueNameLabel.text = league.safeLeagueName
         countryNameLabel.text = league.safeCountryName
-        leagueImageView.load(from: league.safeLeagueLogo)
+        leagueImageView.sd_setImage(with: URL(string: league.safeLeagueLogo), placeholderImage: UIImage(named: placeHolder))
     }
 }
