@@ -50,6 +50,7 @@
 		31D509222FC4785F00A12339 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D509212FC4785F00A12339 /* CoreDataManager.swift */; };
 		31D79C022FC42D47007688EB /* LeagueDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D79C012FC42D47007688EB /* LeagueDetailsPresenter.swift */; };
 		31D79C042FC42F4F007688EB /* LeagueDetailsContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D79C032FC42F4F007688EB /* LeagueDetailsContract.swift */; };
+		31EA82672FC9E0FB0072BB9F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 31EA82662FC9E0FB0072BB9F /* Reachability */; };
 		9F02D8592FC504DF00396D01 /* TennisPlayerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F02D8582FC504DF00396D01 /* TennisPlayerViewProtocol.swift */; };
 		9F02D85B2FC504F100396D01 /* TennisPlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F02D85A2FC504F100396D01 /* TennisPlayerPresenter.swift */; };
 		9F0333272FC502C7006DBAFF /* TeamDetailsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0333262FC502C7006DBAFF /* TeamDetailsViewProtocol.swift */; };
@@ -169,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				311B39CC2FC1F1F700F0B22C /* Alamofire in Frameworks */,
+				31EA82672FC9E0FB0072BB9F /* Reachability in Frameworks */,
 				31C3E7322FC1441800347DE2 /* SDWebImageMapKit in Frameworks */,
 				31C3E7302FC1441800347DE2 /* SDWebImage in Frameworks */,
 			);
@@ -647,6 +649,7 @@
 				31C3E72F2FC1441800347DE2 /* SDWebImage */,
 				31C3E7312FC1441800347DE2 /* SDWebImageMapKit */,
 				311B39CB2FC1F1F700F0B22C /* Alamofire */,
+				31EA82662FC9E0FB0072BB9F /* Reachability */,
 			);
 			productName = SportsApp;
 			productReference = 314FBB572FC090F40098C39B /* SportsApp.app */;
@@ -723,6 +726,7 @@
 			packageReferences = (
 				31C3E72D2FC143FE00347DE2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				311B39CA2FC1F1DE00F0B22C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				31EA82652FC9E0FB0072BB9F /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 314FBB582FC090F40098C39B /* Products */;
 			projectDirPath = "";
@@ -1176,6 +1180,14 @@
 				minimumVersion = 5.21.7;
 			};
 		};
+		31EA82652FC9E0FB0072BB9F /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1193,6 +1205,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31C3E72D2FC143FE00347DE2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		31EA82662FC9E0FB0072BB9F /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31EA82652FC9E0FB0072BB9F /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
 		};
 /* End XCSwiftPackageProductDependency section */
 
