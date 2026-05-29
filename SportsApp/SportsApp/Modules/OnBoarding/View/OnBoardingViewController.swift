@@ -46,7 +46,7 @@ class OnBoardingViewController: UIViewController {
     @IBAction func didSkip(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainAppVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-        
+        UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
             window.rootViewController = mainAppVC
@@ -58,12 +58,13 @@ class OnBoardingViewController: UIViewController {
             if pageIndex == 2 {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainAppVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-            
+                UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first {
                 window.rootViewController = mainAppVC
                 UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
-                    }
+               }
+                
             } else {
                 if let managerVC = self.parent as? OnBoardingPageViewController {
                     managerVC.goForward(from: pageIndex)

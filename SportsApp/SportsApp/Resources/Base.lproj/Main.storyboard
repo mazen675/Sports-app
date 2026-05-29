@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ykW-7T-X4C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="38Z-jo-9Vy">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -1356,9 +1356,12 @@
                                                                         <rect key="frame" x="150.33333333333337" y="0.0" width="129.66666666666663" height="40"/>
                                                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                                     </view>
-                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5K-PO-ncV">
+                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d5K-PO-ncV">
                                                                         <rect key="frame" x="288" y="0.0" width="51" height="40"/>
                                                                         <color key="onTintColor" name="AccentColor"/>
+                                                                        <connections>
+                                                                            <action selector="didChangeTheme:" destination="NmD-yD-lSG" eventType="valueChanged" id="RNQ-H3-oe5"/>
+                                                                        </connections>
                                                                     </switch>
                                                                 </subviews>
                                                             </stackView>
@@ -1414,6 +1417,9 @@
                                                                             <segment title="Arabic"/>
                                                                         </segments>
                                                                         <color key="selectedSegmentTintColor" systemColor="systemGray6Color"/>
+                                                                        <connections>
+                                                                            <action selector="didChangeLanguage:" destination="NmD-yD-lSG" eventType="valueChanged" id="vbN-Hs-OaS"/>
+                                                                        </connections>
                                                                     </segmentedControl>
                                                                 </subviews>
                                                             </stackView>
@@ -1468,6 +1474,10 @@
                             <constraint firstItem="9YI-IZ-yw5" firstAttribute="top" secondItem="Fc5-NR-TWK" secondAttribute="top" id="tOS-eC-OPl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="darkThemeSwitch" destination="d5K-PO-ncV" id="OWl-kN-gv4"/>
+                        <outlet property="languageSegmentedControl" destination="hbW-jT-os4" id="kGF-fw-bmX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxH-v6-d0X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
