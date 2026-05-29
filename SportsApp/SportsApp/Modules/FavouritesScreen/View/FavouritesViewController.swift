@@ -9,9 +9,7 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemBackground
-        self.tableView.backgroundColor = .systemBackground
-        
+        activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
@@ -29,12 +27,12 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        
+        tableView.backgroundColor = .clear
+        tableView.backgroundView = nil
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")
     }
     
-    // MARK: - MVP Methods
     func showLoading() {
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
@@ -61,15 +59,12 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     }
 }
 
-// MARK: - TableView Configuration
 extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // 🚨 FIX 1: Uses numberOfSections instead of a flat list
     func numberOfSections(in tableView: UITableView) -> Int {
         return presenter.numberOfSections
     }
     
-    // 🚨 FIX 2: Replaced 'favouritesCount' with 'numberOfItems(in:)'
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfItems(in: section)
     }
@@ -101,9 +96,8 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeagueTableViewCell
         
-        // 🚨 FIX 3: Passed the whole 'indexPath' instead of 'indexPath.row'
-        let league = presenter.getFavourite(at: indexPath)
-        cell.configure(with: league)
+        let (league,placeHolder) = presenter.getFavourite(at: indexPath)
+        cell.configure(with: league,placeHolder: placeHolder)
         
         cell.favoriteButton.isHidden = true
         return cell
@@ -114,14 +108,12 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 🚨 FIX 4: Passed the whole 'indexPath'
         presenter.didSelectFavourite(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // 🚨 FIX 5: Passed the whole 'indexPath'
             presenter.removeFavourite(at: indexPath)
             
             if presenter.numberOfItems(in: indexPath.section) == 0 {

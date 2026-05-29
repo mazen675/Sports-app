@@ -3,36 +3,32 @@ import Foundation
 class FavouritesPresenter: FavouritesPresenterProtocol {
     weak var view: FavouritesViewProtocol?
     
-    // 🚨 We now store an array of Sections (each section has a sport name and an array of leagues)
     private var sections: [(sport: String, leagues: [LeagueModel])] = []
     
     init(view: FavouritesViewProtocol) {
         self.view = view
     }
     
-    // MARK: - Section Data Methods
     var numberOfSections: Int { return sections.count }
     
     func titleForSection(_ section: Int) -> String {
-        return sections[section].sport.capitalized // E.g., "football" becomes "Football"
+        return sections[section].sport.capitalized
     }
     
     func numberOfItems(in section: Int) -> Int {
         return sections[section].leagues.count
     }
     
-    func getFavourite(at indexPath: IndexPath) -> LeagueModel {
-        return sections[indexPath.section].leagues[indexPath.row]
+    func getFavourite(at indexPath: IndexPath) -> (LeagueModel, String) {
+        return (sections[indexPath.section].leagues[indexPath.row],getPlaceholderImage(for: sections[indexPath.section].sport))
     }
     
-    // MARK: - Fetching Data
     func loadFavourites() {
         view?.showLoading()
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let savedEntities = CoreDataManager.shared.fetchAllFavorites()
             
-            // 1. Group all leagues by their sport
             var groupedBySport: [String: [LeagueModel]] = [:]
             
             for entity in savedEntities {
@@ -47,7 +43,6 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
                 groupedBySport[sport, default: []].append(league)
             }
             
-            // 2. Order the sections perfectly
             let order = ["football", "basketball", "tennis", "cricket"]
             var newSections: [(sport: String, leagues: [LeagueModel])] = []
             
@@ -57,7 +52,6 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
                 }
             }
             
-            // 3. Push back to Main UI
             DispatchQueue.main.async {
                 self?.sections = newSections
                 self?.view?.hideLoading()
@@ -66,19 +60,15 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
         }
     }
     
-    // MARK: - Actions
     func removeFavourite(at indexPath: IndexPath) {
         let league = sections[indexPath.section].leagues[indexPath.row]
         
-        // 1. Delete from Core Data
         if let key = league.leagueKey {
             CoreDataManager.shared.deleteLeague(key: key)
         }
         
-        // 2. Delete from our RAM array
         sections[indexPath.section].leagues.remove(at: indexPath.row)
         
-        // 3. If the section is empty (e.g., deleted the last Tennis league), remove the section entirely!
         if sections[indexPath.section].leagues.isEmpty {
             sections.remove(at: indexPath.section)
         }

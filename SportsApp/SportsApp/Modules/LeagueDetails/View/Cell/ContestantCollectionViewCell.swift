@@ -11,10 +11,11 @@ class ContestantCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contestantLabel: UILabel!
     @IBOutlet weak var contestantImageView: UIImageView!
     
-    func config(contestant: TeamModel){
+    func config(contestant: TeamModel ,placeHolder:String){
         
         contestantLabel.text = contestant.safeTeamName
-        contestantImageView.sd_setImage(with: URL(string:contestant.safeTeamLogo), placeholderImage: UIImage(named: "default"))
+
+        contestantImageView.sd_setImage(with: URL(string:contestant.safeTeamLogo), placeholderImage: UIImage(named: placeHolder))
         
         
         contestantImageView.contentMode = .scaleAspectFill

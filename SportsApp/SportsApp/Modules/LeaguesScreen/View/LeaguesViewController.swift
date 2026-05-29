@@ -7,11 +7,11 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
     
     var presenter: LeaguesPresenterProtocol!
     
-    // 🚨 Circular Progress Bar added
     var activityIndicator = UIActivityIndicatorView(style: .large)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupUI()
         presenter.fetchLeagues()
     }
@@ -22,19 +22,22 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
     }
     
     private func setupUI() {
-        self.view.backgroundColor = .systemBackground
-        self.tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = .clear
+        tableView.backgroundView = nil
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
         searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        searchBar.backgroundColor = .clear
+        searchBar.barTintColor = .clear
         
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")
         
-        // 🚨 Setup the loader in the center of the screen
+        activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
@@ -48,7 +51,6 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
         searchBar.resignFirstResponder()
     }
     
-    // 🚨 Safe Main Thread Loaders
     func showLoading() {
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
@@ -71,14 +73,14 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeagueTableViewCell
         let league = presenter.getLeague(at: indexPath.row)
-        
-        cell.configure(with: league)
+        let placeHolder = getPlaceholderImage(for: presenter.sportEndpoint)
+        cell.configure(with: league, placeHolder: placeHolder)
         
         let leagueId = league.leagueKey ?? ""
         let isFav = presenter.isFavorite(leagueId: leagueId)
         
         cell.favoriteButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
-        cell.favoriteButton.tintColor = isFav ? .red : .lightGray
+        cell.favoriteButton.tintColor = isFav ? .red : .darkGray
         
         cell.favoriteAction = { [weak self] in
             self?.presenter.toggleFavorite(league: league)

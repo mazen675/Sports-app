@@ -1,6 +1,7 @@
 import Foundation
 
 class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
+    
     weak var view: LeagueDetailsViewProtocol?
     
     private var upcomingEvents: [EventModel] = []
@@ -49,10 +50,8 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
             teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
         }
         
-        // 🚨 DispatchGroup ensures the loader waits for BOTH calls to finish
         let group = DispatchGroup()
         
-        // 1. Fetch Fixtures
         group.enter()
         NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
             switch result {
@@ -66,7 +65,6 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
             group.leave()
         }
         
-        // 2. Fetch Teams
         group.enter()
         NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             switch result {
@@ -78,7 +76,6 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
             group.leave()
         }
         
-        // 🚨 When BOTH are done, push to Main Thread
         group.notify(queue: .main) { [weak self] in
             self?.view?.hideLoading()
             self?.view?.reloadData()
@@ -98,4 +95,5 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
             view?.navigateToTeamDetails(teamId: teamId, sportEndpoint: sportEndpoint, leagueName: league.safeLeagueName, leagueExtraInfo: league.safeCountryName)
         }
     }
+    
 }

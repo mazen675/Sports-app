@@ -15,7 +15,6 @@ protocol LeaguesPresenterProtocol {
     func fetchLeagues()
     func filterLeagues(with searchText: String)
     
-    // 🚨 Add these two lines so the View can talk to Core Data
     func isFavorite(leagueId: String) -> Bool
     func toggleFavorite(league: LeagueModel)
 }

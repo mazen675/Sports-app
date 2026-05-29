@@ -26,7 +26,7 @@ class StatisticsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var grassLostLabel: UILabel!
    
     func config(with stat: TennisStat) {
-        seasonLabel.text = stat.season ?? "-"
+        seasonLabel.text = "Season " + (stat.season ?? "-") 
         typeLabel.text = stat.type?.capitalized ?? "-"
         
         rankLabel.text = "#\(stat.rank ?? "-")"
@@ -41,6 +41,11 @@ class StatisticsCollectionViewCell: UICollectionViewCell {
         hardLostLabel.text = stat.hard_lost?.isEmpty == false ? stat.hard_lost : "-"
         clayLostLabel.text = stat.clay_lost?.isEmpty == false ? stat.clay_lost : "-"
         grassLostLabel.text = stat.grass_lost?.isEmpty == false ? stat.grass_lost : "-"
+        
+        self.layer.borderWidth = 2.0
+        self.layer.borderColor = UIColor(named: "titles")?.cgColor
+        self.layer.cornerRadius = 16
+        self.layer.masksToBounds = true
     }
     
 }

@@ -18,21 +18,20 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     }
     
     func fetchTeamDetails() {
-        view?.showLoading() // 🚨 Starts Spinner
+        view?.showLoading()
         
         let url = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&teamId=\(teamId)&APIkey=\(apiKey)"
-        
+        let placeHolder = getPlaceholderImage(for: sportEndpoint)
         NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             
-            // 🚨 Push data to the Main Thread safely
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.view?.hideLoading() // 🚨 Stops Spinner
+                self.view?.hideLoading() 
                 
                 switch result {
                 case .success(let response):
                     if let team = response.result?.first {
-                        self.view?.displayTeamDetails(team: team, leagueName: self.leagueName, leagueExtraInfo: self.leagueExtraInfo)
+                        self.view?.displayTeamDetails(team: team, leagueName: self.leagueName, leagueExtraInfo: self.leagueExtraInfo,placeHolder: placeHolder)
                     } else {
                         self.view?.showError(message: "Team data not found.")
                     }

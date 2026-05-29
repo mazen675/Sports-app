@@ -4,21 +4,31 @@ class SportsViewController: UIViewController, SportsViewProtocol {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    // The Presenter handles the logic
     var presenter: SportsPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize Presenter
         presenter = SportsPresenter(view: self)
-        
-        // Setup the UI
         setupCollectionView()
-        
-        // Ask Presenter for data
         presenter.view?.displaySports()
+        
+        
+        let settingsButton = UIBarButtonItem(
+                    image: UIImage(systemName: "gearshape.fill"),
+                    style: .plain,
+                    target: self,
+                    action: #selector(settingsTapped)
+                )
+                navigationItem.rightBarButtonItem = settingsButton
     }
+    
+    @objc private func settingsTapped() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
+                self.navigationController?.pushViewController(settingsVC, animated: true)
+            }
+        }
     
     func setupCollectionView() {
             collectionView.delegate = self
@@ -28,7 +38,6 @@ class SportsViewController: UIViewController, SportsViewProtocol {
                 layout.estimatedItemSize = .zero
             }
             
-            // custom XIB
             let nib = UINib(nibName: "SportCollectionViewCell", bundle: nil)
             collectionView.register(nib, forCellWithReuseIdentifier: "SportCell")
             
@@ -43,23 +52,15 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     }
     
     func navigateToLeagues(for sportName: String, endpoint: String) {
-            // Instantiate the Leagues screen from the Storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let leaguesVC = storyboard.instantiateViewController(withIdentifier: "LeaguesViewController") as? LeaguesViewController {
-                
-                // Inject the Presenter with the correct endpoint
                 leaguesVC.presenter = LeaguesPresenter(view: leaguesVC, sportEndpoint: endpoint)
-                
-                // Set the title for the navigation bar
                 leaguesVC.title = "\(sportName) Leagues"
-                
-                // Push it onto the screen
                 self.navigationController?.pushViewController(leaguesVC, animated: true)
             }
         }
 }
 
-// CollectionView DataSource & Delegate
 extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -68,8 +69,7 @@ extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportCell", for: indexPath) as! SportCollectionViewCell
-        
-        // Pull the exact sport from our local array
+    
         let sportData = presenter.configureCell(at: indexPath.row)
         cell.setupCell(title: sportData.name, imageName: sportData.image)
         
@@ -80,7 +80,6 @@ extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         presenter.didSelectSport(at: indexPath.row)
     }
     
-    // Dynamic Grid Layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let padding: CGFloat = 16
