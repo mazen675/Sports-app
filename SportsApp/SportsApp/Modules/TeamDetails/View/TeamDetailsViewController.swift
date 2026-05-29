@@ -15,9 +15,7 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = UIColor(named: "AppBackground")
-
+    
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 80
@@ -29,7 +27,8 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         
         let headerNib = UINib(nibName: "CustomTableViewHeader", bundle: nil)
         tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "CustomTableViewHeader")
-        
+        tableView.backgroundColor = .clear
+        tableView.backgroundView = nil
         presenter.fetchTeamDetails()
     }
     

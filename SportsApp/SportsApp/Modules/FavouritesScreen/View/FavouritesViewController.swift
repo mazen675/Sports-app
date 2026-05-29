@@ -9,8 +9,6 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(named: "AppBackground")
-       
         activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
@@ -29,12 +27,12 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        
+        tableView.backgroundColor = .clear
+        tableView.backgroundView = nil
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")
     }
     
-    // MARK: - MVP Methods
     func showLoading() {
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
@@ -61,7 +59,6 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     }
 }
 
-// MARK: - TableView Configuration
 extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

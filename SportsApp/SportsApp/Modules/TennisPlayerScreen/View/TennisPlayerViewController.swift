@@ -11,7 +11,6 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "AppBackground")
         
         collectionView.dataSource = self
         collectionView.delegate = self

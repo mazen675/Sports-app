@@ -9,12 +9,26 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(named: "AppBackground")
-        
         presenter = SportsPresenter(view: self)
         setupCollectionView()
         presenter.view?.displaySports()
+        
+        
+        let settingsButton = UIBarButtonItem(
+                    image: UIImage(systemName: "gearshape.fill"),
+                    style: .plain,
+                    target: self,
+                    action: #selector(settingsTapped)
+                )
+                navigationItem.rightBarButtonItem = settingsButton
     }
+    
+    @objc private func settingsTapped() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
+                self.navigationController?.pushViewController(settingsVC, animated: true)
+            }
+        }
     
     func setupCollectionView() {
             collectionView.delegate = self

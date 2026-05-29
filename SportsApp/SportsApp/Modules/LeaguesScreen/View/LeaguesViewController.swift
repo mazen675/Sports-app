@@ -11,7 +11,7 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "AppBackground")
+
         setupUI()
         presenter.fetchLeagues()
     }
@@ -22,14 +22,17 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
     }
     
     private func setupUI() {
-        self.view.backgroundColor = .systemBackground
-        self.tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = .clear
+        tableView.backgroundView = nil
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
         searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        searchBar.backgroundColor = .clear
+        searchBar.barTintColor = .clear
         
         let nib = UINib(nibName: "LeagueTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "LeagueCell")

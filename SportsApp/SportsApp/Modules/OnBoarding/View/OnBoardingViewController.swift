@@ -31,8 +31,7 @@ class OnBoardingViewController: UIViewController {
         var buttonTitle : String = "Continue"
     override func viewDidLoad() {
             super.viewDidLoad()
-            self.view.backgroundColor = UIColor(named: "AppBackground")
-        
+            
             onBoardingImageView.image = pageImage
             headlineLabel.text = headlineText
             subLabel.text = subTitleText

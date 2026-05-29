@@ -12,8 +12,6 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(named: "AppBackground")
-        
         activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
