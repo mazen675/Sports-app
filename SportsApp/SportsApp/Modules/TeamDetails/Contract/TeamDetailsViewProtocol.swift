@@ -13,9 +13,11 @@ protocol TeamDetailsViewProtocol: AnyObject {
     func hideLoading()
     func showError(message: String)
     func displayTeamDetails(team: TeamModel, leagueName: String , leagueExtraInfo: String , placeHolder:String)
+    func showNetworkAlert()
 }
 
 protocol TeamDetailsPresenterProtocol {
     func fetchTeamDetails()
+    func viewWillAppear()
 }
 

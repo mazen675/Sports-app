@@ -2,7 +2,6 @@ import Foundation
 
 class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     weak var view: TeamDetailsViewProtocol?
-    
     let sportEndpoint: String
     let teamId: String
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
@@ -18,6 +17,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     }
     
     func fetchTeamDetails() {
+        guard NetworkManager.shared.hasConnectivity() else { return }
         view?.showLoading()
         
         let url = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&teamId=\(teamId)&APIkey=\(apiKey)"
@@ -39,6 +39,11 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
                     self.view?.showError(message: error.localizedDescription)
                 }
             }
+        }
+    }
+    func viewWillAppear() {
+        if !NetworkManager.shared.hasConnectivity() {
+            view?.showNetworkAlert()
         }
     }
 }

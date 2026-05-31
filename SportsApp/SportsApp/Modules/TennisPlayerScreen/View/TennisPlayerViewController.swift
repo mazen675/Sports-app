@@ -38,6 +38,11 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         presenter.fetchPlayerDetails()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            presenter.viewWillAppear()
+    }
+    
     func showLoading() {
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }

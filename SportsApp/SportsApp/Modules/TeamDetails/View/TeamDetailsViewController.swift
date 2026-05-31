@@ -30,7 +30,17 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         tableView.backgroundColor = .clear
         tableView.backgroundView = nil
         presenter.fetchTeamDetails()
+        
+        self.teamNameLabel.isHidden = true
+        self.leagueCountry.isHidden = true
+        self.leagueNameLabel.isHidden = true
+        self.teamImageView.isHidden = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            presenter.viewWillAppear()
+     }
     
     func showLoading() {
         DispatchQueue.main.async {

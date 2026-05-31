@@ -5,6 +5,7 @@ protocol LeaguesViewProtocol: AnyObject {
     func hideLoading()
     func reloadData()
     func showError(message: String)
+    func showNetworkAlert()
 }
 
 protocol LeaguesPresenterProtocol {
@@ -17,4 +18,5 @@ protocol LeaguesPresenterProtocol {
     
     func isFavorite(leagueId: String) -> Bool
     func toggleFavorite(league: LeagueModel)
+    func viewWillAppear()
 }

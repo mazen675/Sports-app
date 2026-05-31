@@ -8,6 +8,7 @@ protocol LeagueDetailsViewProtocol: AnyObject {
     func showComingSoonAlert()
     func navigateToTennisPlayer(teamId: String)
     func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String)
+    func showNetworkAlert()
 }
 
 protocol LeagueDetailsPresenterProtocol {
@@ -15,11 +16,13 @@ protocol LeagueDetailsPresenterProtocol {
     var latestEventsCount: Int { get }
     var teamsCount: Int { get }
     var sportEndpoint: String {get}
+    var isNetworkAvailable:Bool {get}
+    
     func getUpcomingEvent(at index: Int) -> EventModel
     func getLatestEvent(at index: Int) -> EventModel
     func getTeam(at index: Int) -> TeamModel
     
     func fetchLeagueDetails()
     func didSelectTeam(at index: Int, section: Int)
-    
+    func viewWillAppear()
 }

@@ -1261,7 +1261,7 @@
         <!--Sports-->
         <scene sceneID="cgE-IX-3NQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2go-a8-09v" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Home" automaticallyAdjustsScrollViewInsets="NO" id="2go-a8-09v" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sports" image="sportscourt.fill" catalog="system" id="eBY-qL-FG6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tHn-6n-hhE">

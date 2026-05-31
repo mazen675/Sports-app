@@ -18,7 +18,7 @@ class LeaguesViewController: UIViewController, LeaguesViewProtocol, UISearchBarD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        presenter.viewWillAppear()
     }
     
     private func setupUI() {

@@ -34,6 +34,10 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         
         presenter.fetchLeagueDetails()
     }
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            presenter.viewWillAppear()
+        }
     
     func showLoading() {
         isLoading = true
@@ -103,7 +107,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return isLoading ? 0 : 3
+        return isLoading || !presenter.isNetworkAvailable ? 0 : 3
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
