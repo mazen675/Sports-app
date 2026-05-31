@@ -71,6 +71,13 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         self.teamImageView.sd_setImage(with: URL(string: team.safeTeamLogo), placeholderImage: UIImage(named: placeHolder))
         
         self.groupPlayersByType(players: team.safePlayers)
+        if team.safePlayers.isEmpty {
+            let emptyView = Bundle.main.loadNibNamed("EmptyStateView", owner: nil, options: nil)?.first as! EmptyStateView
+            emptyView.config(title: "No Players", subtitle: "There are no players listed for this team yet.")
+            self.tableView.backgroundView = emptyView
+            } else {
+            self.tableView.backgroundView = nil
+         }
         self.tableView.reloadData()
         
     }

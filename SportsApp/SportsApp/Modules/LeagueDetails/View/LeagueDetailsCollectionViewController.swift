@@ -18,6 +18,10 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         view.addSubview(activityIndicator)
         
         let layout = UICollectionViewCompositionalLayout { index, environment in
+            if index == 0 && self.presenter.teamsCount == 0 { return self.setEmptyStateSection() }
+            if index == 1 && self.presenter.upcomingEventsCount == 0 { return self.setEmptyStateSection() }
+            if index == 2 && self.presenter.latestEventsCount == 0 { return self.setEmptyStateSection() }
+            
             switch index {
                 case 0 : return self.setContestantsSection()
                 case 1 : return self.setUpcomingEventsSection()
@@ -31,7 +35,8 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         
         let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
         collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
-        
+        let emptyNib = UINib(nibName: "EmptyStateCollectionViewCell", bundle: nil)
+        collectionView.register(emptyNib, forCellWithReuseIdentifier: "EmptyStateCell")
         presenter.fetchLeagueDetails()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +104,17 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         return addHeader(to: section)
     }
     
+    func setEmptyStateSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16)
+        
+        return addHeader(to: section)
+    }
+    
     private func addHeader(to section: NSCollectionLayoutSection) -> NSCollectionLayoutSection {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
@@ -112,9 +128,9 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return presenter.teamsCount
-        case 1: return presenter.upcomingEventsCount
-        case 2: return presenter.latestEventsCount
+        case 0: return max(1, presenter.teamsCount)
+        case 1: return max(1, presenter.upcomingEventsCount)
+        case 2: return max(1, presenter.latestEventsCount)
         default: return 0
         }
     }
@@ -123,17 +139,44 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         let placeHolder = getPlaceholderImage(for: presenter.sportEndpoint)
         switch indexPath.section {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath) as! ContestantCollectionViewCell
-            cell.config(contestant: presenter.getTeam(at: indexPath.row), placeHolder: placeHolder )
-            return cell
+            if presenter.teamsCount == 0 {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                    
+                    cell.config(title: "No Teams", subtitle: "No teams available right now.")
+                    return cell
+                    
+            }else{
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contestantCell", for: indexPath) as! ContestantCollectionViewCell
+                cell.config(contestant: presenter.getTeam(at: indexPath.row), placeHolder: placeHolder )
+                return cell
+            }
+         
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingEventCell", for: indexPath) as! UpcomingEventCollectionViewCell
-            cell.config(event: presenter.getUpcomingEvent(at: indexPath.row),placeHolder: placeHolder)
+            if presenter.upcomingEventsCount == 0 {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                    
+                    cell.config(title: "No Upcoming Events", subtitle: "No upcoming Events available right now.")
+                    return cell
+                    
+            }else{
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingEventCell", for: indexPath) as! UpcomingEventCollectionViewCell
+                cell.config(event: presenter.getUpcomingEvent(at: indexPath.row),placeHolder: placeHolder)
+                return cell
+            }
+     
+        case 2: 
+            if presenter.latestEventsCount == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+            
+            cell.config(title: "No Latest Events", subtitle: "No latest Events available right now.")
             return cell
-        case 2:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestEventCell", for: indexPath) as! LatestEventCollectionViewCell
-            cell.config(event: presenter.getLatestEvent(at: indexPath.row) ,placeHolder: placeHolder)
-            return cell
+            
+            }else{
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestEventCell", for: indexPath) as! LatestEventCollectionViewCell
+                cell.config(event: presenter.getLatestEvent(at: indexPath.row) ,placeHolder: placeHolder)
+                return cell
+            }
+          
         default:
             return UICollectionViewCell()
         }
@@ -171,4 +214,5 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
             self.navigationController?.pushViewController(teamVC, animated: true)
         }
     }
+    
 }

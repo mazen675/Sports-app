@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 public func getPlaceholderImage(for sport: String) -> String {
     switch sport.lowercased() {
     case "football":
@@ -19,5 +19,20 @@ public func getPlaceholderImage(for sport: String) -> String {
         "tennis_default"
     default:
         "football_default"
+    }
+}
+
+public func getSportColor(for sportIndex: Int) -> UIColor {
+    switch sportIndex {
+    case 1:
+        UIColor.red
+    case 2:
+        UIColor.green
+    case 3:
+        UIColor.blue
+    case 4:
+        UIColor.orange
+    default:
+        UIColor.orange
     }
 }

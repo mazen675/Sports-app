@@ -13,17 +13,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         self.view = view
         self.sportEndpoint = sportEndpoint
     }
-    @objc private func networkDropped(notification: Notification) {
-        let connection = NetworkManager.shared.reachability?.connection
-        
-        DispatchQueue.main.async {
-            if connection == .unavailable {
-                self.view?.showNetworkAlert()
-            } else {
-               
-            }
-        }
-    }
+
     var leaguesCount: Int { return filteredLeagues.count }
     
     func getLeague(at index: Int) -> LeagueModel {

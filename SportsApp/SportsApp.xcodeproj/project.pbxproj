@@ -53,6 +53,10 @@
 		31D79C042FC42F4F007688EB /* LeagueDetailsContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D79C032FC42F4F007688EB /* LeagueDetailsContract.swift */; };
 		31EA82672FC9E0FB0072BB9F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 31EA82662FC9E0FB0072BB9F /* Reachability */; };
 		31F0FCCD2FCC77B500105116 /* UIViewController+NetworkAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F0FCCC2FCC77B500105116 /* UIViewController+NetworkAlert.swift */; };
+		31F0FCD12FCC88C400105116 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F0FCD02FCC88C400105116 /* EmptyStateView.swift */; };
+		31F0FCD52FCC895700105116 /* EmptyStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F0FCD42FCC895700105116 /* EmptyStateView.xib */; };
+		31F0FCDD2FCCA57A00105116 /* EmptyStateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F0FCDB2FCCA57A00105116 /* EmptyStateCollectionViewCell.swift */; };
+		31F0FCDE2FCCA57A00105116 /* EmptyStateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F0FCDC2FCCA57A00105116 /* EmptyStateCollectionViewCell.xib */; };
 		9F02D8592FC504DF00396D01 /* TennisPlayerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F02D8582FC504DF00396D01 /* TennisPlayerViewProtocol.swift */; };
 		9F02D85B2FC504F100396D01 /* TennisPlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F02D85A2FC504F100396D01 /* TennisPlayerPresenter.swift */; };
 		9F0333272FC502C7006DBAFF /* TeamDetailsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0333262FC502C7006DBAFF /* TeamDetailsViewProtocol.swift */; };
@@ -149,6 +153,10 @@
 		31D79C012FC42D47007688EB /* LeagueDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsPresenter.swift; sourceTree = "<group>"; };
 		31D79C032FC42F4F007688EB /* LeagueDetailsContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsContract.swift; sourceTree = "<group>"; };
 		31F0FCCC2FCC77B500105116 /* UIViewController+NetworkAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NetworkAlert.swift"; sourceTree = "<group>"; };
+		31F0FCD02FCC88C400105116 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		31F0FCD42FCC895700105116 /* EmptyStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateView.xib; sourceTree = "<group>"; };
+		31F0FCDB2FCCA57A00105116 /* EmptyStateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionViewCell.swift; sourceTree = "<group>"; };
+		31F0FCDC2FCCA57A00105116 /* EmptyStateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F02D8582FC504DF00396D01 /* TennisPlayerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisPlayerViewProtocol.swift; sourceTree = "<group>"; };
 		9F02D85A2FC504F100396D01 /* TennisPlayerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisPlayerPresenter.swift; sourceTree = "<group>"; };
 		9F0333262FC502C7006DBAFF /* TeamDetailsViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewProtocol.swift; sourceTree = "<group>"; };
@@ -338,6 +346,7 @@
 				314FBB902FC0ABC80098C39B /* Services */,
 				314FBB8F2FC0ABBE0098C39B /* Models */,
 				31F0FCCA2FCC777200105116 /* Utils */,
+				31F0FCCE2FCC881300105116 /* Components */,
 				314FBB8E2FC0AB9A0098C39B /* Modules */,
 				314FBB5E2FC090F40098C39B /* ViewController.swift */,
 				314FBB632FC090F40098C39B /* SportsApp.xcdatamodeld */,
@@ -514,6 +523,33 @@
 				31F0FCCC2FCC77B500105116 /* UIViewController+NetworkAlert.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		31F0FCCE2FCC881300105116 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				31F0FCD62FCC9CE500105116 /* EmptyStateCollectionViewCell */,
+				31F0FCCF2FCC889400105116 /* EmptyStateView */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		31F0FCCF2FCC889400105116 /* EmptyStateView */ = {
+			isa = PBXGroup;
+			children = (
+				31F0FCD02FCC88C400105116 /* EmptyStateView.swift */,
+				31F0FCD42FCC895700105116 /* EmptyStateView.xib */,
+			);
+			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
+		31F0FCD62FCC9CE500105116 /* EmptyStateCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31F0FCDB2FCCA57A00105116 /* EmptyStateCollectionViewCell.swift */,
+				31F0FCDC2FCCA57A00105116 /* EmptyStateCollectionViewCell.xib */,
+			);
+			path = EmptyStateCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		9F0333212FC5026D006DBAFF /* View */ = {
@@ -754,8 +790,10 @@
 				314FBB6A2FC090F60098C39B /* LaunchScreen.storyboard in Resources */,
 				314C07292FC761FE009B0D62 /* CustomTableViewHeader.xib in Resources */,
 				311B39E62FC2143800F0B22C /* LeagueTableViewCell.xib in Resources */,
+				31F0FCDE2FCCA57A00105116 /* EmptyStateCollectionViewCell.xib in Resources */,
 				314FBB672FC090F60098C39B /* Assets.xcassets in Resources */,
 				314FBB622FC090F40098C39B /* Main.storyboard in Resources */,
+				31F0FCD52FCC895700105116 /* EmptyStateView.xib in Resources */,
 				311B39BE2FC1D2DA00F0B22C /* SectionHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -788,11 +826,13 @@
 				31F0FCCD2FCC77B500105116 /* UIViewController+NetworkAlert.swift in Sources */,
 				314451552FC8A3F700912CDA /* SportUtils.swift in Sources */,
 				31C3E7202FC11EB400347DE2 /* LeagueDetailsCollectionViewController.swift in Sources */,
+				31F0FCDD2FCCA57A00105116 /* EmptyStateCollectionViewCell.swift in Sources */,
 				9F0D07482FC28157001DB23E /* TeamModel.swift in Sources */,
 				314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */,
 				315DC6812FC97D20008E61A9 /* SettingsViewController.swift in Sources */,
 				315DC6872FC9A68D008E61A9 /* SettingsPresenter.swift in Sources */,
 				311B39E52FC2143800F0B22C /* LeagueTableViewCell.swift in Sources */,
+				31F0FCD12FCC88C400105116 /* EmptyStateView.swift in Sources */,
 				311B39BD2FC1D2DA00F0B22C /* SectionHeaderView.swift in Sources */,
 				9F0D074A2FC28160001DB23E /* NetworkService.swift in Sources */,
 				9FE078142FC2A88F00C0B4C0 /* LeaguesContract.swift in Sources */,

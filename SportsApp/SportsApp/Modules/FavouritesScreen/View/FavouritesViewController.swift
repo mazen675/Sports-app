@@ -14,6 +14,9 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
         
+        let headerNib = UINib(nibName: "CustomTableViewHeader", bundle: nil)
+        tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "CustomTableViewHeader")
+        
         presenter = FavouritesPresenter(view: self)
         setupTableView()
     }
@@ -70,23 +73,12 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = .systemGray6
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomTableViewHeader") as! CustomTableViewHeader
         
-        let titleLabel = UILabel()
-        titleLabel.text = presenter.titleForSection(section)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.textColor = .label
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let sectionTitle = presenter.titleForSection(section)
+        header.config(color: getSportColor(for: section), title: sectionTitle)
         
-        headerView.addSubview(titleLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
-        ])
-        
-        return headerView
+        return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
