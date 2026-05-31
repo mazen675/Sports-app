@@ -13,7 +13,7 @@ class CustomTableViewHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var SectionHeaderLabel: UILabel!
     
     func config(color:UIColor,title:String ){
-        coloredLineView.tintColor = color
+        coloredLineView.backgroundColor = color
         SectionHeaderLabel.text = title
     }
     /*

@@ -11,6 +11,7 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     let sportEndpoint: String
     let league: LeagueModel
     let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
+    var isNetworkAvailable:Bool = true
     
     init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel) {
         self.view = view
@@ -27,6 +28,10 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     func getTeam(at index: Int) -> TeamModel { return teams[index] }
     
     func fetchLeagueDetails() {
+        guard NetworkManager.shared.hasConnectivity() else {
+            isNetworkAvailable = false
+            return
+        }
         guard let leagueId = league.leagueKey else { return }
         
         view?.showLoading()
@@ -96,4 +101,9 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         }
     }
     
+    func viewWillAppear() {
+            if !NetworkManager.shared.hasConnectivity() {
+                view?.showNetworkAlert()
+            }
+        }
 }

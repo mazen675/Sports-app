@@ -22,6 +22,11 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         
         let layout = UICollectionViewCompositionalLayout{
             index,environment in
+            guard let player = self.tennisPlayer else { return nil }
+            
+            if index == 1 && player.safeStats.isEmpty { return self.setEmptyStateSection() }
+            if index == 2 && player.safeTournaments.isEmpty { return self.setEmptyStateSection() }
+            
             switch index{
             case 0 : return self.setHeaderSection()
             case 1 : return self.setStatisticsSection()
@@ -32,10 +37,16 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         
         let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
         collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
-        
+        let emptyNib = UINib(nibName: "EmptyStateCollectionViewCell", bundle: nil)
+        collectionView.register(emptyNib, forCellWithReuseIdentifier: "EmptyStateCell")
         collectionView.setCollectionViewLayout(layout, animated: true)
         
         presenter.fetchPlayerDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            presenter.viewWillAppear()
     }
     
     func showLoading() {
@@ -110,6 +121,22 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         return section
     }
     
+    func setEmptyStateSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [header]
+        
+        return section
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return tennisPlayer == nil ? 0 : 3
@@ -120,8 +147,8 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         guard let player = tennisPlayer else { return 0 }
         switch section {
         case 0: return 1
-        case 1: return player.safeStats.count
-        case 2: return player.safeTournaments.count
+        case 1: return max(1, player.safeStats.count)
+        case 2: return max(1, player.safeTournaments.count)
         default: return 0
         }
     }
@@ -133,15 +160,28 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
                 cell.config(with: tennisPlayer!)
                 return cell
             case 1 :
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
-                cell.config(with: tennisPlayer!.stats![indexPath.row])
-                return cell
+                if tennisPlayer!.safeStats.isEmpty {
+                            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                            cell.config(title: "No Statistics", subtitle: "No stats available for this player.")
+                            return cell
+                }else{
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
+                    cell.config(with: tennisPlayer!.stats![indexPath.row])
+                    return cell
+                }
+                
                 
             case 2 :
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath) as! TournamentCollectionViewCell
-                cell.config(with: tennisPlayer!.tournaments![indexPath.row])
-                return cell
-                
+                if tennisPlayer!.safeTournaments.isEmpty {
+                            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                            cell.config(title: "No Tournaments", subtitle: "No recent tournaments found.")
+                            return cell
+                }else{
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath) as! TournamentCollectionViewCell
+                    cell.config(with: tennisPlayer!.tournaments![indexPath.row])
+                    return cell
+                }
+        
             default :
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath)
                 return cell

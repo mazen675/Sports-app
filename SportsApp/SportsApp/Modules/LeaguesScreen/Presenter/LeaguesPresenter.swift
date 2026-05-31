@@ -1,5 +1,5 @@
 import Foundation
-
+import Reachability
 class LeaguesPresenter: LeaguesPresenterProtocol {
     weak var view: LeaguesViewProtocol?
     
@@ -13,7 +13,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         self.view = view
         self.sportEndpoint = sportEndpoint
     }
-    
+
     var leaguesCount: Int { return filteredLeagues.count }
     
     func getLeague(at index: Int) -> LeagueModel {
@@ -21,15 +21,15 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     }
     
     func fetchLeagues() {
-        view?.showLoading() // 🚨 Starts spinner
+        guard NetworkManager.shared.hasConnectivity() else { return }
+        view?.showLoading()
         
         let url = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Leagues&APIkey=\(apiKey)"
         
         NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<LeagueModel>, Error>) in
-            // 🚨 Force UI updates to main thread!
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.view?.hideLoading() // 🚨 Stops spinner
+                self.view?.hideLoading()
                 
                 switch result {
                 case .success(let response):
@@ -43,7 +43,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
             }
         }
     }
-    
+
     func filterLeagues(with searchText: String) {
         if searchText.isEmpty {
             filteredLeagues = allLeagues
@@ -60,5 +60,11 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     func toggleFavorite(league: LeagueModel) {
         CoreDataManager.shared.toggleFavorite(league: league, sport: sportEndpoint)
         view?.reloadData()
+    }
+    
+    func viewWillAppear() {
+            if !NetworkManager.shared.hasConnectivity() {
+                view?.showNetworkAlert()
+            }
     }
 }

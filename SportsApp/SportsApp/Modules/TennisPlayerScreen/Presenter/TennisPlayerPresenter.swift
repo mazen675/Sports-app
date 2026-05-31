@@ -35,4 +35,9 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
             }
         }
     }
+    func viewWillAppear() {
+            if !NetworkManager.shared.hasConnectivity() {
+                view?.showNetworkAlert()
+            }
+    }
 }

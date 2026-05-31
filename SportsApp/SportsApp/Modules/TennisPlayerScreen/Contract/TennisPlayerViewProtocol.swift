@@ -13,8 +13,10 @@ protocol TennisPlayerViewProtocol: AnyObject {
     func hideLoading()
     func displayPlayerDetails(player: TennisPlayerModel)
     func showError(message: String)
+    func showNetworkAlert()
 }
 
 protocol TennisPlayerPresenterProtocol {
     func fetchPlayerDetails()
+    func viewWillAppear()
 }
