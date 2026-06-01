@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  SportsApp
+
+  Created by Ahmed Tayseer on 31/05/2026.
+  
+*/
+"home_title" = "الرئيسية";
+"sports_tab" = "الرياضات";
+"leagues_title_format" = "دوريات %@";
+"Football" = "كرة القدم";
+"Basketball" = "كرة السلة";
+"Tennis" = "التنس";
+"Cricket" = "الكريكت";
+"favourites_title" = "المفضلة";
+"favourites_tab" = "المفضلة";
+
+"settings_title" = "الإعدادات";
+"english_language" = "الإنجليزية";
+"arabic_language" = "العربية";
+"dark_theme" = "الوضع الداكن";
+"language" = "اللغة";
+
+"player_not_found" = "بيانات اللاعب غير موجودة.";
+"no_statistics_title" = "لا توجد إحصائيات";
+"no_statistics_subtitle" = "لا تتوفر إحصائيات لهذا اللاعب.";
+"no_tournaments_title" = "لا توجد بطولات";
+"no_tournaments_subtitle" = "لم يتم العثور على بطولات حديثة.";
+"statistics_header" = "الإحصائيات";
+"tournaments_header" = "البطولات";
+
+"team_not_found" = "بيانات الفريق غير موجودة.";
+"no_players_title" = "لا يوجد لاعبون";
+"no_players_subtitle" = "لم يتم إدراج أي لاعبين لهذا الفريق حتى الآن.";
+
+"coming_soon_title" = "قريباً";
+"coming_soon_message" = "ستكون تفاصيل الفريق لهذه الرياضة متاحة قريباً.";
+"ok_button" = "حسناً";
+
+"no_teams_title" = "لا توجد فرق";
+"no_teams_subtitle" = "لا توجد فرق متاحة في الوقت الحالي.";
+"no_upcoming_events_title" = "لا توجد أحداث قادمة";
+"no_upcoming_events_subtitle" = "لا توجد أحداث قادمة متاحة في الوقت الحالي.";
+"no_latest_events_title" = "لا توجد أحداث حديثة";
+"no_latest_events_subtitle" = "لا توجد أحداث حديثة متاحة في الوقت الحالي.";
+
+"players_header" = "اللاعبون";
+"teams_header" = "الفرق";
+"upcoming_events_header" = "الأحداث القادمة";
+"latest_events_header" = "أحدث الأحداث";

@@ -12,7 +12,7 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
     var numberOfSections: Int { return sections.count }
     
     func titleForSection(_ section: Int) -> String {
-        return sections[section].sport.capitalized
+        return sections[section].sport.capitalized.localized
     }
     
     func numberOfItems(in section: Int) -> Int {

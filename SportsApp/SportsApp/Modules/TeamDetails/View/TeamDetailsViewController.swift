@@ -53,7 +53,7 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
     }
     
     func hideLoading() {
-        DispatchQueue.main.async { 
+        DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             self.teamNameLabel.isHidden = false
             self.leagueCountry.isHidden = false
@@ -73,7 +73,9 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         self.groupPlayersByType(players: team.safePlayers)
         if team.safePlayers.isEmpty {
             let emptyView = Bundle.main.loadNibNamed("EmptyStateView", owner: nil, options: nil)?.first as! EmptyStateView
-            emptyView.config(title: "No Players", subtitle: "There are no players listed for this team yet.")
+            let title = NSLocalizedString("no_players_title", comment: "No Players")
+            let subtitle = NSLocalizedString("no_players_subtitle", comment: "No players listed")
+            emptyView.config(title: title, subtitle: subtitle)
             self.tableView.backgroundView = emptyView
             } else {
             self.tableView.backgroundView = nil

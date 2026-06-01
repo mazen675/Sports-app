@@ -64,8 +64,12 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     
     func showComingSoonAlert() {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Coming Soon", message: "Team details for this sport will be available soon.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alertTitle = NSLocalizedString("coming_soon_title", comment: "Coming Soon")
+            let alertMessage = NSLocalizedString("coming_soon_message", comment: "Team details coming soon")
+            let okButton = NSLocalizedString("ok_button", comment: "OK")
+            
+            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: okButton, style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }
@@ -142,7 +146,9 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
             if presenter.teamsCount == 0 {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
                     
-                    cell.config(title: "No Teams", subtitle: "No teams available right now.")
+                    let title = NSLocalizedString("no_teams_title", comment: "No Teams")
+                    let subtitle = NSLocalizedString("no_teams_subtitle", comment: "No teams available")
+                    cell.config(title: title, subtitle: subtitle)
                     return cell
                     
             }else{
@@ -155,7 +161,9 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
             if presenter.upcomingEventsCount == 0 {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
                     
-                    cell.config(title: "No Upcoming Events", subtitle: "No upcoming Events available right now.")
+                    let title = NSLocalizedString("no_upcoming_events_title", comment: "No Upcoming Events")
+                    let subtitle = NSLocalizedString("no_upcoming_events_subtitle", comment: "No upcoming events available")
+                    cell.config(title: title, subtitle: subtitle)
                     return cell
                     
             }else{
@@ -164,11 +172,13 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
                 return cell
             }
      
-        case 2: 
+        case 2:
             if presenter.latestEventsCount == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
             
-            cell.config(title: "No Latest Events", subtitle: "No latest Events available right now.")
+            let title = NSLocalizedString("no_latest_events_title", comment: "No Latest Events")
+            let subtitle = NSLocalizedString("no_latest_events_subtitle", comment: "No latest events available")
+            cell.config(title: title, subtitle: subtitle)
             return cell
             
             }else{
@@ -185,10 +195,15 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
         switch indexPath.section {
-        case 0: header.titleLabel.text = presenter.sportEndpoint == "tennis" ? "Players" : "Teams"
-        case 1: header.titleLabel.text = "Upcoming Events"
-        case 2: header.titleLabel.text = "Latest Events"
-        default: header.titleLabel.text = ""
+        case 0:
+            let headerText = presenter.sportEndpoint == "tennis" ? NSLocalizedString("players_header", comment: "Players") : NSLocalizedString("teams_header", comment: "Teams")
+            header.titleLabel.text = headerText
+        case 1:
+            header.titleLabel.text = NSLocalizedString("upcoming_events_header", comment: "Upcoming Events")
+        case 2:
+            header.titleLabel.text = NSLocalizedString("latest_events_header", comment: "Latest Events")
+        default:
+            header.titleLabel.text = ""
         }
         return header
     }

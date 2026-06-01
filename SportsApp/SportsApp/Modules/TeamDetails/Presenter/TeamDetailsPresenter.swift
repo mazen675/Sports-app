@@ -26,14 +26,15 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
             
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.view?.hideLoading() 
+                self.view?.hideLoading()
                 
                 switch result {
                 case .success(let response):
                     if let team = response.result?.first {
                         self.view?.displayTeamDetails(team: team, leagueName: self.leagueName, leagueExtraInfo: self.leagueExtraInfo,placeHolder: placeHolder)
                     } else {
-                        self.view?.showError(message: "Team data not found.")
+                        let errorMessage = NSLocalizedString("team_not_found", comment: "Team data not found")
+                        self.view?.showError(message: errorMessage)
                     }
                 case .failure(let error):
                     self.view?.showError(message: error.localizedDescription)
