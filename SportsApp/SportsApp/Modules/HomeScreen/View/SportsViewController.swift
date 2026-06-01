@@ -78,8 +78,6 @@ extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportCell", for: indexPath) as! SportCollectionViewCell
     
         let sportData = presenter.configureCell(at: indexPath.row)
-        
-        // 🌍 Apply Localization to the sport name inside the cell
         cell.setupCell(title: sportData.name.localized, imageName: sportData.image)
         
         return cell

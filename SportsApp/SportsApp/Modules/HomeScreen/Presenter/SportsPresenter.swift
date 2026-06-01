@@ -2,10 +2,8 @@ import Foundation
 
 class SportsPresenter: SportsPresenterProtocol {
     
-    // Weak reference to avoid memory leaks
     weak var view: SportsViewProtocol?
     
-    // The local data source
     private let sportsList = availableSports
     
     init(view: SportsViewProtocol) {
@@ -22,7 +20,6 @@ class SportsPresenter: SportsPresenterProtocol {
     
     func didSelectSport(at index: Int) {
         let selectedSport = sportsList[index]
-        // Tell the view to navigate, passing the endpoint
         view?.navigateToLeagues(for: selectedSport.name, endpoint: selectedSport.apiEndpoint)
     }
 }

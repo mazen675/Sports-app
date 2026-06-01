@@ -48,3 +48,6 @@
 "teams_header" = "Teams";
 "upcoming_events_header" = "Upcoming Events";
 "latest_events_header" = "Latest Events";
+
+"offline_title" = "Offline";
+"offline_message" = "No internet connection detected. Returning to Home.";

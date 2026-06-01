@@ -48,3 +48,6 @@
 "teams_header" = "الفرق";
 "upcoming_events_header" = "الأحداث القادمة";
 "latest_events_header" = "أحدث الأحداث";
+
+"offline_title" = "غير متصل";
+"offline_message" = "لم يتم اكتشاف اتصال بالإنترنت. العودة إلى الرئيسية.";

@@ -8,6 +8,10 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
     @IBOutlet weak var leagueCountry: UIButton!
     @IBOutlet weak var leagueNameLabel: UIButton!
     
+    @IBOutlet weak var emptyStateCardView: UIView!
+    @IBOutlet weak var emptyStateTitleLabel: UILabel!
+    @IBOutlet weak var emptyStateSubtitlesLabel: UILabel!
+    
     var presenter: TeamDetailsPresenterProtocol!
     var currentTeam: TeamModel?
     var groupedSections: [PlayerSection] = []
@@ -35,6 +39,7 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         self.leagueCountry.isHidden = true
         self.leagueNameLabel.isHidden = true
         self.teamImageView.isHidden = true
+        self.emptyStateCardView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,11 +77,9 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
         
         self.groupPlayersByType(players: team.safePlayers)
         if team.safePlayers.isEmpty {
-            let emptyView = Bundle.main.loadNibNamed("EmptyStateView", owner: nil, options: nil)?.first as! EmptyStateView
-            let title = NSLocalizedString("no_players_title", comment: "No Players")
-            let subtitle = NSLocalizedString("no_players_subtitle", comment: "No players listed")
-            emptyView.config(title: title, subtitle: subtitle)
-            self.tableView.backgroundView = emptyView
+            self.emptyStateCardView.isHidden = false
+            self.emptyStateTitleLabel.text = "no_players_title".localized
+            self.emptyStateSubtitlesLabel.text = "no_players_subtitle".localized
             } else {
             self.tableView.backgroundView = nil
          }

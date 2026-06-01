@@ -25,14 +25,24 @@ public func getPlaceholderImage(for sport: String) -> String {
 public func getSportColor(for sportIndex: Int) -> UIColor {
     switch sportIndex {
     case 1:
-        UIColor.red
-    case 2:
-        UIColor.green
-    case 3:
-        UIColor.blue
-    case 4:
-        UIColor.orange
+        UIColor.systemBlue
+  
     default:
-        UIColor.orange
+        UIColor.systemBlue
+    }
+}
+
+public func getCardbackGroundImage(for sport: String) -> String {
+    switch sport.lowercased() {
+    case "football":
+        "football_card"
+    case "basketball":
+        "basketball_card"
+    case "cricket":
+        "cricket_card"
+    case "tennis":
+        "tennis_card"
+    default:
+        "football_card"
     }
 }

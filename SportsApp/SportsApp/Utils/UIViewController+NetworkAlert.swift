@@ -15,12 +15,12 @@ extension UIViewController {
             guard let self = self, self.presentedViewController == nil else { return }
             
             let alert = UIAlertController(
-                title: "Offline",
-                message: "No internet connection detected. Returning to Home.",
+                title: "offline_title".localized,
+                message: "offline_message".localized,
                 preferredStyle: .alert
             )
             
-            let homeAction = UIAlertAction(title: "Home", style: .default) { _ in
+            let homeAction = UIAlertAction(title: "home_title".localized, style: .default) { _ in
                 self.navigationController?.popToRootViewController(animated: true)
             }
             

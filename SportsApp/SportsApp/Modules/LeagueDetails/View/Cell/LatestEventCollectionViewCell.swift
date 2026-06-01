@@ -17,7 +17,9 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bgImageView: UIImageView!
     
     
-    func config(event: EventModel,placeHolder:String) {
+    func config(event: EventModel,placeHolder:String, bgImage:String) {
+        bgImageView.image = UIImage(named: bgImage)
+        
             dateLabel.text = event.safeDate
             homeContestantLabel.text = event.safeHomeTeam
             awayContestantLabel.text = event.safeAwayTeam
@@ -30,8 +32,8 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
             awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: placeHolder))
             
             self.layer.cornerRadius = 16
-            self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.blue.cgColor
+//            self.layer.borderWidth = 1
+//            self.layer.borderColor = UIColor.blue.cgColor
 
             bgImageView.contentMode = .scaleAspectFill
             bgImageView.clipsToBounds = true
