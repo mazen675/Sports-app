@@ -111,14 +111,15 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            presenter.removeFavourite(at: indexPath)
-            
-            if presenter.numberOfItems(in: indexPath.section) == 0 {
-                tableView.reloadData()
-            } else {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+            if editingStyle == .delete {
+                let sectionsBefore = presenter.numberOfSections
+                presenter.removeFavourite(at: indexPath)
+                let sectionsAfter = presenter.numberOfSections
+                if sectionsAfter < sectionsBefore {
+                    tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                } else {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
             }
         }
-    }
 }

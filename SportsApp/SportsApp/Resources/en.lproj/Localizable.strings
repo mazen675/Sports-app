@@ -14,3 +14,37 @@
 "Cricket" = "Cricket";
 "favourites_title" = "Favourites";
 "favourites_tab" = "Favourites";
+
+"settings_title" = "Settings";
+"english_language" = "English";
+"arabic_language" = "Arabic";
+"dark_theme" = "Dark Theme";
+"language" = "Language";
+
+"player_not_found" = "Player data not found.";
+"no_statistics_title" = "No Statistics";
+"no_statistics_subtitle" = "No stats available for this player.";
+"no_tournaments_title" = "No Tournaments";
+"no_tournaments_subtitle" = "No recent tournaments found.";
+"statistics_header" = "Statistics";
+"tournaments_header" = "Tournaments";
+
+"team_not_found" = "Team data not found.";
+"no_players_title" = "No Players";
+"no_players_subtitle" = "There are no players listed for this team yet.";
+
+"coming_soon_title" = "Coming Soon";
+"coming_soon_message" = "Team details for this sport will be available soon.";
+"ok_button" = "OK";
+
+"no_teams_title" = "No Teams";
+"no_teams_subtitle" = "No teams available right now.";
+"no_upcoming_events_title" = "No Upcoming Events";
+"no_upcoming_events_subtitle" = "No upcoming events available right now.";
+"no_latest_events_title" = "No Latest Events";
+"no_latest_events_subtitle" = "No latest events available right now.";
+
+"players_header" = "Players";
+"teams_header" = "Teams";
+"upcoming_events_header" = "Upcoming Events";
+"latest_events_header" = "Latest Events";

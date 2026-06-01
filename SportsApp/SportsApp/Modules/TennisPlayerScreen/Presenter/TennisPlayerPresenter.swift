@@ -27,7 +27,8 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
                     if let player = response.result?.first {
                         self.view?.displayPlayerDetails(player: player)
                     } else {
-                        self.view?.showError(message: "Player data not found.")
+                        let errorMessage = NSLocalizedString("player_not_found", comment: "Player data not found")
+                        self.view?.showError(message: errorMessage)
                     }
                 case .failure(let error):
                     self.view?.showError(message: error.localizedDescription)

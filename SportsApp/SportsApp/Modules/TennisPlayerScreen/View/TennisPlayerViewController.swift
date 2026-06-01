@@ -162,7 +162,9 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
             case 1 :
                 if tennisPlayer!.safeStats.isEmpty {
                             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
-                            cell.config(title: "No Statistics", subtitle: "No stats available for this player.")
+                            let title = NSLocalizedString("no_statistics_title", comment: "No Statistics")
+                            let subtitle = NSLocalizedString("no_statistics_subtitle", comment: "No stats available")
+                            cell.config(title: title, subtitle: subtitle)
                             return cell
                 }else{
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
@@ -174,7 +176,9 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
             case 2 :
                 if tennisPlayer!.safeTournaments.isEmpty {
                             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
-                            cell.config(title: "No Tournaments", subtitle: "No recent tournaments found.")
+                            let title = NSLocalizedString("no_tournaments_title", comment: "No Tournaments")
+                            let subtitle = NSLocalizedString("no_tournaments_subtitle", comment: "No recent tournaments")
+                            cell.config(title: title, subtitle: subtitle)
                             return cell
                 }else{
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath) as! TournamentCollectionViewCell
@@ -198,12 +202,14 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
             
             switch indexPath.section {
-            case 1: header.titleLabel.text = "Statistics"
-            case 2: header.titleLabel.text = "Tournaments"
-            default: header.titleLabel.text = ""
+            case 1:
+                header.titleLabel.text = NSLocalizedString("statistics_header", comment: "Statistics")
+            case 2:
+                header.titleLabel.text = NSLocalizedString("tournaments_header", comment: "Tournaments")
+            default:
+                header.titleLabel.text = ""
             }
             
             return header
         }
     }
-
