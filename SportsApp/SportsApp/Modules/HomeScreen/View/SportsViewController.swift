@@ -9,41 +9,46 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "home_title".localized
+        
+        if let tabItems = self.tabBarController?.tabBar.items {
+                    tabItems[0].title = "sports_tab".localized
+                    tabItems[1].title = "favourites_tab".localized
+                }
+        
         presenter = SportsPresenter(view: self)
         setupCollectionView()
         presenter.view?.displaySports()
         
-        
         let settingsButton = UIBarButtonItem(
-                    image: UIImage(systemName: "gearshape.fill"),
-                    style: .plain,
-                    target: self,
-                    action: #selector(settingsTapped)
-                )
-                navigationItem.rightBarButtonItem = settingsButton
+            image: UIImage(systemName: "gearshape.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(settingsTapped)
+        )
+        navigationItem.rightBarButtonItem = settingsButton
     }
     
     @objc private func settingsTapped() {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
-                self.navigationController?.pushViewController(settingsVC, animated: true)
-            }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
+            self.navigationController?.pushViewController(settingsVC, animated: true)
         }
+    }
     
     func setupCollectionView() {
-            collectionView.delegate = self
-            collectionView.dataSource = self
-            
-            if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                layout.estimatedItemSize = .zero
-            }
-            
-            let nib = UINib(nibName: "SportCollectionViewCell", bundle: nil)
-            collectionView.register(nib, forCellWithReuseIdentifier: "SportCell")
-            
-            collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.estimatedItemSize = .zero
         }
-    
+        
+        let nib = UINib(nibName: "SportCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: "SportCell")
+        
+        collectionView.backgroundColor = .clear
+    }
     
     func displaySports() {
         DispatchQueue.main.async {
@@ -52,13 +57,15 @@ class SportsViewController: UIViewController, SportsViewProtocol {
     }
     
     func navigateToLeagues(for sportName: String, endpoint: String) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let leaguesVC = storyboard.instantiateViewController(withIdentifier: "LeaguesViewController") as? LeaguesViewController {
-                leaguesVC.presenter = LeaguesPresenter(view: leaguesVC, sportEndpoint: endpoint)
-                leaguesVC.title = "\(sportName) Leagues"
-                self.navigationController?.pushViewController(leaguesVC, animated: true)
-            }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let leaguesVC = storyboard.instantiateViewController(withIdentifier: "LeaguesViewController") as? LeaguesViewController {
+            leaguesVC.presenter = LeaguesPresenter(view: leaguesVC, sportEndpoint: endpoint)
+            
+            leaguesVC.title = String(format: "leagues_title_format".localized, sportName.localized)
+            
+            self.navigationController?.pushViewController(leaguesVC, animated: true)
         }
+    }
 }
 
 extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -71,7 +78,9 @@ extension SportsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportCell", for: indexPath) as! SportCollectionViewCell
     
         let sportData = presenter.configureCell(at: indexPath.row)
-        cell.setupCell(title: sportData.name, imageName: sportData.image)
+        
+        // 🌍 Apply Localization to the sport name inside the cell
+        cell.setupCell(title: sportData.name.localized, imageName: sportData.image)
         
         return cell
     }

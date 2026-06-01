@@ -9,6 +9,10 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "favourites_title".localized
+        self.tabBarItem.title = "favourites_tab".localized
+        self.navigationController?.tabBarItem.title = "favourites_tab".localized
+        
         activityIndicator.color = .titles
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
@@ -45,7 +49,9 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     }
     
     func reloadData() {
-        DispatchQueue.main.async { self.tableView.reloadData() }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func navigateToLeagueDetails(league: LeagueModel, sportEndpoint: String) {
