@@ -38,7 +38,8 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+       dateFormatter.calendar = Calendar(identifier: .gregorian)
         let today = Date()
         let pastDate = Calendar.current.date(byAdding: .year, value: -1, to: today)!
         let futureDate = Calendar.current.date(byAdding: .year, value: 1, to: today)!
@@ -59,6 +60,7 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         
         group.enter()
         NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
+            print(fixturesURL)
             switch result {
             case .success(let response):
                 let allEvents = response.result ?? []

@@ -18,11 +18,11 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             countryLabel.text = player.playerCountry ?? "Unknown"
             bDayLabel.text = player.playerBday ?? "-"
         
-            playerImageView.layer.borderWidth = 2.0
-            playerImageView.layer.borderColor = UIColor(named: "titles")?.cgColor
+            playerImageView.layer.borderWidth = 1.0
+            playerImageView.layer.borderColor = UIColor.systemGray4.cgColor
             playerImageView.sd_setImage(with: URL(string: player.safeLogo), placeholderImage: UIImage(named: "tennis_default"))
-            self.layer.borderWidth = 2.0
-            self.layer.borderColor = UIColor(named: "titles")?.cgColor
+//            self.layer.borderWidth = 2.0
+//            self.layer.borderColor = UIColor(named: "titles")?.cgColor
             self.layer.cornerRadius = 16
             self.layer.masksToBounds = true
         }

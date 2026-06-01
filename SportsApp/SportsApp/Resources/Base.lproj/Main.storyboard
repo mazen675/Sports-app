@@ -844,6 +844,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tennis_header_bg" translatesAutoresizingMaskIntoConstraints="NO" id="oMr-Ke-iku">
+                                                    <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="16"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpM-rd-F7F">
                                                     <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
                                                     <subviews>
@@ -911,7 +919,6 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
                                                         <constraint firstItem="6l8-lq-hsE" firstAttribute="top" secondItem="qpM-rd-F7F" secondAttribute="top" constant="24" id="5qp-d2-gpg"/>
                                                         <constraint firstItem="hol-vP-d5I" firstAttribute="top" secondItem="qpM-rd-F7F" secondAttribute="top" constant="8" id="FJt-rA-qfC"/>
@@ -930,9 +937,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="qpM-rd-F7F" firstAttribute="top" secondItem="1sG-MV-0fF" secondAttribute="top" id="7l0-1d-iGL"/>
+                                                <constraint firstAttribute="bottom" secondItem="oMr-Ke-iku" secondAttribute="bottom" id="FTB-li-aiw"/>
                                                 <constraint firstItem="qpM-rd-F7F" firstAttribute="leading" secondItem="1sG-MV-0fF" secondAttribute="leading" id="LnC-Eu-0xy"/>
+                                                <constraint firstItem="oMr-Ke-iku" firstAttribute="top" secondItem="1sG-MV-0fF" secondAttribute="top" id="R1V-9m-r9T"/>
+                                                <constraint firstAttribute="trailing" secondItem="oMr-Ke-iku" secondAttribute="trailing" id="WIa-8n-zBr"/>
                                                 <constraint firstAttribute="bottom" secondItem="qpM-rd-F7F" secondAttribute="bottom" id="b2s-5h-WZ0"/>
                                                 <constraint firstAttribute="trailing" secondItem="qpM-rd-F7F" secondAttribute="trailing" id="gHX-GV-zuG"/>
+                                                <constraint firstItem="oMr-Ke-iku" firstAttribute="leading" secondItem="1sG-MV-0fF" secondAttribute="leading" id="uR6-32-Lxi"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -958,6 +969,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ug-QD-1Gf">
                                                     <rect key="frame" x="20" y="20" width="325" height="270"/>
                                                     <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tennis_statistics_bg" translatesAutoresizingMaskIntoConstraints="NO" id="UKO-xR-TNn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="270"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="16"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zgs-ay-pef" userLabel="Main Stack View">
                                                             <rect key="frame" x="0.0" y="0.0" width="325" height="270"/>
                                                             <subviews>
@@ -972,7 +991,6 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sG2-Cv-Qsr">
                                                                             <rect key="frame" x="13" y="0.0" width="265.66666666666669" height="51.666666666666664"/>
-                                                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfY-HQ-cx9">
                                                                             <rect key="frame" x="286.66666666666669" y="0.0" width="38.333333333333314" height="51.666666666666664"/>
@@ -1155,14 +1173,16 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="UKO-xR-TNn" secondAttribute="bottom" id="2ob-gv-EVF"/>
                                                         <constraint firstAttribute="bottom" secondItem="zgs-ay-pef" secondAttribute="bottom" id="88Z-Ph-8af"/>
                                                         <constraint firstAttribute="trailing" secondItem="zgs-ay-pef" secondAttribute="trailing" id="BUE-XG-05U"/>
+                                                        <constraint firstItem="UKO-xR-TNn" firstAttribute="leading" secondItem="7ug-QD-1Gf" secondAttribute="leading" id="DMF-aZ-7by"/>
                                                         <constraint firstItem="zgs-ay-pef" firstAttribute="leading" secondItem="7ug-QD-1Gf" secondAttribute="leading" id="hVd-iv-JK3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="UKO-xR-TNn" secondAttribute="trailing" id="oAw-dh-o8U"/>
+                                                        <constraint firstItem="UKO-xR-TNn" firstAttribute="top" secondItem="7ug-QD-1Gf" secondAttribute="top" id="wYc-MH-57V"/>
                                                         <constraint firstItem="zgs-ay-pef" firstAttribute="top" secondItem="7ug-QD-1Gf" secondAttribute="top" id="xOL-p1-AZj"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -1172,7 +1192,6 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="7ug-QD-1Gf" secondAttribute="bottom" constant="20" symbolic="YES" id="Fz9-91-kpv"/>
                                                 <constraint firstItem="7ug-QD-1Gf" firstAttribute="top" secondItem="gCi-Eo-K11" secondAttribute="top" constant="20" symbolic="YES" id="VEH-ds-hqV"/>
@@ -1211,6 +1230,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvT-fU-Htg">
                                                     <rect key="frame" x="0.0" y="0.0" width="370" height="170"/>
                                                     <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tennis_header_bg" translatesAutoresizingMaskIntoConstraints="NO" id="1xi-Jh-btV">
+                                                            <rect key="frame" x="0.0" y="0.0" width="370" height="170"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="16"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1xs-3O-Ru9" userLabel="Main Stack View">
                                                             <rect key="frame" x="8" y="16" width="354" height="138"/>
                                                             <subviews>
@@ -1267,11 +1294,14 @@
                                                             </constraints>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="1xi-Jh-btV" secondAttribute="trailing" id="KH6-14-SDO"/>
                                                         <constraint firstAttribute="trailing" secondItem="1xs-3O-Ru9" secondAttribute="trailing" constant="8" id="UeC-yR-jYX"/>
                                                         <constraint firstAttribute="bottom" secondItem="1xs-3O-Ru9" secondAttribute="bottom" constant="16" id="WJ1-Ks-9hd"/>
+                                                        <constraint firstItem="1xi-Jh-btV" firstAttribute="top" secondItem="jvT-fU-Htg" secondAttribute="top" id="efV-nt-YB4"/>
                                                         <constraint firstItem="1xs-3O-Ru9" firstAttribute="top" secondItem="jvT-fU-Htg" secondAttribute="top" constant="16" id="grP-V2-X6g"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1xi-Jh-btV" secondAttribute="bottom" id="kh9-7L-M7l"/>
+                                                        <constraint firstItem="1xi-Jh-btV" firstAttribute="leading" secondItem="jvT-fU-Htg" secondAttribute="leading" id="twk-8u-25T"/>
                                                         <constraint firstItem="1xs-3O-Ru9" firstAttribute="leading" secondItem="jvT-fU-Htg" secondAttribute="leading" constant="8" id="ucH-YQ-u4Z"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -1281,7 +1311,6 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="jvT-fU-Htg" secondAttribute="bottom" id="PZZ-tF-yUF"/>
                                                 <constraint firstAttribute="trailing" secondItem="jvT-fU-Htg" secondAttribute="trailing" id="X94-fZ-FXt"/>
@@ -1560,6 +1589,8 @@
         <image name="moon.fill" catalog="system" width="128" height="123"/>
         <image name="sportscourt.fill" catalog="system" width="128" height="83"/>
         <image name="stadium" width="576" height="360"/>
+        <image name="tennis_header_bg" width="612" height="612"/>
+        <image name="tennis_statistics_bg" width="736" height="920"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
