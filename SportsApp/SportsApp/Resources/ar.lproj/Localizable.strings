@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  SportsApp
+
+  Created by Ahmed Tayseer on 31/05/2026.
+  
+*/
+"home_title" = "الرئيسية";
+"sports_tab" = "الرياضات";
+"leagues_title_format" = "دوريات %@";
+"Football" = "كرة القدم";
+"Basketball" = "كرة السلة";
+"Tennis" = "التنس";
+"Cricket" = "الكريكت";
+"favourites_title" = "المفضلة";
+"favourites_tab" = "المفضلة";

@@ -70,6 +70,8 @@
 		9F3EF5382FC3E61A004048A2 /* TennisPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3EF5372FC3E61A004048A2 /* TennisPlayerModel.swift */; };
 		9F3EF54D2FC3EFBF004048A2 /* FavouritesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3EF54C2FC3EFBF004048A2 /* FavouritesContract.swift */; };
 		9F3EF54F2FC3EFE8004048A2 /* FavouritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3EF54E2FC3EFE8004048A2 /* FavouritesPresenter.swift */; };
+		9F86CC5A2FCD4FD000A5695D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F86CC582FCD4FD000A5695D /* Localizable.strings */; };
+		9F86CC5F2FCD50A500A5695D /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86CC5E2FCD50A500A5695D /* String+Localization.swift */; };
 		9F8D11712FC2963900B16926 /* SportsContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D11702FC2963900B16926 /* SportsContract.swift */; };
 		9F8D11732FC2964E00B16926 /* SportsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D11722FC2964E00B16926 /* SportsPresenter.swift */; };
 		9FE078142FC2A88F00C0B4C0 /* LeaguesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE078132FC2A88F00C0B4C0 /* LeaguesContract.swift */; };
@@ -170,6 +172,11 @@
 		9F3EF5372FC3E61A004048A2 /* TennisPlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisPlayerModel.swift; sourceTree = "<group>"; };
 		9F3EF54C2FC3EFBF004048A2 /* FavouritesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesContract.swift; sourceTree = "<group>"; };
 		9F3EF54E2FC3EFE8004048A2 /* FavouritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesPresenter.swift; sourceTree = "<group>"; };
+		9F86CC562FCD4EBD00A5695D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		9F86CC572FCD4EBE00A5695D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9F86CC592FCD4FD000A5695D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9F86CC5B2FCD4FE300A5695D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9F86CC5E2FCD50A500A5695D /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		9F8D11702FC2963900B16926 /* SportsContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsContract.swift; sourceTree = "<group>"; };
 		9F8D11722FC2964E00B16926 /* SportsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPresenter.swift; sourceTree = "<group>"; };
 		9FE078132FC2A88F00C0B4C0 /* LeaguesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesContract.swift; sourceTree = "<group>"; };
@@ -425,6 +432,8 @@
 				314FBB602FC090F40098C39B /* Main.storyboard */,
 				314FBB662FC090F60098C39B /* Assets.xcassets */,
 				314FBB682FC090F60098C39B /* LaunchScreen.storyboard */,
+				9F86CC582FCD4FD000A5695D /* Localizable.strings */,
+				9F86CC5E2FCD50A500A5695D /* String+Localization.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -763,6 +772,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 314FBB4E2FC090F40098C39B;
 			packageReferences = (
@@ -791,6 +801,7 @@
 				314C07292FC761FE009B0D62 /* CustomTableViewHeader.xib in Resources */,
 				311B39E62FC2143800F0B22C /* LeagueTableViewCell.xib in Resources */,
 				31F0FCDE2FCCA57A00105116 /* EmptyStateCollectionViewCell.xib in Resources */,
+				9F86CC5A2FCD4FD000A5695D /* Localizable.strings in Resources */,
 				314FBB672FC090F60098C39B /* Assets.xcassets in Resources */,
 				314FBB622FC090F40098C39B /* Main.storyboard in Resources */,
 				31F0FCD52FCC895700105116 /* EmptyStateView.xib in Resources */,
@@ -846,6 +857,7 @@
 				3122A81B2FC3B9240047AA73 /* TournamentCollectionViewCell.swift in Sources */,
 				9F0D07422FC2813C001DB23E /* APIResponse.swift in Sources */,
 				314C07272FC761C3009B0D62 /* CustomTableViewHeader.swift in Sources */,
+				9F86CC5F2FCD50A500A5695D /* String+Localization.swift in Sources */,
 				3122A8122FC3B57D0047AA73 /* TennisPlayerViewController.swift in Sources */,
 				9F3EF54D2FC3EFBF004048A2 /* FavouritesContract.swift in Sources */,
 				9F0D07442FC28145001DB23E /* LeagueModel.swift in Sources */,
@@ -910,6 +922,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				314FBB612FC090F40098C39B /* Base */,
+				9F86CC562FCD4EBD00A5695D /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -918,8 +931,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				314FBB692FC090F60098C39B /* Base */,
+				9F86CC572FCD4EBE00A5695D /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		9F86CC582FCD4FD000A5695D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F86CC592FCD4FD000A5695D /* en */,
+				9F86CC5B2FCD4FE300A5695D /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -930,6 +953,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -993,6 +1017,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

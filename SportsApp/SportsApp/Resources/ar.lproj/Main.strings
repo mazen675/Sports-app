@@ -1,0 +1,189 @@
+
+/* Class = "UILabel"; text = "FT"; ObjectID = "00H-6C-fWY"; */
+"00H-6C-fWY.text" = "FT";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1qK-kS-6P3"; */
+"1qK-kS-6P3.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7S9-VO-3aB"; */
+"7S9-VO-3aB.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "8F6-Jo-yl9"; */
+"8F6-Jo-yl9.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Favourites"; ObjectID = "CLK-3r-VEL"; */
+"CLK-3r-VEL.title" = "Favourites";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "D6F-Js-Rwz"; */
+"D6F-Js-Rwz.text" = "Label";
+
+/* Class = "UILabel"; text = "Hard"; ObjectID = "Epo-R9-i7W"; */
+"Epo-R9-i7W.text" = "Hard";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FPP-gH-ieP"; */
+"FPP-gH-ieP.text" = "Label";
+
+/* Class = "UILabel"; text = "Won"; ObjectID = "GOC-1r-icZ"; */
+"GOC-1r-icZ.text" = "Won";
+
+/* Class = "UINavigationItem"; title = "Favourites"; ObjectID = "GSi-mJ-UEx"; */
+"GSi-mJ-UEx.title" = "Favourites";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Hdx-5q-0PU"; */
+"Hdx-5q-0PU.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "JIp-Yw-oUL"; */
+"JIp-Yw-oUL.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Nal-FO-A8q"; */
+"Nal-FO-A8q.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "NbM-JS-fqQ"; */
+"NbM-JS-fqQ.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Nd8-Bn-Thd"; */
+"Nd8-Bn-Thd.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Nh2-HQ-s5x"; */
+"Nh2-HQ-s5x.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "OWW-yf-n5z"; */
+"OWW-yf-n5z.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "OfY-HQ-cx9"; */
+"OfY-HQ-cx9.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "OoA-cm-o3h"; */
+"OoA-cm-o3h.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Oov-Qk-bFP"; */
+"Oov-Qk-bFP.text" = "Label";
+
+/* Class = "UILabel"; text = "Country"; ObjectID = "PEB-s1-QHL"; */
+"PEB-s1-QHL.text" = "Country";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "PJl-yC-esi"; */
+"PJl-yC-esi.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "V8y-pK-BN8"; */
+"V8y-pK-BN8.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VMd-mK-MMF"; */
+"VMd-mK-MMF.text" = "Label";
+
+/* Class = "UILabel"; text = "Lost"; ObjectID = "X4L-8V-dBZ"; */
+"X4L-8V-dBZ.text" = "Lost";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "XPC-Px-rdp"; */
+"XPC-Px-rdp.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ZAg-cL-RJs"; */
+"ZAg-cL-RJs.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ajx-IY-9k4"; */
+"ajx-IY-9k4.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "b9w-LV-lxK"; */
+"b9w-LV-lxK.text" = "Language";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bJM-gN-Tih"; */
+"bJM-gN-Tih.text" = "Label";
+
+/* Class = "UIButton"; configuration.title = "Button"; ObjectID = "bZT-gq-o1A"; */
+"bZT-gq-o1A.configuration.title" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "bZT-gq-o1A"; */
+"bZT-gq-o1A.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "cMe-aK-WPM"; */
+"cMe-aK-WPM.text" = "Settings";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ckQ-KZ-KnU"; */
+"ckQ-KZ-KnU.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cuT-jj-ywW"; */
+"cuT-jj-ywW.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Sports"; ObjectID = "eBY-qL-FG6"; */
+"eBY-qL-FG6.title" = "Sports";
+
+/* Class = "UILabel"; text = "Rank"; ObjectID = "f3I-U3-hid"; */
+"f3I-U3-hid.text" = "Rank";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fWM-n3-fnd"; */
+"fWM-n3-fnd.text" = "Label";
+
+/* Class = "UILabel"; text = "Lost"; ObjectID = "gym-a3-jB9"; */
+"gym-a3-jB9.text" = "Lost";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hY4-JC-2gy"; */
+"hY4-JC-2gy.text" = "Label";
+
+/* Class = "UISegmentedControl"; hbW-jT-os4.segmentTitles[0] = "English"; ObjectID = "hbW-jT-os4"; */
+"hbW-jT-os4.segmentTitles[0]" = "English";
+
+/* Class = "UISegmentedControl"; hbW-jT-os4.segmentTitles[1] = "Arabic"; ObjectID = "hbW-jT-os4"; */
+"hbW-jT-os4.segmentTitles[1]" = "Arabic";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "idS-mE-mC2"; */
+"idS-mE-mC2.text" = "Label";
+
+/* Class = "UIButton"; configuration.title = "Skip"; ObjectID = "jag-3y-TV2"; */
+"jag-3y-TV2.configuration.title" = "Skip";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "jag-3y-TV2"; */
+"jag-3y-TV2.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Won"; ObjectID = "juX-AE-JWH"; */
+"juX-AE-JWH.text" = "Won";
+
+/* Class = "UILabel"; text = "Hello ahmed Tayseer"; ObjectID = "jvO-9m-qeU"; */
+"jvO-9m-qeU.text" = "Hello ahmed Tayseer";
+
+/* Class = "UILabel"; text = "Grass"; ObjectID = "l5n-Jt-7Rd"; */
+"l5n-Jt-7Rd.text" = "Grass";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lgx-ht-R8U"; */
+"lgx-ht-R8U.text" = "Label";
+
+/* Class = "UILabel"; text = "Clay"; ObjectID = "lrO-F7-L1u"; */
+"lrO-F7-L1u.text" = "Clay";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "mkj-hu-OIm"; */
+"mkj-hu-OIm.text" = "Label";
+
+/* Class = "UILabel"; text = "Dark Theme"; ObjectID = "qVE-Cc-i0s"; */
+"qVE-Cc-i0s.text" = "Dark Theme";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "s2r-sg-ucY"; */
+"s2r-sg-ucY.text" = "Label";
+
+/* Class = "UILabel"; text = "VS"; ObjectID = "sJD-Qn-QQy"; */
+"sJD-Qn-QQy.text" = "VS";
+
+/* Class = "UINavigationItem"; title = "Home"; ObjectID = "sbA-ha-OYl"; */
+"sbA-ha-OYl.title" = "Home";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tHq-ZJ-CsI"; */
+"tHq-ZJ-CsI.text" = "Label";
+
+/* Class = "UILabel"; text = "Surface"; ObjectID = "uIP-1R-KYc"; */
+"uIP-1R-KYc.text" = "Surface";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "vEe-Kc-sIB"; */
+"vEe-Kc-sIB.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "vqZ-rV-wYM"; */
+"vqZ-rV-wYM.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yds-nB-Z4p"; */
+"yds-nB-Z4p.text" = "Label";
+
+/* Class = "UILabel"; text = "Titles"; ObjectID = "zad-78-Dlo"; */
+"zad-78-Dlo.text" = "Titles";
+
+/* Class = "UILabel"; text = "Born"; ObjectID = "zes-1x-X8s"; */
+"zes-1x-X8s.text" = "Born";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zyC-rU-lN2"; */
+"zyC-rU-lN2.text" = "Label";
