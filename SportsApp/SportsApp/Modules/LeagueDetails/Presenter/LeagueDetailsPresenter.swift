@@ -10,7 +10,6 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     
     let sportEndpoint: String
     let league: LeagueModel
-    let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     var isNetworkAvailable:Bool = true
     
     init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel) {
@@ -28,7 +27,7 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     func getTeam(at index: Int) -> TeamModel { return teams[index] }
     
     func fetchLeagueDetails() {
-        guard NetworkManager.shared.hasConnectivity() else {
+        guard hasConnectivity() else {
             isNetworkAvailable = false
             return
         }
@@ -39,7 +38,8 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-       dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        
         let today = Date()
         let pastDate = Calendar.current.date(byAdding: .year, value: -1, to: today)!
         let futureDate = Calendar.current.date(byAdding: .year, value: 1, to: today)!
@@ -47,13 +47,13 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         let fromDate = dateFormatter.string(from: pastDate)
         let toDate = dateFormatter.string(from: futureDate)
         
-        let fixturesURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
+        let fixturesURL = "\(Constants.baseURL)/\(sportEndpoint)/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(Constants.apiKey)"
         var teamsURL = ""
         
         if sportEndpoint == "tennis" {
-            teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Players&leagueId=\(leagueId)&APIkey=\(apiKey)"
+            teamsURL = "\(Constants.baseURL)/\(sportEndpoint)/?met=Players&leagueId=\(leagueId)&APIkey=\(Constants.apiKey)"
         } else {
-            teamsURL = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+            teamsURL = "\(Constants.baseURL)/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(Constants.apiKey)"
         }
         
         let group = DispatchGroup()
@@ -104,8 +104,8 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     }
     
     func viewWillAppear() {
-            if !NetworkManager.shared.hasConnectivity() {
-                view?.showNetworkAlert()
-            }
+        if !hasConnectivity() {
+            view?.showNetworkAlert()
         }
+     }
 }

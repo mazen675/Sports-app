@@ -11,11 +11,6 @@ struct TennisPlayerModel: Decodable {
     
     var safeName: String { return playerName ?? "Unknown Player" }
     var safeLogo: String { return playerLogo ?? "placeholder_avatar" }
-    var safeSubtitle: String {
-        let country = playerCountry ?? "Unknown Country"
-        let bday = playerBday ?? ""
-        return bday.isEmpty ? country : "\(country) • Born: \(bday)"
-    }
     
     var safeTournaments: [TennisTournament] { return tournaments ?? [] }
     var safeStats: [TennisStat] { return stats ?? [] }
@@ -47,7 +42,6 @@ struct TennisPlayerModel: Decodable {
     }
 }
 
-// Nested Structs for Details
 struct TennisStat: Decodable {
     let season: String?
     let type: String?

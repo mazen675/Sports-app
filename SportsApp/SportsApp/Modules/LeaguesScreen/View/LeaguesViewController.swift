@@ -72,19 +72,15 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeagueTableViewCell
-        let league = presenter.getLeague(at: indexPath.row)
-        let placeHolder = getPlaceholderImage(for: presenter.sportEndpoint)
-        cell.configure(with: league, placeHolder: placeHolder)
-        
-        let leagueId = league.leagueKey ?? ""
-        let isFav = presenter.isFavorite(leagueId: leagueId)
-        
-        cell.favoriteButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
-        cell.favoriteButton.tintColor = isFav ? .red : .darkGray
+        let data = presenter.getLeagueData(at: indexPath.row)
+        cell.configure(with: data.league, placeHolder: data.placeholder)
+        cell.favoriteButton.setImage(UIImage(systemName: data.isFavorite ? "heart.fill" : "heart"), for: .normal)
+        cell.favoriteButton.tintColor = data.isFavorite ? .red : .darkGray
         
         cell.favoriteAction = { [weak self] in
-            self?.presenter.toggleFavorite(league: league)
+            self?.presenter.toggleFavorite(league: data.league)
         }
+        
         return cell
     }
     
@@ -93,14 +89,15 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedLeague = presenter.getLeague(at: indexPath.row)
+        presenter.didSelectLeague(at: indexPath.row) 
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    func navigateToLeagueDetails(league: LeagueModel, endpoint: String, title: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
         if let detailsVC = storyboard.instantiateViewController(withIdentifier: "LeagueDetailsCollectionViewController") as? LeagueDetailsCollectionViewController {
-            detailsVC.presenter = LeagueDetailsPresenter(view: detailsVC, sportEndpoint: presenter.sportEndpoint, league: selectedLeague)
-            detailsVC.title = selectedLeague.safeLeagueName
+            detailsVC.presenter = LeagueDetailsPresenter(view: detailsVC, sportEndpoint: endpoint, league: league)
+            detailsVC.title = title
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

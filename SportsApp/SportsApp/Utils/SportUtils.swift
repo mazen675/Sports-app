@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Reachability
 public func getPlaceholderImage(for sport: String) -> String {
     switch sport.lowercased() {
     case "football":
@@ -19,16 +20,6 @@ public func getPlaceholderImage(for sport: String) -> String {
         "tennis_default"
     default:
         "football_default"
-    }
-}
-
-public func getSportColor(for sportIndex: Int) -> UIColor {
-    switch sportIndex {
-    case 1:
-        UIColor.systemBlue
-  
-    default:
-        UIColor.systemBlue
     }
 }
 
@@ -45,4 +36,10 @@ public func getCardbackGroundImage(for sport: String) -> String {
     default:
         "football_card"
     }
+}
+
+
+public func hasConnectivity() -> Bool {
+    let reachability = try? Reachability()
+    return reachability?.connection != .unavailable
 }
