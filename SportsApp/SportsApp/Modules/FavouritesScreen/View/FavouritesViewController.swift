@@ -82,7 +82,7 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomTableViewHeader") as! CustomTableViewHeader
         
         let sectionTitle = presenter.titleForSection(section)
-        header.config(color: getSportColor(for: section), title: sectionTitle)
+        header.config(color:  UIColor.systemBlue, title: sectionTitle)
         
         return header
     }
@@ -112,14 +112,15 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete {
-                let sectionsBefore = presenter.numberOfSections
                 presenter.removeFavourite(at: indexPath)
-                let sectionsAfter = presenter.numberOfSections
-                if sectionsAfter < sectionsBefore {
-                    tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                } else {
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                }
             }
-        }
+     }
+    
+    func deleteRow(at indexPath: IndexPath) {
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+
+    func deleteSection(at index: Int) {
+        tableView.deleteSections(IndexSet(integer: index), with: .fade)
+    }
 }

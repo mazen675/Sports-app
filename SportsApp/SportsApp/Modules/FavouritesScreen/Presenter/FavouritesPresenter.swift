@@ -62,15 +62,19 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
     
     func removeFavourite(at indexPath: IndexPath) {
         let league = sections[indexPath.section].leagues[indexPath.row]
+        if let key = league.leagueKey { CoreDataManager.shared.deleteLeague(key: key) }
         
-        if let key = league.leagueKey {
-            CoreDataManager.shared.deleteLeague(key: key)
-        }
-        
+        let sectionsBefore = sections.count
         sections[indexPath.section].leagues.remove(at: indexPath.row)
         
         if sections[indexPath.section].leagues.isEmpty {
             sections.remove(at: indexPath.section)
+        }
+        
+        if sections.count < sectionsBefore {
+            view?.deleteSection(at: indexPath.section)
+        } else {
+            view?.deleteRow(at: indexPath)
         }
     }
     

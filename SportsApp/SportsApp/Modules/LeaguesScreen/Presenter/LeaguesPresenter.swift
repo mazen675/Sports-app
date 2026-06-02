@@ -7,7 +7,6 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     private var filteredLeagues: [LeagueModel] = []
     
     let sportEndpoint: String
-    let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     
     init(view: LeaguesViewProtocol, sportEndpoint: String) {
         self.view = view
@@ -16,15 +15,19 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
 
     var leaguesCount: Int { return filteredLeagues.count }
     
-    func getLeague(at index: Int) -> LeagueModel {
-        return filteredLeagues[index]
+    func getLeagueData(at index: Int) -> (league: LeagueModel, placeholder: String, isFavorite: Bool) {
+        let league = filteredLeagues[index]
+        let placeholder = getPlaceholderImage(for: sportEndpoint)
+        let isFav = isFavorite(leagueId: league.leagueKey ?? "")
+        
+        return (league, placeholder, isFav)
     }
     
     func fetchLeagues() {
-        guard NetworkManager.shared.hasConnectivity() else { return }
+        guard hasConnectivity() else { return }
         view?.showLoading()
         
-        let url = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Leagues&APIkey=\(apiKey)"
+        let url = "\(Constants.baseURL)/\(sportEndpoint)/?met=Leagues&APIkey=\(Constants.apiKey)"
         
         NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<LeagueModel>, Error>) in
             DispatchQueue.main.async {
@@ -52,6 +55,11 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         }
         view?.reloadData()
     }
+    
+    func didSelectLeague(at index: Int) {
+        let selectedLeague = filteredLeagues[index]
+        view?.navigateToLeagueDetails(league: selectedLeague, endpoint: sportEndpoint, title: selectedLeague.safeLeagueName)
+    }
 
     func isFavorite(leagueId: String) -> Bool {
         return CoreDataManager.shared.isFavorite(key: leagueId)
@@ -63,7 +71,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     }
     
     func viewWillAppear() {
-            if !NetworkManager.shared.hasConnectivity() {
+            if !hasConnectivity() {
                 view?.showNetworkAlert()
             }
     }

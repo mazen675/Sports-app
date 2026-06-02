@@ -4,7 +4,6 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     weak var view: TeamDetailsViewProtocol?
     let sportEndpoint: String
     let teamId: String
-    let apiKey = "94020ba3429f1ccbe0468c475db80ec2c5ae6626f3a46960d6fec1bcd5e8513c"
     let leagueExtraInfo: String
     let leagueName : String
     
@@ -17,10 +16,10 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     }
     
     func fetchTeamDetails() {
-        guard NetworkManager.shared.hasConnectivity() else { return }
+        guard hasConnectivity() else { return }
         view?.showLoading()
         
-        let url = "https://apiv2.allsportsapi.com/\(sportEndpoint)/?met=Teams&teamId=\(teamId)&APIkey=\(apiKey)"
+        let url = "\(Constants.baseURL)/\(sportEndpoint)/?met=Teams&teamId=\(teamId)&APIkey=\(Constants.apiKey)"
         let placeHolder = getPlaceholderImage(for: sportEndpoint)
         NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             
@@ -43,7 +42,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
         }
     }
     func viewWillAppear() {
-        if !NetworkManager.shared.hasConnectivity() {
+        if !hasConnectivity() {
             view?.showNetworkAlert()
         }
     }

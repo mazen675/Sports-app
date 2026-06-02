@@ -5,6 +5,8 @@ protocol FavouritesViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func navigateToLeagueDetails(league: LeagueModel, sportEndpoint: String)
+    func deleteRow(at indexPath: IndexPath)
+    func deleteSection(at index: Int)
 }
 
 protocol FavouritesPresenterProtocol {
