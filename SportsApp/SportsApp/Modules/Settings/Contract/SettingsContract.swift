@@ -10,6 +10,8 @@ import Foundation
 protocol SettingsViewProtocol: AnyObject {
     func updateThemeToggle(isDark: Bool)
     func updateLanguageSelection(index: Int)
+    func applyThemeChange(isDark: Bool)
+    func restartApp()
 }
 
 protocol SettingsPresenterProtocol {

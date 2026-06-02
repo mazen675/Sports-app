@@ -28,13 +28,12 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     
     private func setupLocalization() {
         self.title = "settings_title".localized
-        
         largeTitleLabel.text = "settings_title".localized
         darkThemeLabel.text = "dark_theme".localized
         languageLabel.text = "language".localized
         
-        languageSegmentedControl.setTitle("arabic_language".localized, forSegmentAt: 0)
-        languageSegmentedControl.setTitle("english_language".localized, forSegmentAt: 1)
+        languageSegmentedControl.setTitle("english_language".localized, forSegmentAt: 0)
+        languageSegmentedControl.setTitle("arabic_language".localized, forSegmentAt: 1)
     }
     
     @IBAction func didChangeTheme(_ sender: UISwitch) {
@@ -52,5 +51,45 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     func updateLanguageSelection(index: Int) {
         languageSegmentedControl.selectedSegmentIndex = index
     }
-
+    
+    func applyThemeChange(isDark: Bool) {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.overrideUserInterfaceStyle = isDark ? .dark : .light
+        }
+    }
+    
+        func restartApp() {
+            let lang = UserDefaults.standard.string(forKey: "AppLanguage") ?? "en"
+            
+            if lang == "ar" {
+                UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                UISearchBar.appearance().semanticContentAttribute = .forceRightToLeft
+                UINavigationBar.appearance().semanticContentAttribute = .forceRightToLeft
+            } else {
+                UIView.appearance().semanticContentAttribute = .forceLeftToRight
+                UISearchBar.appearance().semanticContentAttribute = .forceLeftToRight
+                UINavigationBar.appearance().semanticContentAttribute = .forceLeftToRight
+            }
+            
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first else { return }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
+            var rootVC: UIViewController
+            
+            if hasSeenOnboarding {
+                let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+                rootVC = UINavigationController(rootViewController: tabBarVC)
+            } else {
+                rootVC = storyboard.instantiateInitialViewController()!
+            }
+            
+            window.rootViewController = rootVC
+            window.makeKeyAndVisible()
+            
+            UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        }
 }
