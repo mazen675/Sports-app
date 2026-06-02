@@ -17,6 +17,12 @@ protocol TeamDetailsViewProtocol: AnyObject {
 }
 
 protocol TeamDetailsPresenterProtocol {
+    var numberOfSections: Int { get }
+    
+    func numberOfRows(in section: Int) -> Int
+    func getPlayer(at indexPath: IndexPath) -> Player
+    func getSectionTitle(for section: Int) -> String
+    
     func fetchTeamDetails()
     func viewWillAppear()
 }

@@ -16,7 +16,7 @@ struct OnboardingItem {
 
 class OnBoardingPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-    // 🌍 Apply Localization to the Data Array
+
     let pagesData: [OnboardingItem] = [
         OnboardingItem(headline: "onboarding_head_1".localized,
                        subTitle: "onboarding_sub_1".localized,

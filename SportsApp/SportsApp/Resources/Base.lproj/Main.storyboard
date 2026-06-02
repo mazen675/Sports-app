@@ -592,7 +592,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5pr-Ub-BP6">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" name="DarkLightGrey"/>
                     </tabBar>
                     <connections>
                         <segue destination="2go-a8-09v" kind="relationship" relationship="viewControllers" id="ygb-kh-XmU"/>

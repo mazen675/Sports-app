@@ -71,8 +71,9 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     }
     
     func viewWillAppear() {
-            if !hasConnectivity() {
-                view?.showNetworkAlert()
-            }
+        if !hasConnectivity() {
+            view?.showNetworkAlert()
+        }
+        view?.reloadData()
     }
 }
