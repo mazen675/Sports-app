@@ -22,8 +22,8 @@ class ContestantCollectionViewCell: UICollectionViewCell {
         contestantImageView.backgroundColor = .systemGray6
         contestantImageView.layer.cornerRadius = contestantImageView.frame.width / 2
         contestantImageView.clipsToBounds = true
-
+//
         contestantImageView.layer.borderWidth = 2.0
-        contestantImageView.layer.borderColor = UIColor.systemBlue.cgColor
+        contestantImageView.layer.borderColor = UIColor.systemGray4.cgColor
     }
 }

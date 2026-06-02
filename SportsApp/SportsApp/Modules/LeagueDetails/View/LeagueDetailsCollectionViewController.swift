@@ -100,7 +100,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     func setLatestEventsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(110))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 16
@@ -141,6 +141,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let placeHolder = getPlaceholderImage(for: presenter.sportEndpoint)
+        let cardBg = getCardbackGroundImage(for: presenter.sportEndpoint)
         switch indexPath.section {
         case 0:
             if presenter.teamsCount == 0 {
@@ -168,7 +169,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
                     
             }else{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingEventCell", for: indexPath) as! UpcomingEventCollectionViewCell
-                cell.config(event: presenter.getUpcomingEvent(at: indexPath.row),placeHolder: placeHolder)
+                cell.config(event: presenter.getUpcomingEvent(at: indexPath.row),placeHolder: placeHolder,bgImage: cardBg)
                 return cell
             }
      
@@ -183,7 +184,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
             
             }else{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestEventCell", for: indexPath) as! LatestEventCollectionViewCell
-                cell.config(event: presenter.getLatestEvent(at: indexPath.row) ,placeHolder: placeHolder)
+                cell.config(event: presenter.getLatestEvent(at: indexPath.row) ,placeHolder: placeHolder,bgImage: cardBg)
                 return cell
             }
           
