@@ -28,6 +28,11 @@ class SettingsPresenter: SettingsPresenterProtocol {
     }
     
     func changeLanguage(index: Int) {
+        let langCode = (index == 0) ? "en" : "ar"
+        
         UserDefaults.standard.set(index, forKey: "languageIndex")
+        UserDefaults.standard.set(langCode, forKey: "AppLanguage")
+        
+        view?.restartApp()
     }
 }
