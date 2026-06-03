@@ -5,7 +5,6 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var collectionView: UICollectionView!
     
     var presenter: TennisPlayerPresenterProtocol!
-    var tennisPlayer: TennisPlayerModel?
     
     var activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -20,14 +19,13 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
         
-        let layout = UICollectionViewCompositionalLayout{
-            index,environment in
-            guard let player = self.tennisPlayer else { return nil }
+        let layout = UICollectionViewCompositionalLayout { [weak self] index, environment in
+            guard let self = self else { return nil }
             
-            if index == 1 && player.safeStats.isEmpty { return self.setEmptyStateSection() }
-            if index == 2 && player.safeTournaments.isEmpty { return self.setEmptyStateSection() }
+            if index == 1 && !self.presenter.hasStats() { return self.setEmptyStateSection() }
+            if index == 2 && !self.presenter.hasTournaments() { return self.setEmptyStateSection() }
             
-            switch index{
+            switch index {
             case 0 : return self.setHeaderSection()
             case 1 : return self.setStatisticsSection()
             case 2 : return self.setTournamentsSection()
@@ -37,18 +35,21 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         
         let headerNib = UINib(nibName: "SectionHeaderView", bundle: nil)
         collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        
         let emptyNib = UINib(nibName: "EmptyStateCollectionViewCell", bundle: nil)
         collectionView.register(emptyNib, forCellWithReuseIdentifier: "EmptyStateCell")
+        
         collectionView.setCollectionViewLayout(layout, animated: true)
         
         presenter.fetchPlayerDetails()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            presenter.viewWillAppear()
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
     }
     
+    // MARK: - MVP Methods
     func showLoading() {
         DispatchQueue.main.async { self.activityIndicator.startAnimating() }
     }
@@ -57,8 +58,7 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
     }
     
-    func displayPlayerDetails(player: TennisPlayerModel) {
-        self.tennisPlayer = player
+    func reloadData() {
         DispatchQueue.main.async { self.collectionView.reloadData() }
     }
     
@@ -66,32 +66,29 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         DispatchQueue.main.async { print("Error: \(message)") }
     }
     
-    func setHeaderSection() -> NSCollectionLayoutSection{
+    
+    func setHeaderSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200))
-        
         let mygroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         mygroup.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 10, trailing: 10)
         
         let section = NSCollectionLayoutSection(group: mygroup)
-        
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
-        
         
         return section
     }
     
     func setStatisticsSection() -> NSCollectionLayoutSection {
-        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(320))
-                let mygroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let mygroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
        
-                mygroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
+        mygroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
         
         let section = NSCollectionLayoutSection(group: mygroup)
         section.orthogonalScrollingBehavior = .groupPaging
@@ -107,12 +104,12 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
     func setTournamentsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
         let mygroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: mygroup)
         section.interGroupSpacing = 16
-        
         section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
@@ -139,78 +136,64 @@ class TennisPlayerViewController: UIViewController, UICollectionViewDelegate, UI
         return section
     }
     
+    // MARK: - Collection View Data Source
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return tennisPlayer == nil ? 0 : 3
+        return presenter.numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        guard let player = tennisPlayer else { return 0 }
-        switch section {
-        case 0: return 1
-        case 1: return max(1, player.safeStats.count)
-        case 2: return max(1, player.safeTournaments.count)
-        default: return 0
-        }
+        return presenter.numberOfItems(in: section)
     }
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard tennisPlayer != nil else { return UICollectionViewCell() }
-            switch indexPath.section {
-            case 0 :
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCell", for: indexPath) as! HeaderCollectionViewCell
-                cell.config(with: tennisPlayer!)
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+        case 0 :
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCell", for: indexPath) as! HeaderCollectionViewCell
+            if let playerInfo = presenter.getPlayerInfo() {
+                cell.config(with: playerInfo)
+            }
+            return cell
+            
+        case 1 :
+            if !presenter.hasStats() {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                cell.config(title: "no_statistics_title".localized, subtitle: "no_statistics_subtitle".localized)
                 return cell
-            case 1 :
-                if tennisPlayer!.safeStats.isEmpty {
-                            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
-                            let title = NSLocalizedString("no_statistics_title", comment: "No Statistics")
-                            let subtitle = NSLocalizedString("no_statistics_subtitle", comment: "No stats available")
-                            cell.config(title: title, subtitle: subtitle)
-                            return cell
-                }else{
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
-                    cell.config(with: tennisPlayer!.stats![indexPath.row])
-                    return cell
-                }
-                
-                
-            case 2 :
-                if tennisPlayer!.safeTournaments.isEmpty {
-                            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
-                            let title = NSLocalizedString("no_tournaments_title", comment: "No Tournaments")
-                            let subtitle = NSLocalizedString("no_tournaments_subtitle", comment: "No recent tournaments")
-                            cell.config(title: title, subtitle: subtitle)
-                            return cell
-                }else{
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath) as! TournamentCollectionViewCell
-                    cell.config(with: tennisPlayer!.tournaments![indexPath.row])
-                    return cell
-                }
-        
-            default :
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath)
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsCell", for: indexPath) as! StatisticsCollectionViewCell
+                cell.config(with: presenter.getStat(at: indexPath.row))
                 return cell
             }
-        }
-        
-        
-        func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
             
-            guard kind == UICollectionView.elementKindSectionHeader else {
-                return UICollectionReusableView()
+        case 2 :
+            if !presenter.hasTournaments() {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                cell.config(title: "no_tournaments_title".localized, subtitle: "no_tournaments_subtitle".localized)
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tournamentCell", for: indexPath) as! TournamentCollectionViewCell
+                cell.config(with: presenter.getTournament(at: indexPath.row))
+                return cell
             }
             
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
-            
-            switch indexPath.section {
-            case 1:
-                header.titleLabel.text = NSLocalizedString("statistics_header", comment: "Statistics")
-            case 2:
-                header.titleLabel.text = NSLocalizedString("tournaments_header", comment: "Tournaments")
-            default:
-                header.titleLabel.text = ""
-            }
-            
-            return header
+        default :
+            return UICollectionViewCell()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeaderView
+        
+        switch indexPath.section {
+        case 1: header.titleLabel.text = "statistics_header".localized
+        case 2: header.titleLabel.text = "tournaments_header".localized
+        default: header.titleLabel.text = ""
+        }
+        
+        return header
+    }
+}
