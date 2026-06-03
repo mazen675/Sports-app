@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class SettingsPresenter: SettingsPresenterProtocol {
     weak var view: SettingsViewProtocol?
@@ -25,15 +24,10 @@ class SettingsPresenter: SettingsPresenterProtocol {
     
     func toggleTheme(isDark: Bool) {
         UserDefaults.standard.set(isDark, forKey: "isDarkMode")
-
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.overrideUserInterfaceStyle = isDark ? .dark : .light
-        }
+        view?.applyThemeChange(isDark: isDark)
     }
     
     func changeLanguage(index: Int) {
         UserDefaults.standard.set(index, forKey: "languageIndex")
-        
     }
 }

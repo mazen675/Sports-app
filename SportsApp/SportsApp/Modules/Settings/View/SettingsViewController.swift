@@ -28,7 +28,6 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     
     private func setupLocalization() {
         self.title = "settings_title".localized
-        
         largeTitleLabel.text = "settings_title".localized
         darkThemeLabel.text = "dark_theme".localized
         languageLabel.text = "language".localized
@@ -52,5 +51,11 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     func updateLanguageSelection(index: Int) {
         languageSegmentedControl.selectedSegmentIndex = index
     }
-
+    
+    func applyThemeChange(isDark: Bool) {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.overrideUserInterfaceStyle = isDark ? .dark : .light
+        }
+    }
 }
