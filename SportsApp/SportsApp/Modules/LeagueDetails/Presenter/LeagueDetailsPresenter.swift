@@ -1,30 +1,33 @@
 import Foundation
 
+enum CollectionViewItem {
+    case emptyState(title: String, subtitle: String)
+    case team(TeamModel)
+    case upcomingEvent(EventModel)
+    case latestEvent(EventModel)
+}
+
 class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     
     weak var view: LeagueDetailsViewProtocol?
+    
+    let sportEndpoint: String
+    let league: LeagueModel
+    var isNetworkAvailable:Bool = true
     
     private var upcomingEvents: [EventModel] = []
     private var latestEvents: [EventModel] = []
     private var teams: [TeamModel] = []
     
-    let sportEndpoint: String
-    let league: LeagueModel
-    var isNetworkAvailable:Bool = true
+    var upcomingEventsCount: Int { return upcomingEvents.count }
+    var latestEventsCount: Int { return latestEvents.count }
+    var teamsCount: Int { return teams.count }
     
     init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel) {
         self.view = view
         self.sportEndpoint = sportEndpoint
         self.league = league
     }
-    
-    var upcomingEventsCount: Int { return upcomingEvents.count }
-    var latestEventsCount: Int { return latestEvents.count }
-    var teamsCount: Int { return teams.count }
-    
-    func getUpcomingEvent(at index: Int) -> EventModel { return upcomingEvents[index] }
-    func getLatestEvent(at index: Int) -> EventModel { return latestEvents[index] }
-    func getTeam(at index: Int) -> TeamModel { return teams[index] }
     
     func fetchLeagueDetails() {
         guard hasConnectivity() else {
@@ -89,9 +92,43 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         }
     }
     
+    func item(at indexPath: IndexPath) -> CollectionViewItem {
+        switch indexPath.section {
+        case 0:
+            if teamsCount == 0 {
+                if sportEndpoint == "tennis" {
+                    return .emptyState(title: "no_players_title".localized,
+                                       subtitle: "no_players_subtitle".localized)
+                }else{
+                    return .emptyState(title: "no_teams_title".localized,
+                                       subtitle: "no_teams_subtitle".localized)
+                }
+               
+            }
+            return .team(teams[indexPath.row])
+            
+        case 1:
+            if upcomingEventsCount == 0 {
+                return .emptyState(title: "no_upcoming_events_title".localized,
+                                   subtitle: "no_upcoming_events_subtitle".localized)
+            }
+            return .upcomingEvent(upcomingEvents[indexPath.row])
+            
+        case 2:
+            if latestEventsCount == 0 {
+                return .emptyState(title: "no_latest_events_title".localized,
+                                   subtitle: "no_latest_events_subtitle".localized)
+            }
+            return .latestEvent(latestEvents[indexPath.row])
+            
+        default:
+            fatalError("Unexpected section")
+        }
+    }
+    
     func didSelectTeam(at index: Int, section: Int) {
         guard section == 0 else { return }
-        let selectedTeam = getTeam(at: index)
+        let selectedTeam = teams[index]
         guard let teamId = selectedTeam.teamKey else { return }
 
         if sportEndpoint == "basketball" || sportEndpoint == "cricket" {

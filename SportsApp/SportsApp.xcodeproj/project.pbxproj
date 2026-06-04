@@ -212,13 +212,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		311B39BA2FC1D2C000F0B22C /* Header */ = {
+		311B39BA2FC1D2C000F0B22C /* CustomCollectionViewHeader */ = {
 			isa = PBXGroup;
 			children = (
 				311B39BB2FC1D2DA00F0B22C /* SectionHeaderView.swift */,
 				311B39BC2FC1D2DA00F0B22C /* SectionHeaderView.xib */,
 			);
-			path = Header;
+			path = CustomCollectionViewHeader;
 			sourceTree = "<group>";
 		};
 		311B39BF2FC1D96B00F0B22C /* TeamDetails */ = {
@@ -278,13 +278,13 @@
 			path = SportsCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		312027582FCF474E00311A2B /* LeaguewTableViewCell */ = {
+		312027582FCF474E00311A2B /* LeaguesTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				311B39E32FC2143800F0B22C /* LeagueTableViewCell.swift */,
 				311B39E42FC2143800F0B22C /* LeagueTableViewCell.xib */,
 			);
-			path = LeaguewTableViewCell;
+			path = LeaguesTableViewCell;
 			sourceTree = "<group>";
 		};
 		3122A8102FC398D60047AA73 /* TennisPlayerScreen */ = {
@@ -333,13 +333,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		314C07252FC760E9009B0D62 /* Header */ = {
+		314C07252FC760E9009B0D62 /* CustomTableViewHeader */ = {
 			isa = PBXGroup;
 			children = (
 				314C07262FC761C3009B0D62 /* CustomTableViewHeader.swift */,
 				314C07282FC761FE009B0D62 /* CustomTableViewHeader.xib */,
 			);
-			path = Header;
+			path = CustomTableViewHeader;
 			sourceTree = "<group>";
 		};
 		314FBB4E2FC090F40098C39B = {
@@ -502,7 +502,6 @@
 		31C3E71D2FC11E8F00347DE2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				311B39BA2FC1D2C000F0B22C /* Header */,
 				31C3E71E2FC11E9700347DE2 /* Cell */,
 				31C3E71F2FC11EB400347DE2 /* LeagueDetailsCollectionViewController.swift */,
 			);
@@ -555,6 +554,8 @@
 		31F0FCCE2FCC881300105116 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				311B39BA2FC1D2C000F0B22C /* CustomCollectionViewHeader */,
+				314C07252FC760E9009B0D62 /* CustomTableViewHeader */,
 				31F0FCD62FCC9CE500105116 /* EmptyStateCollectionViewCell */,
 				31F0FCCF2FCC889400105116 /* EmptyStateView */,
 			);
@@ -582,7 +583,6 @@
 		9F0333212FC5026D006DBAFF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				314C07252FC760E9009B0D62 /* Header */,
 				311B39D12FC1F89300F0B22C /* TeamDetailsViewController.swift */,
 				311B39D32FC1F89A00F0B22C /* Cell */,
 			);
@@ -657,7 +657,7 @@
 		9F3EF53D2FC3EE45004048A2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				312027582FCF474E00311A2B /* LeaguewTableViewCell */,
+				312027582FCF474E00311A2B /* LeaguesTableViewCell */,
 				311B39E12FC213E300F0B22C /* LeaguesViewController.swift */,
 			);
 			path = View;

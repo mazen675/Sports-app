@@ -18,11 +18,8 @@ protocol LeagueDetailsPresenterProtocol {
     var sportEndpoint: String {get}
     var isNetworkAvailable:Bool {get}
     
-    func getUpcomingEvent(at index: Int) -> EventModel
-    func getLatestEvent(at index: Int) -> EventModel
-    func getTeam(at index: Int) -> TeamModel
-    
     func fetchLeagueDetails()
+    func item(at indexPath: IndexPath) -> CollectionViewItem
     func didSelectTeam(at index: Int, section: Int)
     func viewWillAppear()
 }

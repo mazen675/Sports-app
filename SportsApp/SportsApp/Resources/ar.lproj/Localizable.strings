@@ -39,6 +39,8 @@
 
 "no_teams_title" = "لا توجد فرق";
 "no_teams_subtitle" = "لا توجد فرق متاحة في الوقت الحالي.";
+"no_players_title" = "لا يوجد لاعبون";
+"no_players_subtitle" = "لا يوجد لاعبون متاحون في الوقت الحالي.";
 "no_upcoming_events_title" = "لا توجد أحداث قادمة";
 "no_upcoming_events_subtitle" = "لا توجد أحداث قادمة متاحة في الوقت الحالي.";
 "no_latest_events_title" = "لا توجد أحداث حديثة";
@@ -61,3 +63,8 @@
 "continue_btn" = "متابعة";
 "get_started_btn" = "ابدأ الآن";
 "skip_btn" = "تخطي";
+
+"goalkeepers" = "حراس المرمى";
+"defenders" = "المدافعون";
+"midfielders" = "لاعبو الوسط";
+"forwards" = "المهاجمون";

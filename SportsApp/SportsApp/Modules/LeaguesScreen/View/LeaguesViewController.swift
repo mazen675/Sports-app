@@ -102,6 +102,7 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         presenter.didSelectLeague(at: indexPath.row) 
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
     func navigateToLeagueDetails(league: LeagueModel, endpoint: String, title: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let detailsVC = storyboard.instantiateViewController(withIdentifier: "LeagueDetailsCollectionViewController") as? LeagueDetailsCollectionViewController {

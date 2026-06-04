@@ -1,11 +1,22 @@
 import Foundation
 
+enum TennisPlayerItem {
+    case header(TennisPlayerModel)
+    case stat(TennisStat)
+    case tournament(TennisTournament)
+    case emptyState(title: String, subtitle: String)
+}
+
 class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
     weak var view: TennisPlayerViewProtocol?
     
     let playerId: String
     
     private var player: TennisPlayerModel?
+    
+    var numberOfSections: Int {
+        return player == nil ? 0 : 3
+    }
     
     init(view: TennisPlayerViewProtocol, playerId: String) {
         self.view = view
@@ -44,11 +55,6 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
         }
     }
     
-    
-    var numberOfSections: Int {
-        return player == nil ? 0 : 3
-    }
-    
     func numberOfItems(in section: Int) -> Int {
         guard let player = player else { return 0 }
         switch section {
@@ -59,10 +65,32 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
         }
     }
     
+    func item(at indexPath: IndexPath) -> TennisPlayerItem {
+           
+            switch indexPath.section {
+            case 0:
+                return .header(player!)
+                
+            case 1:
+                if player!.safeStats.isEmpty {
+                    return .emptyState(title: "no_statistics_title".localized,
+                                       subtitle: "no_statistics_subtitle".localized)
+                }
+                return .stat(player!.safeStats[indexPath.row])
+                
+            case 2:
+                if player!.safeTournaments.isEmpty {
+                    return .emptyState(title: "no_tournaments_title".localized,
+                                       subtitle: "no_tournaments_subtitle".localized)
+                }
+                return .tournament(player!.safeTournaments[indexPath.row])
+                
+            default:
+                fatalError("Unexpected section")
+            }
+        }
+    
     func hasStats() -> Bool { return !(player?.safeStats.isEmpty ?? true) }
     func hasTournaments() -> Bool { return !(player?.safeTournaments.isEmpty ?? true) }
     
-    func getPlayerInfo() -> TennisPlayerModel? { return player }
-    func getStat(at index: Int) -> TennisStat { return player!.stats![index] }
-    func getTournament(at index: Int) -> TennisTournament { return player!.tournaments![index] }
 }

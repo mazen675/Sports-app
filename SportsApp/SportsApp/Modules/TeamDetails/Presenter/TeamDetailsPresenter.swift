@@ -1,5 +1,10 @@
 import Foundation
 
+struct PlayerSection {
+    let type: String
+    let players: [Player]
+}
+
 class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     weak var view: TeamDetailsViewProtocol?
     let sportEndpoint: String
@@ -10,39 +15,6 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     private var groupedSections: [PlayerSection] = []
         
     var numberOfSections: Int { return groupedSections.count }
-    
-    func numberOfRows(in section: Int) -> Int {
-        return groupedSections[section].players.count
-    }
-    
-    func getPlayer(at indexPath: IndexPath) -> Player {
-        return groupedSections[indexPath.section].players[indexPath.row]
-    }
-    
-    func getSectionTitle(for section: Int) -> String {
-        return groupedSections[section].type
-    }
-    
-    func processPlayers(_ players: [Player]) {
-        let groupedDictionary = Dictionary(grouping: players, by: { $0.safePlayerType })
-        
-        self.groupedSections = groupedDictionary.map { (key, value) in
-            PlayerSection(type: key, players: value)
-        }
-        
-        self.groupedSections.sort { section1, section2 in
-            return getSortRank(for: section1.type) < getSortRank(for: section2.type)
-        }
-    }
-    
-    private func getSortRank(for type: String) -> Int {
-            let lowercasedType = type.lowercased()
-            if lowercasedType.contains("goalkeeper") { return 0 }
-            if lowercasedType.contains("defender") { return 1 }
-            if lowercasedType.contains("midfielder") { return 2 }
-            if lowercasedType.contains("forward") || lowercasedType.contains("striker") { return 3 }
-            return 4
-        }
 
     init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String , leagueExtraInfo: String , leagueName: String) {
         self.view = view
@@ -52,6 +24,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
         self.leagueExtraInfo = leagueExtraInfo
     }
     
+
     func fetchTeamDetails() {
         guard hasConnectivity() else { return }
         view?.showLoading()
@@ -70,7 +43,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
                         self.processPlayers(team.safePlayers)
                         self.view?.displayTeamDetails(team: team, leagueName: self.leagueName, leagueExtraInfo: self.leagueExtraInfo,placeHolder: placeHolder)
                     } else {
-                        let errorMessage = NSLocalizedString("team_not_found", comment: "Team data not found")
+                        let errorMessage = "team_not_found".localized
                         self.view?.showError(message: errorMessage)
                     }
                 case .failure(let error):
@@ -79,15 +52,51 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
             }
         }
     }
+    private func processPlayers(_ players: [Player]) {
+         let groupedDictionary = Dictionary(grouping: players, by: { $0.safePlayerType })
+         
+         self.groupedSections = groupedDictionary.map { (key, value) in
+             PlayerSection(type: key, players: value)
+         }
+         
+         self.groupedSections.sort { section1, section2 in
+             return getSortRank(for: section1.type) < getSortRank(for: section2.type)
+         }
+     }
+     
+     private func getSortRank(for type: String) -> Int {
+             let lowercasedType = type.lowercased()
+             if lowercasedType.contains("goalkeeper") { return 0 }
+             if lowercasedType.contains("defender") { return 1 }
+             if lowercasedType.contains("midfielder") { return 2 }
+             if lowercasedType.contains("forward") || lowercasedType.contains("striker") { return 3 }
+             return 4
+      }
+    
+    
+    func numberOfRows(in section: Int) -> Int {
+        return groupedSections[section].players.count
+    }
+    
+    func getPlayer(at indexPath: IndexPath) -> Player {
+        return groupedSections[indexPath.section].players[indexPath.row]
+    }
+    
+    func getSectionTitle(for section: Int) -> String {
+        switch groupedSections[section].type {
+        case "Goalkeepers" : return "goalkeepers".localized
+        case "Defenders" : return "defenders".localized
+        case "Midfielders" : return "midfielders".localized
+        case "Forwards" : return "forwards".localized
+        default : return "no_players_title".localized
+        }
+        
+    }
+    
+    
     func viewWillAppear() {
         if !hasConnectivity() {
             view?.showNetworkAlert()
         }
     }
-}
-
-
-struct PlayerSection {
-    let type: String
-    let players: [Player]
 }
