@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aya-rU-S0x">
-                    <rect key="frame" x="16" y="67" width="67.333333333333329" height="20"/>
+                    <rect key="frame" x="16" y="67" width="369" height="20"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEQ-NJ-PXs">
                             <rect key="frame" x="0.0" y="0.0" width="6" height="20"/>
@@ -27,7 +27,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiH-3p-gOi">
-                            <rect key="frame" x="14.000000000000004" y="0.0" width="53.333333333333343" height="20"/>
+                            <rect key="frame" x="14" y="0.0" width="355" height="20"/>
                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="21"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -40,6 +40,7 @@
             <constraints>
                 <constraint firstItem="aya-rU-S0x" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="259-PG-hT6"/>
                 <constraint firstItem="aya-rU-S0x" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="STi-h2-9vg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aya-rU-S0x" secondAttribute="trailing" constant="8" id="oqw-Vr-cab"/>
             </constraints>
             <connections>
                 <outlet property="SectionHeaderLabel" destination="AiH-3p-gOi" id="9sS-eU-7VB"/>

@@ -10,7 +10,7 @@ struct TennisPlayerModel: Decodable {
     let tournaments: [TennisTournament]?
     
     var safeName: String { return playerName ?? "Unknown Player" }
-    var safeLogo: String { return playerLogo ?? "placeholder_avatar" }
+    var safeLogo: String { return playerLogo ?? "" }
     
     var safeTournaments: [TennisTournament] { return tournaments ?? [] }
     var safeStats: [TennisStat] { return stats ?? [] }

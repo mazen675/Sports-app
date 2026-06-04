@@ -8,9 +8,8 @@ struct LeagueModel: Decodable {
     let leagueYear: String?
     
     var safeLeagueName: String { return leagueName ?? "Unknown League" }
-    var safeLeagueLogo: String { return leagueLogo ?? "placeholder_logo" }
+    var safeLeagueLogo: String { return leagueLogo ?? "" }
     
-    // switch between country and year
     var safeCountryName: String {
         if let country = countryName, !country.isEmpty {
             return country
@@ -29,7 +28,6 @@ struct LeagueModel: Decodable {
         case leagueYear = "league_year"
     }
     
-    // Standard Initializer (For CoreData / Testing)
     init(leagueKey: String? = nil, leagueName: String? = nil, leagueLogo: String? = nil, countryName: String? = nil, leagueYear: String? = nil) {
         self.leagueKey = leagueKey
         self.leagueName = leagueName

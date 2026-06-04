@@ -4,12 +4,11 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
     weak var view: FavouritesViewProtocol?
     
     private var sections: [(sport: String, leagues: [LeagueModel])] = []
+    var numberOfSections: Int { return sections.count }
     
     init(view: FavouritesViewProtocol) {
         self.view = view
     }
-    
-    var numberOfSections: Int { return sections.count }
     
     func titleForSection(_ section: Int) -> String {
         return sections[section].sport.capitalized.localized

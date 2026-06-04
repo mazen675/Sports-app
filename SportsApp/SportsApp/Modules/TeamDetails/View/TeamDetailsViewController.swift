@@ -18,7 +18,10 @@ class TeamDetailsViewController: UIViewController, TeamDetailsViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
     
+    private func setupUI(){
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 80

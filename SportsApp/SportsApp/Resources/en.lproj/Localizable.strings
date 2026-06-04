@@ -39,6 +39,8 @@
 
 "no_teams_title" = "No Teams";
 "no_teams_subtitle" = "No teams available right now.";
+"no_players_title" = "No Players";
+"no_players_subtitle" = "No players available right now.";
 "no_upcoming_events_title" = "No Upcoming Events";
 "no_upcoming_events_subtitle" = "No upcoming events available right now.";
 "no_latest_events_title" = "No Latest Events";
@@ -61,3 +63,8 @@
 "continue_btn" = "Continue";
 "get_started_btn" = "Get Started";
 "skip_btn" = "Skip";
+"goalkeepers" = "Goalkeepers";
+"defenders" = "Defenders";
+"midfielders" = "Midfielders";
+"forwards" = "Forwards";
+

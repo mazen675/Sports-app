@@ -23,7 +23,5 @@ protocol TennisPlayerPresenterProtocol {
     func hasStats() -> Bool
     func hasTournaments() -> Bool
     
-    func getPlayerInfo() -> TennisPlayerModel?
-    func getStat(at index: Int) -> TennisStat
-    func getTournament(at index: Int) -> TennisTournament
+    func item(at indexPath: IndexPath) -> TennisPlayerItem
 }
