@@ -9,29 +9,31 @@ import Foundation
 
 class SettingsPresenter: SettingsPresenterProtocol {
     weak var view: SettingsViewProtocol?
+    private let defaults: UserDefaultsManaging
     
-    init(view: SettingsViewProtocol) {
+    init(view: SettingsViewProtocol, defaults: UserDefaultsManaging = UserDefaults.standard) {
         self.view = view
+        self.defaults = defaults
     }
     
     func loadPreferences() {
-        let isDark = UserDefaults.standard.bool(forKey: "isDarkMode")
-        let langIndex = UserDefaults.standard.integer(forKey: "languageIndex")
+        let isDark = defaults.bool(forKey: "isDarkMode")
+        let langIndex = defaults.integer(forKey: "languageIndex")
         
         view?.updateThemeToggle(isDark: isDark)
         view?.updateLanguageSelection(index: langIndex)
     }
     
     func toggleTheme(isDark: Bool) {
-        UserDefaults.standard.set(isDark, forKey: "isDarkMode")
+        defaults.set(isDark, forKey: "isDarkMode")
         view?.applyThemeChange(isDark: isDark)
     }
     
     func changeLanguage(index: Int) {
         let langCode = (index == 0) ? "en" : "ar"
         
-        UserDefaults.standard.set(index, forKey: "languageIndex")
-        UserDefaults.standard.set(langCode, forKey: "AppLanguage")
+        defaults.set(index, forKey: "languageIndex")
+        defaults.set(langCode, forKey: "AppLanguage")
         
         view?.restartApp()
     }

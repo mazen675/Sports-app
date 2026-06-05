@@ -45,7 +45,26 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         let emptyNib = UINib(nibName: "EmptyStateCollectionViewCell", bundle: nil)
         collectionView.register(emptyNib, forCellWithReuseIdentifier: "EmptyStateCell")
+        
+        let isFav = presenter.isFavoriteLeague()
+        let heartImage = UIImage(systemName: isFav ? "heart.fill" : "heart")
+        let favoriteButton = UIBarButtonItem(image: heartImage, style: .plain, target: self, action: #selector(favoriteTapped))
+        self.navigationItem.rightBarButtonItem = favoriteButton
     }
+    
+    @objc private func favoriteTapped() {
+            presenter.toggleFavorite()
+    }
+    
+    func updateFavoriteButtonState(isFavorite: Bool) {
+            DispatchQueue.main.async {
+                let heartImage = UIImage(systemName: isFavorite ? "heart.fill" : "heart")
+                self.navigationItem.rightBarButtonItem?.tintColor = isFavorite ? .systemRed : .black
+                self.navigationItem.rightBarButtonItem?.image = heartImage
+            }
+     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             presenter.viewWillAppear()
@@ -62,7 +81,9 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
     }
     
     func reloadData() {
-        DispatchQueue.main.async { self.collectionView.reloadData() }
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func showError(_ message: String) {

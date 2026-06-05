@@ -68,3 +68,7 @@
 "midfielders" = "Midfielders";
 "forwards" = "Forwards";
 
+"remove_favorite_title" = "Remove Favorite";
+"remove_favorite_message" = "Are you sure you want to remove this from your favorites?";
+"cancel_button" = "Cancel";
+"delete_button" = "Delete";

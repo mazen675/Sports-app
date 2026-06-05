@@ -1,8 +1,11 @@
 import Foundation
-import Alamofire 
+import Alamofire
 
-class NetworkService {
-    
+protocol NetworkFetching {
+    func fetchData<T: Decodable>(from url: String, completion: @escaping (Result<T, Error>) -> Void)
+}
+
+class NetworkService : NetworkFetching{
     static let shared = NetworkService()
     
     private init() {}

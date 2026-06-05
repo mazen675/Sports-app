@@ -5,9 +5,12 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
     
     private var sections: [(sport: String, leagues: [LeagueModel])] = []
     var numberOfSections: Int { return sections.count }
+    private let coreDataManager: CoreDataManaging
     
-    init(view: FavouritesViewProtocol) {
+    
+    init(view: FavouritesViewProtocol, coreDataManager: CoreDataManaging = CoreDataManager.shared) {
         self.view = view
+        self.coreDataManager = coreDataManager
     }
     
     func titleForSection(_ section: Int) -> String {
@@ -26,7 +29,7 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
         view?.showLoading()
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            let savedEntities = CoreDataManager.shared.fetchAllFavorites()
+            let savedEntities = self?.coreDataManager.fetchAllFavorites() ?? []
             
             var groupedBySport: [String: [LeagueModel]] = [:]
             
@@ -61,7 +64,7 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
     
     func removeFavourite(at indexPath: IndexPath) {
         let league = sections[indexPath.section].leagues[indexPath.row]
-        if let key = league.leagueKey { CoreDataManager.shared.deleteLeague(key: key) }
+        if let key = league.leagueKey { self.coreDataManager.deleteLeague(key: key) }
         
         let sectionsBefore = sections.count
         sections[indexPath.section].leagues.remove(at: indexPath.row)
