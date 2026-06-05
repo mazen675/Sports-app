@@ -128,23 +128,24 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deleteSections(IndexSet(integer: index), with: .fade)
     }
     
+    
     private func showDeleteConfirmationAlert(for indexPath: IndexPath) {
-            let alert = UIAlertController(
-                title: "Remove Favorite",
-                message: "Are you sure you want to remove this from your favorites?",
-                preferredStyle: .alert
-            )
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-                self?.presenter.removeFavourite(at: indexPath)
-            }
-            
-            alert.addAction(cancelAction)
-            alert.addAction(deleteAction)
-            
-            self.present(alert, animated: true)
+        let alert = UIAlertController(
+            title: "remove_favorite_title".localized,
+            message: "remove_favorite_message".localized,
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: "cancel_button".localized, style: .cancel, handler: nil)
+        
+        let deleteAction = UIAlertAction(title: "delete_button".localized, style: .destructive) { [weak self] _ in
+            self?.presenter.removeFavourite(at: indexPath)
         }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        self.present(alert, animated: true)
+    }
     
 }

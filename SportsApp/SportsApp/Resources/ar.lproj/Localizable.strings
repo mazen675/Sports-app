@@ -68,3 +68,8 @@
 "defenders" = "المدافعون";
 "midfielders" = "لاعبو الوسط";
 "forwards" = "المهاجمون";
+
+"remove_favorite_title" = "إزالة من المفضلة";
+"remove_favorite_message" = "هل أنت متأكد أنك تريد إزالة هذا من مفضلتك؟";
+"cancel_button" = "إلغاء";
+"delete_button" = "حذف";
