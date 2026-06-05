@@ -8,7 +8,13 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        setupUI()
+        presenter = FavouritesPresenter(view: self)
+        setupTableView()
+    }
+    
+    func setupUI(){
         self.navigationItem.title = "favourites_title".localized
         self.tabBarItem.title = "favourites_tab".localized
         self.navigationController?.tabBarItem.title = "favourites_tab".localized
@@ -21,8 +27,6 @@ class FavouritesViewController: UIViewController, FavouritesViewProtocol {
         let headerNib = UINib(nibName: "CustomTableViewHeader", bundle: nil)
         tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "CustomTableViewHeader")
         
-        presenter = FavouritesPresenter(view: self)
-        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

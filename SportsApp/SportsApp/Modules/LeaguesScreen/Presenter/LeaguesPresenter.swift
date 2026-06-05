@@ -1,26 +1,18 @@
 import Foundation
 import Reachability
 class LeaguesPresenter: LeaguesPresenterProtocol {
-    weak var view: LeaguesViewProtocol?
     
+    weak var view: LeaguesViewProtocol?
+    let sportEndpoint: String
+  
     private var allLeagues: [LeagueModel] = []
     private var filteredLeagues: [LeagueModel] = []
+    var leaguesCount: Int { return filteredLeagues.count }
     
-    let sportEndpoint: String
     
     init(view: LeaguesViewProtocol, sportEndpoint: String) {
         self.view = view
         self.sportEndpoint = sportEndpoint
-    }
-
-    var leaguesCount: Int { return filteredLeagues.count }
-    
-    func getLeagueData(at index: Int) -> (league: LeagueModel, placeholder: String, isFavorite: Bool) {
-        let league = filteredLeagues[index]
-        let placeholder = getPlaceholderImage(for: sportEndpoint)
-        let isFav = isFavorite(leagueId: league.leagueKey ?? "")
-        
-        return (league, placeholder, isFav)
     }
     
     func fetchLeagues() {
@@ -46,7 +38,15 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
             }
         }
     }
-
+    
+    func getLeagueData(at index: Int) -> (league: LeagueModel, placeholder: String, isFavorite: Bool) {
+        let league = filteredLeagues[index]
+        let placeholder = getPlaceholderImage(for: sportEndpoint)
+        let isFav = isFavorite(leagueId: league.leagueKey ?? "")
+        
+        return (league, placeholder, isFav)
+    }
+    
     func filterLeagues(with searchText: String) {
         if searchText.isEmpty {
             filteredLeagues = allLeagues
