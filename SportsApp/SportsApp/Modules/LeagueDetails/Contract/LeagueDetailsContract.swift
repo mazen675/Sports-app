@@ -8,6 +8,7 @@ protocol LeagueDetailsViewProtocol: AnyObject {
     func showComingSoonAlert()
     func navigateToTennisPlayer(teamId: String)
     func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String)
+    func updateFavoriteButtonState(isFavorite: Bool)
     func showNetworkAlert()
 }
 
@@ -21,5 +22,7 @@ protocol LeagueDetailsPresenterProtocol {
     func fetchLeagueDetails()
     func item(at indexPath: IndexPath) -> CollectionViewItem
     func didSelectTeam(at index: Int, section: Int)
+    func isFavoriteLeague() -> Bool
+    func toggleFavorite()
     func viewWillAppear()
 }

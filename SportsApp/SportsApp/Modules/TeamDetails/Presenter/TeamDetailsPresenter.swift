@@ -11,17 +11,18 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     let teamId: String
     let leagueExtraInfo: String
     let leagueName : String
-    
+    private let networkService: NetworkFetching
     private var groupedSections: [PlayerSection] = []
         
     var numberOfSections: Int { return groupedSections.count }
 
-    init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String , leagueExtraInfo: String , leagueName: String) {
+    init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String , leagueExtraInfo: String , leagueName: String, networkService: NetworkFetching = NetworkService.shared) {
         self.view = view
         self.sportEndpoint = sportEndpoint
         self.teamId = teamId
         self.leagueName = leagueName
         self.leagueExtraInfo = leagueExtraInfo
+        self.networkService = networkService
     }
     
 
@@ -31,7 +32,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
         
         let url = "\(Constants.baseURL)/\(sportEndpoint)/?met=Teams&teamId=\(teamId)&APIkey=\(Constants.apiKey)"
         let placeHolder = getPlaceholderImage(for: sportEndpoint)
-        NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
+        self.networkService.fetchData(from: url){ [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             
             DispatchQueue.main.async {
                 guard let self = self else { return }

@@ -1,18 +1,18 @@
 import Foundation
 import Alamofire
 
-class NetworkService {
-    
+protocol NetworkFetching {
+    func fetchData<T: Decodable>(from url: String, completion: @escaping (Result<T, Error>) -> Void)
+}
+
+class NetworkService : NetworkFetching{
     static let shared = NetworkService()
-    
-    // injection for testing 
-    var session: Session = .default
     
     private init() {}
     
     func fetchData<T: Decodable>(from url: String, completion: @escaping (Result<T, Error>) -> Void) {
         
-        session.request(url).validate().responseDecodable(of: T.self) { response in
+        AF.request(url).validate().responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let decodedData):
                 completion(.success(decodedData))

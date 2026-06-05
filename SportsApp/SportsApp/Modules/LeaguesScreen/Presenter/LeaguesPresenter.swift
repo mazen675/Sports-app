@@ -9,10 +9,14 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     private var filteredLeagues: [LeagueModel] = []
     var leaguesCount: Int { return filteredLeagues.count }
     
+    private let networkService: NetworkFetching
+    private let coreDataManager: CoreDataManaging
     
-    init(view: LeaguesViewProtocol, sportEndpoint: String) {
+    init(view: LeaguesViewProtocol, sportEndpoint: String, networkService: NetworkFetching = NetworkService.shared, coreDataManager: CoreDataManaging = CoreDataManager.shared) {
         self.view = view
         self.sportEndpoint = sportEndpoint
+        self.networkService = networkService
+        self.coreDataManager = coreDataManager
     }
     
     func fetchLeagues() {
@@ -21,7 +25,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         
         let url = "\(Constants.baseURL)/\(sportEndpoint)/?met=Leagues&APIkey=\(Constants.apiKey)"
         
-        NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<LeagueModel>, Error>) in
+        self.networkService.fetchData(from: url) { [weak self] (result: Result<APIResponse<LeagueModel>, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.view?.hideLoading()
@@ -62,11 +66,11 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     }
 
     func isFavorite(leagueId: String) -> Bool {
-        return CoreDataManager.shared.isFavorite(key: leagueId)
+        return self.coreDataManager.isFavorite(key: leagueId)
     }
     
     func toggleFavorite(league: LeagueModel) {
-        CoreDataManager.shared.toggleFavorite(league: league, sport: sportEndpoint)
+        self.coreDataManager.toggleFavorite(league: league, sport: sportEndpoint)
         view?.reloadData()
     }
     

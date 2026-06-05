@@ -9,13 +9,22 @@ import Foundation
 import UIKit
 import CoreData
 
-class CoreDataManager {
+protocol CoreDataManaging {
+    func fetchAllFavorites() -> [NSObject]
+    func deleteLeague(key: String)
+    func isFavorite(key: String) -> Bool
+    func toggleFavorite(league: LeagueModel, sport: String)
+}
+
+class CoreDataManager :CoreDataManaging{
     static let shared = CoreDataManager()
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context: NSManagedObjectContext
     private let entity :NSEntityDescription!
-    private init() {
-        entity = NSEntityDescription.entity(forEntityName: "FavouriteLeague", in: context)
-    }
+    
+    init(context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)  {
+            self.context = context
+            self.entity = NSEntityDescription.entity(forEntityName: "FavouriteLeague", in: self.context)
+     }
     
     func toggleFavorite(league: LeagueModel, sport: String) {
         guard let key = league.leagueKey else { return }
@@ -57,7 +66,7 @@ class CoreDataManager {
         return count > 0
     }
     
-    func fetchAllFavorites() -> [NSManagedObject] {
+    func fetchAllFavorites() -> [NSObject] {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteLeague")
         let favouriteLeagues = (try? context.fetch(fetchRequest)) ?? []
         return favouriteLeagues

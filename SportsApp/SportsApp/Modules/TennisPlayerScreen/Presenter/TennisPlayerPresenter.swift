@@ -13,14 +13,15 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
     let playerId: String
     
     private var player: TennisPlayerModel?
+   
     
-    var numberOfSections: Int {
-        return player == nil ? 0 : 3
-    }
+    var numberOfSections: Int {return player == nil ? 0 : 3}
+    private let networkService: NetworkFetching
     
-    init(view: TennisPlayerViewProtocol, playerId: String) {
+    init(view: TennisPlayerViewProtocol, playerId: String, networkService: NetworkFetching = NetworkService.shared) {
         self.view = view
         self.playerId = playerId
+        self.networkService = networkService
     }
     
     func fetchPlayerDetails() {
@@ -28,7 +29,7 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
         
         let url = "\(Constants.baseURL)/tennis/?met=Players&playerId=\(playerId)&APIkey=\(Constants.apiKey)"
         
-        NetworkService.shared.fetchData(from: url) { [weak self] (result: Result<APIResponse<TennisPlayerModel>, Error>) in
+        self.networkService.fetchData(from: url) { [weak self] (result: Result<APIResponse<TennisPlayerModel>, Error>) in
             
             DispatchQueue.main.async {
                 guard let self = self else { return }

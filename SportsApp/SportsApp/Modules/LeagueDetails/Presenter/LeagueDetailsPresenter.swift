@@ -15,6 +15,9 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     let league: LeagueModel
     var isNetworkAvailable:Bool = true
     
+    private let coreDataManager: CoreDataManaging
+    private let networkService: NetworkFetching
+    
     private var upcomingEvents: [EventModel] = []
     private var latestEvents: [EventModel] = []
     private var teams: [TeamModel] = []
@@ -23,10 +26,12 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     var latestEventsCount: Int { return latestEvents.count }
     var teamsCount: Int { return teams.count }
     
-    init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel) {
+    init(view: LeagueDetailsViewProtocol, sportEndpoint: String, league: LeagueModel, networkService: NetworkFetching = NetworkService.shared, coreDataManager: CoreDataManaging = CoreDataManager.shared)  {
         self.view = view
         self.sportEndpoint = sportEndpoint
         self.league = league
+        self.networkService = networkService
+        self.coreDataManager = coreDataManager
     }
     
     func fetchLeagueDetails() {
@@ -62,13 +67,13 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         let group = DispatchGroup()
         
         group.enter()
-        NetworkService.shared.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
+        self.networkService.fetchData(from: fixturesURL) { [weak self] (result: Result<APIResponse<EventModel>, Error>) in
             print(fixturesURL)
             switch result {
             case .success(let response):
                 let allEvents = response.result ?? []
-                self?.latestEvents = allEvents.filter { $0.eventFinalResult != nil && $0.eventFinalResult != "-" && $0.eventFinalResult != "" }
-                self?.upcomingEvents = allEvents.filter { $0.eventFinalResult == nil || $0.eventFinalResult == "-" || $0.eventFinalResult == "" }
+                self?.latestEvents = allEvents.filter { $0.safeEventStatus == "Finished" }
+                self?.upcomingEvents = allEvents.filter { $0.safeEventStatus == "" || $0.safeEventStatus == "Not Started" }
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
             }
@@ -76,7 +81,7 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         }
         
         group.enter()
-        NetworkService.shared.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
+        self.networkService.fetchData(from: teamsURL) { [weak self] (result: Result<APIResponse<TeamModel>, Error>) in
             switch result {
             case .success(let response):
                 self?.teams = response.result ?? []
@@ -128,6 +133,7 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
     
     func didSelectTeam(at index: Int, section: Int) {
         guard section == 0 else { return }
+        guard index < teams.count else { return }
         let selectedTeam = teams[index]
         guard let teamId = selectedTeam.teamKey else { return }
 
@@ -140,9 +146,23 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         }
     }
     
+    func isFavoriteLeague() -> Bool {
+            guard let key = league.leagueKey else { return false }
+            return self.coreDataManager.isFavorite(key: key)
+     }
+    
+    func toggleFavorite() {
+            self.coreDataManager.toggleFavorite(league: self.league, sport: self.sportEndpoint)
+            let isNowFavorite = isFavoriteLeague()
+            view?.updateFavoriteButtonState(isFavorite: isNowFavorite)
+    }
+    
     func viewWillAppear() {
         if !hasConnectivity() {
             view?.showNetworkAlert()
         }
+        let isNowFavorite = isFavoriteLeague()
+        view?.updateFavoriteButtonState(isFavorite: isNowFavorite)
+        view?.reloadData()
      }
 }
