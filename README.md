@@ -48,20 +48,14 @@ This project is the result of intensive pair programming and a shared passion fo
 
 | Onboarding | Home (Sports) | Leagues List |
 | :---: | :---: | :---: |
-| <img src="https://via.placeholder.com/250x500.png?text=Onboarding+Screen" alt="Onboarding" width="250"> | <img src="https://via.placeholder.com/250x500.png?text=Home+Screen" alt="Home Screen" width="250"> | <img src="https://via.placeholder.com/250x500.png?text=Leagues+Search" alt="Leagues Search" width="250"> |
-
+| <img src="https://github.com/user-attachments/assets/6041604f-17fe-428e-859d-2d671d4a83d8" alt="Onboarding" width="250"> | <img src="https://github.com/user-attachments/assets/3661697c-9271-41e8-b6a9-d00a2800f0a7" alt="Home Screen" width="250"> | <img src="https://github.com/user-attachments/assets/22b6db15-8936-4619-b74a-7528a5f72d1b" alt="Leagues Search" width="250"> |
 | League Details | Team / Player Profile | Favorites (CoreData) |
 | :---: | :---: | :---: |
-| <img src="https://via.placeholder.com/250x500.png?text=Compositional+Layout" alt="League Details" width="250"> | <img src="https://via.placeholder.com/250x500.png?text=Team+Details" alt="Team Details" width="250"> | <img src="https://via.placeholder.com/250x500.png?text=Saved+Favorites" alt="Favorites" width="250"> |
-
+| <img src="https://github.com/user-attachments/assets/ca578030-e30d-4de2-861f-77640fa4d487" alt="League Details" width="250"> | <img src="https://github.com/user-attachments/assets/ad6594b7-fbdd-45be-be40-38e35d918c65" alt="Team Details" width="250"> | <img src="https://github.com/user-attachments/assets/815a8c35-8c59-4070-b254-32aa1ffd6afc" alt="Favorites" width="250"> |
 ### ☀️ Light Mode & Localization (Arabic RTL)
-
 | Settings | Arabic RTL Mode | Empty States |
 | :---: | :---: | :---: |
-| <img src="https://via.placeholder.com/250x500.png?text=Settings+Screen" alt="Settings" width="200"> | <img src="https://via.placeholder.com/250x500.png?text=Arabic+Layout" alt="Arabic RTL" width="200"> | <img src="https://via.placeholder.com/250x500.png?text=No+Network/Data" alt="Empty States" width="200"> |
-
----
-
+| <img src="https://github.com/user-attachments/assets/616e6d88-34e9-4c49-b731-c948af78f02b" alt="Settings" width="200"> | <img src="https://github.com/user-attachments/assets/fa3ce9c8-6684-4be5-9ab0-8f6bde4afdec" alt="Arabic RTL" width="200"> | <img src="https://github.com/user-attachments/assets/eb493901-0cc6-43b3-bfff-e046d6cf494c" alt="Empty States" width="200"> |
 ## 📜 The Playbook (Core Features)
 
 * **🌍 Real-Time Sports Data:** Live fetching of Leagues, Upcoming Fixtures, Latest Results, and Team Rosters via the AllSports API.
