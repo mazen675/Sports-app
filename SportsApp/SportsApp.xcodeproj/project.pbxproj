@@ -36,12 +36,10 @@
 		314C07292FC761FE009B0D62 /* CustomTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 314C07282FC761FE009B0D62 /* CustomTableViewHeader.xib */; };
 		314FBB5B2FC090F40098C39B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5A2FC090F40098C39B /* AppDelegate.swift */; };
 		314FBB5D2FC090F40098C39B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5C2FC090F40098C39B /* SceneDelegate.swift */; };
-		314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB5E2FC090F40098C39B /* ViewController.swift */; };
 		314FBB622FC090F40098C39B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 314FBB602FC090F40098C39B /* Main.storyboard */; };
 		314FBB652FC090F40098C39B /* SportsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB632FC090F40098C39B /* SportsApp.xcdatamodeld */; };
 		314FBB672FC090F60098C39B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 314FBB662FC090F60098C39B /* Assets.xcassets */; };
 		314FBB6A2FC090F60098C39B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 314FBB682FC090F60098C39B /* LaunchScreen.storyboard */; };
-		314FBB752FC090F60098C39B /* SportsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB742FC090F60098C39B /* SportsAppTests.swift */; };
 		314FBB7F2FC090F60098C39B /* SportsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB7E2FC090F60098C39B /* SportsAppUITests.swift */; };
 		314FBB812FC090F60098C39B /* SportsAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */; };
 		315DC6812FC97D20008E61A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DC6802FC97D20008E61A9 /* SettingsViewController.swift */; };
@@ -158,14 +156,12 @@
 		314FBB572FC090F40098C39B /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		314FBB5A2FC090F40098C39B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		314FBB5C2FC090F40098C39B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		314FBB5E2FC090F40098C39B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		314FBB612FC090F40098C39B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		314FBB642FC090F40098C39B /* SportsApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SportsApp.xcdatamodel; sourceTree = "<group>"; };
 		314FBB662FC090F60098C39B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		314FBB692FC090F60098C39B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		314FBB6B2FC090F60098C39B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		314FBB702FC090F60098C39B /* SportsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		314FBB742FC090F60098C39B /* SportsAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppTests.swift; sourceTree = "<group>"; };
 		314FBB7A2FC090F60098C39B /* SportsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		314FBB7E2FC090F60098C39B /* SportsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppUITests.swift; sourceTree = "<group>"; };
 		314FBB802FC090F60098C39B /* SportsAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -449,7 +445,6 @@
 				31F0FCCA2FCC777200105116 /* Utils */,
 				31F0FCCE2FCC881300105116 /* Components */,
 				314FBB8E2FC0AB9A0098C39B /* Modules */,
-				314FBB5E2FC090F40098C39B /* ViewController.swift */,
 				314FBB632FC090F40098C39B /* SportsApp.xcdatamodeld */,
 			);
 			path = SportsApp;
@@ -467,7 +462,6 @@
 				313E3F192FD231C1005FCB17 /* LeaguesTest */,
 				313E3F162FD2283A005FCB17 /* LeagueDetailsTest */,
 				313E3F112FD20022005FCB17 /* TennisPlayerTest */,
-				314FBB742FC090F60098C39B /* SportsAppTests.swift */,
 			);
 			path = SportsAppTests;
 			sourceTree = "<group>";
@@ -988,7 +982,6 @@
 				3120275A2FCF4A0E00311A2B /* Constants.swift in Sources */,
 				31F0FCDD2FCCA57A00105116 /* EmptyStateCollectionViewCell.swift in Sources */,
 				9F0D07482FC28157001DB23E /* TeamModel.swift in Sources */,
-				314FBB5F2FC090F40098C39B /* ViewController.swift in Sources */,
 				315DC6812FC97D20008E61A9 /* SettingsViewController.swift in Sources */,
 				315DC6872FC9A68D008E61A9 /* SettingsPresenter.swift in Sources */,
 				311B39E52FC2143800F0B22C /* LeagueTableViewCell.swift in Sources */,
@@ -1042,7 +1035,6 @@
 				9FC512DB2FD26ED2004AB75D /* TennisPlayerPresenterTests.swift in Sources */,
 				313E3F132FD20CFF005FCB17 /* MockTennisPlayerView.swift in Sources */,
 				313E3F152FD22375005FCB17 /* MockNetworkService.swift in Sources */,
-				314FBB752FC090F60098C39B /* SportsAppTests.swift in Sources */,
 				318E11302FD3138A00C6C43E /* FavouritesPresenterTests.swift in Sources */,
 				318E11252FD3035D00C6C43E /* TeamDetailsPresenterTests.swift in Sources */,
 				318E11392FD318ED00C6C43E /* SettingsPresenterTests.swift in Sources */,
