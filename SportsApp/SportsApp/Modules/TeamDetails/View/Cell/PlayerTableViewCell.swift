@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import SDWebImage // Required to load the real player images!
-
+import SDWebImage
 class PlayerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var playerImageView: UIImageView!
@@ -25,16 +24,12 @@ class PlayerTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    // 🚨 THE FIX: Using the real 'Player' struct from your TeamModel.swift
     func config(player: Player) {
         
-        // 1. Real Name
         playerNameLabel.text = player.safePlayerName
         
-        // 2. Real Number and Position
         playerInfoLabel.text = "No. \(player.safePlayerNumber) • \(player.safePlayerType)"
         
-        // 3. Live Image Loading
         if let url = URL(string: player.safePlayerImage) {
             playerImageView.sd_setImage(with: url, placeholderImage: UIImage(systemName: "person.circle.fill"))
         } else {

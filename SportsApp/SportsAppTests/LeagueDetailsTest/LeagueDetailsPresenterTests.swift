@@ -29,6 +29,7 @@ class LeagueDetailsPresenterTests: XCTestCase {
         view = nil
         presenter = nil
         mockNetwork = nil
+        mockCoreData = nil
         super.tearDown()
     }
     
