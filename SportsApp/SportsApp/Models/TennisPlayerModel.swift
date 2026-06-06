@@ -1,7 +1,7 @@
 import Foundation
 
 struct TennisPlayerModel: Decodable {
-    var playerKey: String?
+    var playerKey: Int?
     let playerName: String?
     let playerCountry: String?
     let playerBday: String?
@@ -15,31 +15,7 @@ struct TennisPlayerModel: Decodable {
     var safeTournaments: [TennisTournament] { return tournaments ?? [] }
     var safeStats: [TennisStat] { return stats ?? [] }
     
-    enum CodingKeys: String, CodingKey {
-        case playerKey = "player_key"
-        case playerName = "player_name"
-        case playerCountry = "player_country"
-        case playerBday = "player_bday"
-        case playerLogo = "player_logo"
-        case stats
-        case tournaments
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        playerName = try container.decodeIfPresent(String.self, forKey: .playerName)
-        playerCountry = try container.decodeIfPresent(String.self, forKey: .playerCountry)
-        playerBday = try container.decodeIfPresent(String.self, forKey: .playerBday)
-        playerLogo = try container.decodeIfPresent(String.self, forKey: .playerLogo)
-        stats = try container.decodeIfPresent([TennisStat].self, forKey: .stats)
-        tournaments = try container.decodeIfPresent([TennisTournament].self, forKey: .tournaments)
-        
-        if let intKey = try? container.decodeIfPresent(Int.self, forKey: .playerKey) {
-            playerKey = String(intKey)
-        } else {
-            playerKey = try container.decodeIfPresent(String.self, forKey: .playerKey)
-        }
-    }
+   
 }
 
 struct TennisStat: Decodable {
@@ -47,14 +23,14 @@ struct TennisStat: Decodable {
     let type: String?
     let rank: String?
     let titles: String?
-    let matches_won: String?
-    let matches_lost: String?
-    let hard_won: String?
-    let clay_won: String?
-    let grass_won: String?
-    let hard_lost: String?
-    let clay_lost: String?
-    let grass_lost: String?
+    let matchesWon: String?
+    let matchesLost: String?
+    let hardWon: String?
+    let clayWon: String?
+    let grassWon: String?
+    let hardLost: String?
+    let clayLost: String?
+    let grassLost: String?
 }
 
 struct TennisTournament: Decodable {

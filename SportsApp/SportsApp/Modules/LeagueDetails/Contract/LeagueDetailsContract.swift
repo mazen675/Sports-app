@@ -6,8 +6,8 @@ protocol LeagueDetailsViewProtocol: AnyObject {
     func reloadData()
     func showError(_ message: String)
     func showComingSoonAlert()
-    func navigateToTennisPlayer(teamId: String)
-    func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String)
+    func navigateToTennisPlayer(teamId: Int)
+    func navigateToTeamDetails(teamId: Int, sportEndpoint: String, leagueName: String, leagueExtraInfo: String)
     func updateFavoriteButtonState(isFavorite: Bool)
     func showNetworkAlert()
 }

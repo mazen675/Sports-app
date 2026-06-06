@@ -31,8 +31,8 @@ class FavouritesPresenterTests: XCTestCase {
         let expectation = expectation(description: "Load Favourites")
         
         mockCoreData.mockEntities = [
-            MockFavoriteEntity(data: ["key": "1", "name": "Wimbledon", "sport": "tennis"]),
-            MockFavoriteEntity(data: ["key": "2", "name": "Premier League", "sport": "football"])
+            MockFavoriteEntity(data: ["key": 1, "name": "Wimbledon", "sport": "tennis"]),
+            MockFavoriteEntity(data: ["key": 2, "name": "Premier League", "sport": "football"])
         ]
         
         presenter.loadFavourites()
@@ -53,14 +53,14 @@ class FavouritesPresenterTests: XCTestCase {
         let expectation = expectation(description: "Remove Section")
         
         mockCoreData.mockEntities = [
-            MockFavoriteEntity(data: ["key": "99", "sport": "football"])
+            MockFavoriteEntity(data: ["key": 99, "sport": "football"])
         ]
         presenter.loadFavourites()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.presenter.removeFavourite(at: IndexPath(row: 0, section: 0))
             
-            XCTAssertEqual(self.mockCoreData.deletedKey, "99")
+            XCTAssertEqual(self.mockCoreData.deletedKey, 99)
             XCTAssertEqual(self.view.deletedSection, 0)
             XCTAssertNil(self.view.deletedRow)
             
@@ -73,8 +73,8 @@ class FavouritesPresenterTests: XCTestCase {
         let expectation = expectation(description: "Remove Row")
         
         mockCoreData.mockEntities = [
-            MockFavoriteEntity(data: ["key": "1", "sport": "football"]),
-            MockFavoriteEntity(data: ["key": "2", "sport": "football"])
+            MockFavoriteEntity(data: ["key": 1, "sport": "football"]),
+            MockFavoriteEntity(data: ["key": 2, "sport": "football"])
         ]
         presenter.loadFavourites()
         
@@ -82,7 +82,7 @@ class FavouritesPresenterTests: XCTestCase {
             let indexPathToRemove = IndexPath(row: 1, section: 0)
             self.presenter.removeFavourite(at: indexPathToRemove)
             
-            XCTAssertEqual(self.mockCoreData.deletedKey, "2")
+            XCTAssertEqual(self.mockCoreData.deletedKey, 2)
             XCTAssertEqual(self.view.deletedRow, indexPathToRemove)
             XCTAssertNil(self.view.deletedSection)
             
@@ -95,7 +95,7 @@ class FavouritesPresenterTests: XCTestCase {
         let expectation = expectation(description: "Selection")
         
         mockCoreData.mockEntities = [
-            MockFavoriteEntity(data: ["key": "10", "name": "NBA", "sport": "basketball"])
+            MockFavoriteEntity(data: ["key": 10, "name": "NBA", "sport": "basketball"])
         ]
         presenter.loadFavourites()
         

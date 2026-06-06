@@ -10,7 +10,7 @@ enum TennisPlayerItem {
 class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
     weak var view: TennisPlayerViewProtocol?
     
-    let playerId: String
+    let playerId: Int
     
     private var player: TennisPlayerModel?
    
@@ -18,7 +18,7 @@ class TennisPlayerPresenter: TennisPlayerPresenterProtocol {
     var numberOfSections: Int {return player == nil ? 0 : 3}
     private let networkService: NetworkFetching
     
-    init(view: TennisPlayerViewProtocol, playerId: String, networkService: NetworkFetching = NetworkService.shared) {
+    init(view: TennisPlayerViewProtocol, playerId: Int, networkService: NetworkFetching = NetworkService.shared) {
         self.view = view
         self.playerId = playerId
         self.networkService = networkService

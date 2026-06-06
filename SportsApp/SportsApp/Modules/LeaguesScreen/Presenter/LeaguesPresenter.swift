@@ -46,7 +46,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
     func getLeagueData(at index: Int) -> (league: LeagueModel, placeholder: String, isFavorite: Bool) {
         let league = filteredLeagues[index]
         let placeholder = getPlaceholderImage(for: sportEndpoint)
-        let isFav = isFavorite(leagueId: league.leagueKey ?? "")
+        let isFav = isFavorite(leagueId: league.leagueKey!)
         
         return (league, placeholder, isFav)
     }
@@ -65,7 +65,7 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         view?.navigateToLeagueDetails(league: selectedLeague, endpoint: sportEndpoint, title: selectedLeague.safeLeagueName)
     }
 
-    func isFavorite(leagueId: String) -> Bool {
+    func isFavorite(leagueId: Int) -> Bool {
         return self.coreDataManager.isFavorite(key: leagueId)
     }
     

@@ -25,10 +25,10 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
             awayContestantLabel.text = event.safeAwayTeam
             scoreLabel.text = event.safeScore
             
-            let homeURL = URL(string: event.homeTeamLogo ?? "")
+            let homeURL = URL(string: event.safeHomeLogo ?? "")
             homeContestantImageView.sd_setImage(with: homeURL, placeholderImage: UIImage(named: placeHolder))
             
-            let awayURL = URL(string: event.awayTeamLogo ?? "")
+            let awayURL = URL(string: event.safeAwayLogo ?? "")
             awayContestantImageView.sd_setImage(with: awayURL, placeholderImage: UIImage(named: placeHolder))
             
             self.layer.cornerRadius = 16

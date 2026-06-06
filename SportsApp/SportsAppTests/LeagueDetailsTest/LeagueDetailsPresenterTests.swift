@@ -21,7 +21,7 @@ class LeagueDetailsPresenterTests: XCTestCase {
         mockNetwork = MockNetworkService(shouldReturnError: false)
         mockCoreData = MockCoreDataManager()
         
-        let dummyLeague = LeagueModel(leagueKey: "205", leagueName: "Test League")
+        let dummyLeague = LeagueModel(leagueKey: 205, leagueName: "Test League")
         presenter = LeagueDetailsPresenter(view: view, sportEndpoint: "football", league: dummyLeague, networkService: mockNetwork, coreDataManager: mockCoreData)
     }
     
@@ -38,15 +38,15 @@ class LeagueDetailsPresenterTests: XCTestCase {
         mockNetwork.fakeJSONObj = [
             "result": [
                 [
-                    "event_key": "1",
+                    "event_key": 1,
                     "event_status": "Finished",
-                    "team_key": "100",
+                    "team_key": 100,
                     "team_name": "Arsenal"
                 ],
                 [
-                    "event_key": "2",
+                    "event_key": 2,
                     "event_status": "Not Started",
-                    "team_key": "101",
+                    "team_key": 101,
                     "team_name": "Chelsea"
                 ]
             ]
@@ -89,14 +89,14 @@ class LeagueDetailsPresenterTests: XCTestCase {
     }
     
     func testDidSelectTeam_Football_NavigatesToTeamDetails() {
-        mockNetwork.fakeJSONObj = ["result": [["team_key": "99", "team_name": "FCB"]]]
+        mockNetwork.fakeJSONObj = ["result": [["team_key": 99, "team_name": "FCB"]]]
         presenter.fetchLeagueDetails()
         
         let expectation = expectation(description: "Wait for fetch")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             
             self.presenter.didSelectTeam(at: 0, section: 0)
-            XCTAssertEqual(self.view.navigatedToTeamId, "99")
+            XCTAssertEqual(self.view.navigatedToTeamId, 99)
             
             expectation.fulfill()
         }
@@ -104,10 +104,10 @@ class LeagueDetailsPresenterTests: XCTestCase {
     }
     
     func testDidSelectTeam_Basketball_ShowsComingSoon() {
-        let dummyLeague = LeagueModel(leagueKey: "205", leagueName: "Test League")
+        let dummyLeague = LeagueModel(leagueKey: 205, leagueName: "Test League")
         presenter = LeagueDetailsPresenter(view: view, sportEndpoint: "basketball", league: dummyLeague, networkService: mockNetwork)
         
-        mockNetwork.fakeJSONObj = ["result": [["team_key": "99"]]]
+        mockNetwork.fakeJSONObj = ["result": [["team_key": 99]]]
         presenter.fetchLeagueDetails()
         
         let expectation = expectation(description: "Wait for fetch")
@@ -122,26 +122,26 @@ class LeagueDetailsPresenterTests: XCTestCase {
     func testIsFavoriteLeague_ReturnsCorrectState() {
             XCTAssertFalse(presenter.isFavoriteLeague())
             
-            mockCoreData.favoritedKeys.insert("205")
+            mockCoreData.favoritedKeys.insert(205)
             
             XCTAssertTrue(presenter.isFavoriteLeague())
         }
         
         func testToggleFavorite_UpdatesCoreDataAndNotifiesView() {
-            XCTAssertFalse(mockCoreData.isFavorite(key: "205"))
+            XCTAssertFalse(mockCoreData.isFavorite(key: 205))
             
             presenter.toggleFavorite()
             
-            XCTAssertTrue(mockCoreData.isFavorite(key: "205"))
+            XCTAssertTrue(mockCoreData.isFavorite(key: 205))
             XCTAssertEqual(view.updatedFavoriteState, true)
     
             presenter.toggleFavorite()
-            XCTAssertFalse(mockCoreData.isFavorite(key: "205"))
+            XCTAssertFalse(mockCoreData.isFavorite(key: 205))
             XCTAssertEqual(view.updatedFavoriteState, false)
         }
         
         func testViewWillAppear_UpdatesFavoriteButtonState() {
-            mockCoreData.favoritedKeys.insert("205")
+            mockCoreData.favoritedKeys.insert(205)
             presenter.viewWillAppear()
             XCTAssertEqual(view.updatedFavoriteState, true)
         }

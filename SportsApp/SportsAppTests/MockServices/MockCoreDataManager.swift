@@ -22,18 +22,18 @@ class MockFavoriteEntity: NSObject {
 
 class MockCoreDataManager: CoreDataManaging {
     var mockEntities: [NSObject] = []
-    var deletedKey: String?
-    var favoritedKeys: Set<String> = []
+    var deletedKey: Int?
+    var favoritedKeys: Set<Int> = []
     
     func fetchAllFavorites() -> [NSObject] {
         return mockEntities
     }
     
-    func deleteLeague(key: String) {
+    func deleteLeague(key: Int) {
         deletedKey = key
     }
     
-    func isFavorite(key: String) -> Bool {
+    func isFavorite(key: Int) -> Bool {
             return favoritedKeys.contains(key)
         }
         

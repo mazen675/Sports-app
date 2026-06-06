@@ -215,7 +215,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         presenter.didSelectTeam(at: indexPath.row, section: indexPath.section)
     }
     
-    func navigateToTennisPlayer(teamId: String) {
+    func navigateToTennisPlayer(teamId: Int) {
         DispatchQueue.main.async {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let tennisVC = storyboard.instantiateViewController(withIdentifier: "TennisPlayerViewController") as? TennisPlayerViewController else { return }
@@ -224,7 +224,7 @@ class LeagueDetailsCollectionViewController: UICollectionViewController, LeagueD
         }
     }
 
-    func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String) {
+    func navigateToTeamDetails(teamId: Int, sportEndpoint: String, leagueName: String, leagueExtraInfo: String) {
         DispatchQueue.main.async {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let teamVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as? TeamDetailsViewController else { return }

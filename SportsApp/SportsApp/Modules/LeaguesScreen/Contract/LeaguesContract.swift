@@ -17,7 +17,7 @@ protocol LeaguesPresenterProtocol {
     func fetchLeagues()
     func filterLeagues(with searchText: String)
     
-    func isFavorite(leagueId: String) -> Bool
+    func isFavorite(leagueId: Int) -> Bool
     func toggleFavorite(league: LeagueModel)
     func viewWillAppear()
     
