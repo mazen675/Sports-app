@@ -11,8 +11,8 @@ import CoreData
 
 protocol CoreDataManaging {
     func fetchAllFavorites() -> [NSObject]
-    func deleteLeague(key: String)
-    func isFavorite(key: String) -> Bool
+    func deleteLeague(key: Int)
+    func isFavorite(key: Int) -> Bool
     func toggleFavorite(league: LeagueModel, sport: String)
 }
 
@@ -48,9 +48,9 @@ class CoreDataManager :CoreDataManaging{
         try? context.save()
     }
     
-    func deleteLeague(key: String) {
+    func deleteLeague(key: Int) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteLeague")
-        fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+        fetchRequest.predicate = NSPredicate(format: "key == %d", key)
         
         if let results = try? context.fetch(fetchRequest), let leagueToDelete = results.first {
             context.delete(leagueToDelete)
@@ -59,9 +59,9 @@ class CoreDataManager :CoreDataManaging{
         
     }
     
-    func isFavorite(key: String) -> Bool {
+    func isFavorite(key: Int) -> Bool {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteLeague")
-        fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+        fetchRequest.predicate = NSPredicate(format: "key == %d", key)
         let count = (try? context.count(for: fetchRequest)) ?? 0
         return count > 0
     }

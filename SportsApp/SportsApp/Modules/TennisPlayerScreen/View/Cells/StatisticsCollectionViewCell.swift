@@ -26,24 +26,24 @@ class StatisticsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var grassLostLabel: UILabel!
    
     func config(with stat: TennisStat) {
-        seasonLabel.text = "Season " + (stat.season ?? "-") 
+        seasonLabel.text = "Season " + (stat.season ?? "-")
         typeLabel.text = stat.type?.capitalized ?? "-"
         
         rankLabel.text = "#\(stat.rank ?? "-")"
         titlesLabel.text = stat.titles ?? "0"
-        wonLabel.text = stat.matches_won ?? "0"
-        lostLabel.text = stat.matches_lost ?? "0"
+        wonLabel.text = stat.matchesWon ?? "0"
+        lostLabel.text = stat.matchesLost ?? "0"
         
-        hardWonLabel.text = stat.hard_won?.isEmpty == false ? stat.hard_won : "-"
-        clayWonLabel.text = stat.clay_won?.isEmpty == false ? stat.clay_won : "-"
-        grassWonLabel.text = stat.grass_won?.isEmpty == false ? stat.grass_won : "-"
+        hardWonLabel.text = stat.hardWon?.isEmpty == false ? stat.hardWon : "-"
+        clayWonLabel.text = stat.clayWon?.isEmpty == false ? stat.clayWon : "-"
+        grassWonLabel.text = stat.grassWon?.isEmpty == false ? stat.grassWon : "-"
         
-        hardLostLabel.text = stat.hard_lost?.isEmpty == false ? stat.hard_lost : "-"
-        clayLostLabel.text = stat.clay_lost?.isEmpty == false ? stat.clay_lost : "-"
-        grassLostLabel.text = stat.grass_lost?.isEmpty == false ? stat.grass_lost : "-"
-//        
-//        self.layer.borderWidth = 2.0
-//        self.layer.borderColor = UIColor(named: "titles")?.cgColor
+        hardLostLabel.text = stat.hardLost?.isEmpty == false ? stat.hardLost : "-"
+        clayLostLabel.text = stat.clayLost?.isEmpty == false ? stat.clayLost : "-"
+        grassLostLabel.text = stat.grassLost?.isEmpty == false ? stat.grassLost : "-"
+    //
+    //        self.layer.borderWidth = 2.0
+    //        self.layer.borderColor = UIColor(named: "titles")?.cgColor
         self.layer.cornerRadius = 16
         self.layer.masksToBounds = true
     }

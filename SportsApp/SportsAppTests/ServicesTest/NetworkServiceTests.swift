@@ -22,7 +22,7 @@ class NetworkServiceTests: XCTestCase {
         let myExpectation = expectation(description: "waiting for Teams API ..")
         
         let sportEndpoint = "football"
-        let leagueId = "205"
+        let leagueId = 205
         let expectedNumberOfTeams = 44
         
         let realURL = "\(Constants.baseURL)/\(sportEndpoint)/?met=Teams&leagueId=\(leagueId)&APIkey=\(Constants.apiKey)"

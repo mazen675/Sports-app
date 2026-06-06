@@ -18,7 +18,7 @@ class TeamDetailsPresenterTests: XCTestCase {
         super.setUp()
         view = MockTeamDetailsView()
         mockNetwork = MockNetworkService(shouldReturnError: false)
-        presenter = TeamDetailsPresenter(view: view, sportEndpoint: "football", teamId: "100", leagueExtraInfo: "England", leagueName: "Premier League", networkService: mockNetwork)
+        presenter = TeamDetailsPresenter(view: view, sportEndpoint: "football", teamId: 100, leagueExtraInfo: "England", leagueName: "Premier League", networkService: mockNetwork)
     }
     
     override func tearDown() {
@@ -34,7 +34,7 @@ class TeamDetailsPresenterTests: XCTestCase {
         mockNetwork.fakeJSONObj = [
             "result": [
                 [
-                    "team_key": "100",
+                    "team_key": 100,
                     "team_name": "Arsenal",
                     "players": [
                         ["player_name": "Saka", "player_type": "Forwards"],

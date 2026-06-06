@@ -1,11 +1,11 @@
 import Foundation
 
 struct LeagueModel: Decodable {
-    var leagueKey: String?
+    let leagueKey: Int?
     let leagueName: String?
-    let leagueLogo: String?
+    var leagueLogo: String?
     var countryName: String?
-    let leagueYear: String?
+    var leagueYear: String?
     
     var safeLeagueName: String { return leagueName ?? "Unknown League" }
     var safeLeagueLogo: String { return leagueLogo ?? "" }
@@ -19,36 +19,5 @@ struct LeagueModel: Decodable {
             return "Unknown"
         }
     }
-    
-    enum CodingKeys: String, CodingKey {
-        case leagueKey = "league_key"
-        case leagueName = "league_name"
-        case leagueLogo = "league_logo"
-        case countryName = "country_name"
-        case leagueYear = "league_year"
-    }
-    
-    init(leagueKey: String? = nil, leagueName: String? = nil, leagueLogo: String? = nil, countryName: String? = nil, leagueYear: String? = nil) {
-        self.leagueKey = leagueKey
-        self.leagueName = leagueName
-        self.leagueLogo = leagueLogo
-        self.countryName = countryName
-        self.leagueYear = leagueYear
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        leagueName = try container.decodeIfPresent(String.self, forKey: .leagueName)
-        leagueLogo = try container.decodeIfPresent(String.self, forKey: .leagueLogo)
-        countryName = try container.decodeIfPresent(String.self, forKey: .countryName)
-        leagueYear = try container.decodeIfPresent(String.self, forKey: .leagueYear)
-        
-        if let intKey = try? container.decodeIfPresent(Int.self, forKey: .leagueKey) {
-            leagueKey = String(intKey)
-        } else if let stringKey = try? container.decodeIfPresent(String.self, forKey: .leagueKey) {
-            leagueKey = stringKey
-        } else {
-            leagueKey = nil
-        }
-    }
+
 }

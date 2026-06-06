@@ -18,7 +18,7 @@ class TennisPlayerPresenterTests: XCTestCase {
         super.setUp()
         view = MockTennisPlayerView()
         mockNetwork = MockNetworkService(shouldReturnError: false)
-        presenter = TennisPlayerPresenter(view: view, playerId: "123", networkService: mockNetwork)
+        presenter = TennisPlayerPresenter(view: view, playerId: 123, networkService: mockNetwork)
     }
     
     override func tearDown() {
@@ -34,7 +34,7 @@ class TennisPlayerPresenterTests: XCTestCase {
         mockNetwork.fakeJSONObj = [
             "result": [
                 [
-                    "player_key": "123",
+                    "player_key": 123,
                     "player_name": "Rafael Nadal",
                     "stats": [["season": "2023", "type": "Singles"]],
                     "tournaments": [["name": "Roland Garros"]]
@@ -70,7 +70,7 @@ class TennisPlayerPresenterTests: XCTestCase {
         mockNetwork.fakeJSONObj = [
             "result": [
                 [
-                    "player_key": "123",
+                    "player_key": 123,
                     "stats": [],
                     "tournaments": []
                 ]

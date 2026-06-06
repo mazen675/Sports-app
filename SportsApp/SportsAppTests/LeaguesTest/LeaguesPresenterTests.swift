@@ -34,8 +34,8 @@ class LeaguesPresenterTests: XCTestCase {
         
         mockNetwork.fakeJSONObj = [
             "result": [
-                ["league_key": "1", "league_name": "Premier League"],
-                ["league_key": "2", "league_name": "La Liga"]
+                ["league_key": 1, "league_name": "Premier League"],
+                ["league_key": 2, "league_name": "La Liga"]
             ]
         ]
         
@@ -54,8 +54,8 @@ class LeaguesPresenterTests: XCTestCase {
     func testFilterLeagues() {
         mockNetwork.fakeJSONObj = [
             "result": [
-                ["league_key": "1", "league_name": "Premier League"],
-                ["league_key": "2", "league_name": "La Liga"]
+                ["league_key": 1, "league_name": "Premier League"],
+                ["league_key": 2, "league_name": "La Liga"]
             ]
         ]
         presenter.fetchLeagues()
@@ -78,7 +78,7 @@ class LeaguesPresenterTests: XCTestCase {
     
     func testDidSelectLeague_NavigatesToDetails() {
         mockNetwork.fakeJSONObj = [
-            "result": [["league_key": "1", "league_name": "Serie A"]]
+            "result": [["league_key": 1, "league_name": "Serie A"]]
         ]
         presenter.fetchLeagues()
         
@@ -95,24 +95,24 @@ class LeaguesPresenterTests: XCTestCase {
     }
     
     func testIsFavorite_ReturnsCorrectState() {
-            mockCoreData.favoritedKeys.insert("99")
+            mockCoreData.favoritedKeys.insert(99)
             
-            XCTAssertTrue(presenter.isFavorite(leagueId: "99"))
-            XCTAssertFalse(presenter.isFavorite(leagueId: "100"))
+            XCTAssertTrue(presenter.isFavorite(leagueId: 99))
+            XCTAssertFalse(presenter.isFavorite(leagueId: 100))
         }
         
         func testToggleFavorite_UpdatesCoreDataAndReloadsView() {
-            let dummyLeague = LeagueModel(leagueKey: "55", leagueName: "Test League")
+            let dummyLeague = LeagueModel(leagueKey: 55, leagueName: "Test League")
             
-            XCTAssertFalse(mockCoreData.isFavorite(key: "55"))
+            XCTAssertFalse(mockCoreData.isFavorite(key: 55))
             
             presenter.toggleFavorite(league: dummyLeague)
-            XCTAssertTrue(mockCoreData.isFavorite(key: "55"))
+            XCTAssertTrue(mockCoreData.isFavorite(key: 55))
             XCTAssertTrue(view.isReloadDataCalled)
         
             view.isReloadDataCalled = false
             presenter.toggleFavorite(league: dummyLeague)
-            XCTAssertFalse(mockCoreData.isFavorite(key: "55"))
+            XCTAssertFalse(mockCoreData.isFavorite(key: 55))
             XCTAssertTrue(view.isReloadDataCalled)
         }
     

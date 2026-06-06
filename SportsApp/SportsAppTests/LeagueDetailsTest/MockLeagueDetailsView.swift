@@ -13,8 +13,8 @@ class MockLeagueDetailsView: LeagueDetailsViewProtocol {
     var isHideLoadingCalled = false
     var isReloadDataCalled = false
     var isComingSoonAlertShown = false
-    var navigatedToTeamId: String?
-    var navigatedToTennisPlayerId: String?
+    var navigatedToTeamId: Int?
+    var navigatedToTennisPlayerId: Int?
     var updatedFavoriteState: Bool?
     
     func showLoading() { isShowLoadingCalled = true }
@@ -23,11 +23,11 @@ class MockLeagueDetailsView: LeagueDetailsViewProtocol {
     func showNetworkAlert() {}
     func showComingSoonAlert() { isComingSoonAlertShown = true }
     func showError(_ message: String) { print(message) }
-    func navigateToTeamDetails(teamId: String, sportEndpoint: String, leagueName: String, leagueExtraInfo: String) {
+    func navigateToTeamDetails(teamId: Int, sportEndpoint: String, leagueName: String, leagueExtraInfo: String) {
         navigatedToTeamId = teamId
     }
     
-    func navigateToTennisPlayer(teamId: String) {
+    func navigateToTennisPlayer(teamId: Int) {
         navigatedToTennisPlayerId = teamId
     }
     

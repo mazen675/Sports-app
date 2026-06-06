@@ -135,7 +135,7 @@ class LeagueDetailsPresenter: LeagueDetailsPresenterProtocol {
         guard section == 0 else { return }
         guard index < teams.count else { return }
         let selectedTeam = teams[index]
-        guard let teamId = selectedTeam.teamKey else { return }
+        guard let teamId = selectedTeam.safeTeamKey else { return }
 
         if sportEndpoint == "basketball" || sportEndpoint == "cricket" {
             view?.showComingSoonAlert()

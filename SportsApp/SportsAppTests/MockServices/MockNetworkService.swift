@@ -29,7 +29,9 @@ class MockNetworkService :NetworkFetching {
         
         do {
             let data = try JSONSerialization.data(withJSONObject: fakeJSONObj)
-            let result = try JSONDecoder().decode(T.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let result = try decoder.decode(T.self, from: data)
             completion(.success(result))
         } catch {
             completion(.failure(error))

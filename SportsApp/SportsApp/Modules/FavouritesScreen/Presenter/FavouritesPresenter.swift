@@ -35,7 +35,7 @@ class FavouritesPresenter: FavouritesPresenterProtocol {
             
             for entity in savedEntities {
                 let league = LeagueModel(
-                    leagueKey: entity.value(forKey: "key") as? String,
+                    leagueKey: entity.value(forKey: "key") as? Int,
                     leagueName: entity.value(forKey: "name") as? String,
                     leagueLogo: entity.value(forKey: "logo") as? String,
                     countryName: entity.value(forKey: "info") as? String,

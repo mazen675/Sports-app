@@ -11,7 +11,7 @@ import CoreData
 class CoreDataManagerTests: XCTestCase {
 
     var testLeague: LeagueModel!
-    let testLeagueKey = "test_12345"
+    let testLeagueKey = -1
 
     override func setUp() {
         super.setUp()
@@ -54,7 +54,7 @@ class CoreDataManagerTests: XCTestCase {
         let allFavorites = CoreDataManager.shared.fetchAllFavorites()
         
         let containsTestLeague = allFavorites.contains { entity in
-            return (entity.value(forKey: "key") as? String) == testLeagueKey
+            return (entity.value(forKey: "key") as? Int) == testLeagueKey
         }
         
         XCTAssertTrue(containsTestLeague, "Fetch all should return the saved test league")

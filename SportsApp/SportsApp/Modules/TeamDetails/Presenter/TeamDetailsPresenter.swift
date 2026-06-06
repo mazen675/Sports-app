@@ -8,7 +8,7 @@ struct PlayerSection {
 class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
     weak var view: TeamDetailsViewProtocol?
     let sportEndpoint: String
-    let teamId: String
+    let teamId: Int
     let leagueExtraInfo: String
     let leagueName : String
     private let networkService: NetworkFetching
@@ -16,7 +16,7 @@ class TeamDetailsPresenter: TeamDetailsPresenterProtocol {
         
     var numberOfSections: Int { return groupedSections.count }
 
-    init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: String , leagueExtraInfo: String , leagueName: String, networkService: NetworkFetching = NetworkService.shared) {
+    init(view: TeamDetailsViewProtocol, sportEndpoint: String, teamId: Int , leagueExtraInfo: String , leagueName: String, networkService: NetworkFetching = NetworkService.shared) {
         self.view = view
         self.sportEndpoint = sportEndpoint
         self.teamId = teamId
